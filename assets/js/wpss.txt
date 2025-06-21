@@ -1,6 +1,6 @@
 jQuery(function($){
 	
-    class Tnz_admin_core {
+    class WPSS_Admin_Core {
 
         constructor(SS_modal){
             this.__this;
@@ -11,8 +11,8 @@ jQuery(function($){
         }
 
         eventHandlers(){
-            $(document.body).on( 'click', 'a.tnz_upload_slide', this.upload_slideImage.bind(this) );
-            $(document.body).on( 'click', 'a.tnz_slide_remove', this.remove_slideImage.bind(this) );
+            $(document.body).on( 'click', 'a.wpss_upload_slide', this.upload_slideImage.bind(this) );
+            $(document.body).on( 'click', 'a.wpss_slide_remove', this.remove_slideImage.bind(this) );
         }
 
         upload_slideImage(e) {
@@ -37,7 +37,7 @@ jQuery(function($){
 
                     for ( i = 0; i < attachments.length; ++i) {
                         _this.SS_modal.append(
-                            '<li><img width="250" src="' + attachments[i].attributes.sizes.tnz_slideshow_thumbnail.url + '"/><div class="tnz_slide_actions"><a href="#" class="tnz_slide_move"><span class="tooltip">Drag & Sort</span><i class="dashicons dashicons-move"></i></a><a href="#" class="tnz_slide_remove"><span class="tooltip">Delete</span> <i class="dashicons dashicons-trash"></i></a></div><input type="hidden" name="tnz_slideshow_image_ids[]" value="' + attachments[i].id + '" /></li>'
+                            '<li><img width="250" src="' + attachments[i].attributes.sizes.wpss_slideshow_thumbnail.url + '"/><div class="wpss_slide_actions"><a href="#" class="wpss_slide_move"><span class="tooltip">Drag & Sort</span><i class="dashicons dashicons-move"></i></a><a href="#" class="wpss_slide_remove"><span class="tooltip">Delete</span> <i class="dashicons dashicons-trash"></i></a></div><input type="hidden" name="wpss_slideshow_image_ids[]" value="' + attachments[i].id + '" /></li>'
                         );
                     }  
                 }).open();
@@ -52,7 +52,7 @@ jQuery(function($){
         slideshow_Sortable() {
             this.SS_modal.sortable({
                 items:  'li',
-                handle: '.tnz_slide_move',
+                handle: '.wpss_slide_move',
                 cursor: '-webkit-grabbing',
                 stop:function(event,ui){
                     ui.item.removeAttr('style');
@@ -62,5 +62,5 @@ jQuery(function($){
 
     
     }
-    new Tnz_admin_core( $('.tnz_ss_slides') );
+    new WPSS_Admin_Core( $('.wpss_slides') );
 });

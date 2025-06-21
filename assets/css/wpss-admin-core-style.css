@@ -1,9 +1,9 @@
-ul.tnz_ss_slides {
+ul.wpss_slides {
     display: flex;
     flex-wrap: wrap;
 }
 
-ul.tnz_ss_slides li {
+ul.wpss_slides li {
     position: relative;
     display: inline-block;
     border: 2px solid #e5e5e5;
@@ -14,12 +14,12 @@ ul.tnz_ss_slides li {
     overflow: hidden;
 }
 
-ul.tnz_ss_slides li img {
+ul.wpss_slides li img {
     height: 250px;
     object-fit: cover;
 }
 
-ul.tnz_ss_slides li:before {
+ul.wpss_slides li:before {
     content: '';
     display: block;
     top: 0;
@@ -30,7 +30,7 @@ ul.tnz_ss_slides li:before {
     position: absolute;
 }
 
-li .tnz_slide_actions {
+li .wpss_slide_actions {
     position: absolute;
     left: 5px;
     right: 5px;
@@ -44,7 +44,7 @@ li .tnz_slide_actions {
     transition: all ease 0.3s;
 }
 
-ul.tnz_ss_slides li .tnz_slide_actions {
+ul.wpss_slides li .wpss_slide_actions {
     position: absolute;
     left: 5px;
     right: 5px;
@@ -58,28 +58,28 @@ ul.tnz_ss_slides li .tnz_slide_actions {
     transition: all ease 0.3s;
 }
 
-ul.tnz_ss_slides li:hover .tnz_slide_actions, ul.tnz_ss_slides li .tnz_slide_actions a:hover span {
+ul.wpss_slides li:hover .wpss_slide_actions, ul.wpss_slides li .wpss_slide_actions a:hover span {
     opacity: 1;
     visibility: visible;
 }
 
-.tnz_slide_actions a {
+.wpss_slide_actions a {
     text-decoration: none;
 }
 
-.tnz_slide_actions a i {
+.wpss_slide_actions a i {
     color: white;
     font-size: 2.2em;
     padding: 0px 10px;
 }
 
-ul.tnz_ss_slides li .tnz_slide_actions a {
+ul.wpss_slides li .wpss_slide_actions a {
     display: inline-block;
     margin: 5px 10px;
     position: relative;
 }
 
-ul.tnz_ss_slides li .tnz_slide_actions a span {
+ul.wpss_slides li .wpss_slide_actions a span {
     position: absolute;
     color: #ffffff;
     text-transform: uppercase;
@@ -96,7 +96,7 @@ ul.tnz_ss_slides li .tnz_slide_actions a span {
     transition: all ease 0.3s;
 }
 
-ul.tnz_ss_slides li .tnz_slide_actions a span:before {
+ul.wpss_slides li .wpss_slide_actions a span:before {
     content: '';
     display: block;
     width: 0;
@@ -112,21 +112,21 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
 }
 
 /************* Metabox options control ************/
-.tnz_ss_slides_wrap table th small{
+.wpss_slides_wrap table th small{
     display: block;
     font-weight: normal;
     color: #9e9e9e;
 }
 
-.tnz_ss_slides_wrap .image-control {
+.wpss_slides_wrap .image-control {
     display: inline-block;
 }
 
-.tnz_ss_slides_wrap .image-control input {
+.wpss_slides_wrap .image-control input {
     display: none;
 }
 
-.tnz_ss_slides_wrap .image-control label {
+.wpss_slides_wrap .image-control label {
     position: relative;
     display: inline-block;
     border: 2px solid #e5e5e5;
@@ -143,21 +143,21 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
     font-weight: 600;
 }
 
-.tnz_ss_slides_wrap .image-control label img {
+.wpss_slides_wrap .image-control label img {
     display: block;
     margin-bottom: 3px;
 }
 
-.tnz_ss_slides_wrap .image-control input:checked + label {
+.wpss_slides_wrap .image-control input:checked + label {
     border: 2px solid #03A9F4;
     box-shadow: 0 0 5px rgb(0 57 84 / 60%);
 }
 
-.tnz_ss_slides_wrap label.form-switch input[type="checkbox"] {
+.wpss_slides_wrap label.form-switch input[type="checkbox"] {
     display: none;
 }
 
-.tnz_ss_slides_wrap label.form-switch span {
+.wpss_slides_wrap label.form-switch span {
     position: relative;
     display: inline-block;
     border-radius: 12px;
@@ -175,8 +175,8 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
     text-align: right;
 }
 
-.tnz_ss_slides_wrap label.form-switch span:after, 
-.tnz_ss_slides_wrap label.form-switch span:before {
+.wpss_slides_wrap label.form-switch span:after, 
+.wpss_slides_wrap label.form-switch span:before {
     position: absolute;
     display: block;
     content: "";
@@ -185,13 +185,13 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
     top: 2px;
 }
 
-.tnz_ss_slides_wrap label.form-switch input[type="checkbox"]:checked + span:after {
+.wpss_slides_wrap label.form-switch input[type="checkbox"]:checked + span:after {
     right: 2px;
     left: auto;
     content: 'ON';
 }
 
-.tnz_ss_slides_wrap label.form-switch input[type="checkbox"] + span:after {
+.wpss_slides_wrap label.form-switch input[type="checkbox"] + span:after {
     content: 'OFF';
     font-size: 9px;
     font-weight: bold;
@@ -199,19 +199,19 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
     text-align: center;
 }
 
-.tnz_ss_slides_wrap label.form-switch span:after {
+.wpss_slides_wrap label.form-switch span:after {
     left: 2px;
     border-radius: 30px;
     background: #fff;
     transition: all .2s ease;
 }
 
-.tnz_ss_slides_wrap label.form-switch input[type="checkbox"]:checked + span {
+.wpss_slides_wrap label.form-switch input[type="checkbox"]:checked + span {
     background-color: #03A9F4;
     color: #03A9F4;
 }
 
-.tnz_ss_slides_wrap label.form-switch span {
+.wpss_slides_wrap label.form-switch span {
     position: relative;
     display: inline-block;
     border-radius: 23px;
@@ -229,7 +229,7 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
     text-align: right;
 }
 
-.tnz_ss_slides_wrap label.form-slider .slider {
+.wpss_slides_wrap label.form-slider .slider {
     -webkit-appearance: none;
     width: 300px;
     height: 5px;
@@ -240,4 +240,49 @@ ul.tnz_ss_slides li .tnz_slide_actions a span:before {
     -webkit-transition: .2s;
     transition: opacity .2s;
     margin: 0 30px 15px 0;
+}
+.wpss-range-output {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Optional: style the range slider itself */
+input[type="range"] {
+    width: 250px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+input[type="range"]:hover {
+    background: #999;
+}
+.wpss-number-field .wpss-number-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.wpss-input {
+    width: 80px;
+    height: 35px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.wpss-responsive-field {
+    display: none;
+}
+#wpss_slider_shortcode_metabox hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+}
+#wpss_slider_shortcode_metabox code {
+    display: block;
+    padding: 5px;
+    background: #f7f7f7;
 }

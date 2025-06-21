@@ -4,23 +4,33 @@
  */
 
 
-if( ! class_exists( 'WPK_slider_shortcode' ) ) :
+if( ! class_exists( 'WPSS_Slider_Shortcode' ) ) :
 
-    class WPK_slider_shortcode {
+    class WPSS_Slider_Shortcode {
 
         function __construct() {
             $this->event_handler();
         }
 
         public function event_handler() {
-            add_shortcode( 'wpk_slider', [ $this, 'genrate_slider_Shortcode' ] );
+            add_shortcode( 'wpss_slider', [ $this, 'genrate_slider_Shortcode' ] );
             add_action( 'wp_enqueue_scripts', [ $this, 'slideshow_enqueue_frontend_assets' ], 10 );
-
         }
 
         public function slideshow_enqueue_frontend_assets() {
-            wp_enqueue_script( 'swiper-bundle.min--js', WPK_SIMPLE_SLIDER_URL . 'assets/js/swiper-bundle.min.js', array(), WPK_SIMPLE_SLIDER_VERSION, true );
-            wp_enqueue_style( 'swiper-bundle.min--css', WPK_SIMPLE_SLIDER_URL . 'assets/css/swiper-bundle.min.css', array(), WPK_SIMPLE_SLIDER_VERSION );
+            wp_enqueue_script( 
+                'swiper-bundle.min--js', 
+                WPSS_URL . 'assets/js/swiper-bundle.min.js', 
+                array(), 
+                WPSS_VERSION, 
+                true 
+            );
+            wp_enqueue_style( 
+                'swiper-bundle.min--css', 
+                WPSS_URL . 'assets/css/swiper-bundle.min.css', 
+                array(), 
+                WPSS_VERSION 
+            );
         }
 
         public function genrate_slider_Shortcode( $args ) {
@@ -28,14 +38,14 @@ if( ! class_exists( 'WPK_slider_shortcode' ) ) :
             if( empty( $slideshow_ID ) ) 
                 return new WP_Error( 
                     'error',
-                     __( "Error, 404 not found!", 'wpk-simple-slider' ) 
+                     __( "Error, 404 not found!", 'wpss-simple-slider' ) 
                 );
 
-            $imageIDs = get_post_meta( $slideshow_ID, 'wpk_slider_image_ids', true );
+            $imageIDs = get_post_meta( $slideshow_ID, 'wpss_slider_image_ids', true );
             if( empty( $imageIDs ) ) 
                 return new WP_Error( 
                     'error',
-                    __( "Error, Please insert atleast one slide!", 'wpk-simple-slider' ) 
+                    __( "Error, Please insert atleast one slide!", 'wpss-simple-slider' ) 
                 );
 
             $slides = get_posts( 
@@ -57,16 +67,16 @@ if( ! class_exists( 'WPK_slider_shortcode' ) ) :
             );
             wp_localize_script( 'swiper-bundle.min', $slideshow_ID, $slideshowAttr );
 
-            wpk_get_temlpate(
+            wpss_get_template(
                 'frontend/slideshow.php',
                 array(
                     'slides'        => $slides,
                     'slideshow_ID'  => $slideshow_ID,
-                    'slideshow_main_class' => 'wpk_slider--' . $slideshow_ID,
+                    'slideshow_main_class' => 'wpss_slider--' . $slideshow_ID,
                     'slideshowAttr'    => json_encode( $slideshowAttr )
                 )
             );
         }
     }
-    new WPK_slider_shortcode();
+    new WPSS_Slider_Shortcode();
 endif;

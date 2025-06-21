@@ -1,21 +1,25 @@
-<div class="tnz_ss_slides_wrap">
+<div class="wpss_slides_wrap">
     <table class="form-table">
         <tbody>
 
 			<?php  foreach( $fields as $field_Key => $field ) : 
-				$field_Val = isset( $options[$field_Key] ) ? $options[$field_Key] : $field['default']; ?>
+				$field_Val = isset( $options[$field_Key] ) ? $options[$field_Key] : $field['default'];
+				$row_class = ( strpos( $field_Key, 'items_in_' ) === 0 ) ? 'wpss-responsive-field' : ''; 
+				?>
 
-				<tr>
+				<tr class="<?php echo esc_attr( $row_class ); ?>">
 					<th scope="row">
 						<?php esc_html_e( $field['name'] ); ?>
-						<small><?php esc_html_e( 'Default value: ', 'wpk-simple-slider' ); ?><?php esc_html_e( $field['default'] ); ?></small>
+						
+						<small><?php esc_html_e( 'Default value: ', 'wpss-simple-slider' ); ?>
+						<?php esc_html_e( $field['default'] ); ?></small>
 					</th>
 
 					<?php switch( $field['field_type'] ) :
 						
-						case "radioImg" : 
-							wpk_get_temlpate(
-								'fields/radioImg-field.php',
+						case "radio" : 
+							wpss_get_template(
+								'fields/radio-field.php',
 								array(
 									'field' 		=> $field,
 									'field_Val'		=> $field_Val,
@@ -25,13 +29,35 @@
 							break;
 
 						case "switch" : 
-							wpk_get_temlpate(
+							wpss_get_template( 
 								'fields/switch-field.php',
 								array(
-									'field' 		=> $field,
-									'field_Val'		=> $field_Val,
-									'field_Key'		=> $field_Key
-								)
+									'field'         => $field,
+									'field_Val'     => $field_Val,
+									'field_Key'     => $field_Key 
+									) 
+								);
+							break;
+
+						case "range":
+							wpss_get_template( 
+								'fields/range-field.php',
+								array(
+									'field'          => $field,
+									'field_Val'      => $field_Val,
+									'field_Key'      => $field_Key 
+									) 
+								);
+							break;
+
+						case "number":
+							wpss_get_template( 
+								'fields/number-field.php', 
+								array(
+									'field'          => $field,
+									'field_Val'      => $field_Val,
+									'field_Key'      => $field_Key 
+								) 
 							);
 							break;
 
