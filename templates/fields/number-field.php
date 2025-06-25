@@ -3,7 +3,7 @@
 * Number field html
 */
 ?>
-<td class="wpss-number-field">
+<td class="wpss-number-field  wpss-vishrut">
     <div class="wpss-number-wrap">
         <input 
             type="number" 

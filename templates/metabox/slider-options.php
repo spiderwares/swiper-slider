@@ -39,17 +39,6 @@
 								);
 							break;
 
-						case "range":
-							wpss_get_template( 
-								'fields/range-field.php',
-								array(
-									'field'          => $field,
-									'field_Val'      => $field_Val,
-									'field_Key'      => $field_Key 
-									) 
-								);
-							break;
-
 						case "number":
 							wpss_get_template( 
 								'fields/number-field.php', 

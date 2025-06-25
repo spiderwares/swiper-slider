@@ -14,6 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) :
     exit;
 endif;
 
+if ( ! defined( 'WPSS_FILE' ) ) :
+    define( 'WPSS_FILE', __FILE__ ); // Define the plugin file path.
+endif;
+
+if ( ! defined( 'WPSS_BASENAME' ) ) :
+    define( 'WPSS_BASENAME', plugin_basename( WPSS_FILE ) ); // Define the plugin basename.
+endif;
+
 if ( ! defined( 'WPSS_VERSION' ) ) :
     define( 'WPSS_VERSION', '1.0.0' ); // Plugin version
 endif;
@@ -26,8 +34,10 @@ if ( ! defined( 'WPSS_URL' ) ) :
     define( 'WPSS_URL', plugin_dir_url( __FILE__ ) ); // URL to plugin directory
 endif;
 
-// Load the main loader class which handles plugin dependencies and includes
-require_once WPSS_PATH . 'include/class/class-wpss-loader.php';
+if ( ! class_exists( 'WPSS', false ) ) :
+    require_once WPSS_PATH . 'includes/class-wpss.php';
+endif;
 
-// Call the 'includes' method from the loader class after all plugins are loaded
-add_action( 'plugins_loaded', array( WPSS::class, 'includes' ) );
+register_activation_hook( __FILE__, array( 'WPSS_install', 'install' ) ); // set activation hook
+
+WPSS::instance();

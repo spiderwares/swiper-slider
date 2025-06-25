@@ -1,0 +1,112 @@
+<?php
+/**
+ * Manage slider post type
+ */
+
+if( ! class_exists( 'WPSS_Slider_Shortcode' ) ) :
+
+class WPSS_Slider_Shortcode {
+
+    public function __construct() {
+        $this->event_handler();
+    }
+
+    public function event_handler() {
+        add_shortcode( 'wpss_simple_slider', [ $this, 'genrate_slider_Shortcode' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'slideshow_enqueue_frontend_assets' ], 10 );
+    }
+
+    public function slideshow_enqueue_frontend_assets() {
+        wp_enqueue_script( 
+            'swiper-bundle.min--js', 
+            WPSS_URL . 'assets/js/swiper-bundle.min.js', 
+            array(), 
+            WPSS_VERSION, 
+            true 
+        );
+
+        wp_enqueue_style( 
+            'swiper-bundle.min--css', 
+            WPSS_URL . 'assets/css/swiper-bundle.min.css', 
+            array(), 
+            WPSS_VERSION 
+        );
+
+        wp_enqueue_script(
+            'wpss-swiper-init',
+            WPSS_URL . 'assets/js/wpss-swiper-init.js',
+            array(),
+            WPSS_VERSION,
+            true
+        );
+
+        wp_enqueue_style(
+            'wpss-frontend-style',
+            WPSS_URL . 'assets/css/wpss-frontend-style.css',
+            array(),
+            WPSS_VERSION
+        );
+
+    }
+
+    public function genrate_slider_Shortcode( $args ) {
+        $slideshow_ID = !empty( $args['id'] ) ? $args['id'] : '';
+
+        if ( empty( $slideshow_ID ) ) :
+            return '<p>' . esc_html__( "Error: Slideshow ID not found!", 'wpss-simple-slider' ) . '</p>';
+        endif;
+
+        $imageIDs         = json_decode( get_post_meta( $slideshow_ID, 'wpss_slider_image_ids', true ), true);
+        $sliderOptions    = get_post_meta( $slideshow_ID, 'wpss_slider_option', true );
+
+        if ( empty( $imageIDs ) || ! is_array( $imageIDs ) ) :
+            return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'wpss-simple-slider' ) . '</p>';
+        endif;
+
+        $slideshowAttr = array(
+            "navigation" => array(
+                'nextEl' => ".swiper-" . $slideshow_ID . "-next",
+                'prevEl' => ".swiper-" . $slideshow_ID . "-prev",
+            )
+        );
+
+        $arrow_style        = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
+        $pagination_style   = isset($sliderOptions['dots_navigation_style']) ? $sliderOptions['dots_navigation_style'] : 'style1';
+
+        $grab_cursor_class  = !empty($sliderOptions['control_grab_cursor']) && $sliderOptions['control_grab_cursor'] ? 'wpss-swiper-grab-cursor' : '';
+        $autoplay_class     = !empty($sliderOptions['control_autoplay']) && $sliderOptions['control_autoplay'] ? 'wpss-swiper-autoplay' : '';
+        $autoplay_timing    = !empty($sliderOptions['autoplay_timing']) ? intval($sliderOptions['autoplay_timing']) : 3000;
+        $ap_timing_class    = 'wpss-swiper-autoplay-' . $autoplay_timing;
+        $progress_class     = !empty($sliderOptions['control_autoplay_progress']) && $sliderOptions['control_autoplay_progress'] ? 'wpss-wpss-swiper-autoplay-progress' : '';
+        $lazy_load_class    = !empty($sliderOptions['control_lazyload_images']) && $sliderOptions['control_lazyload_images'] ? 'wpss-swiper-lazy-load' : '';
+    
+        $slideshow_main_class = trim(
+            'wpss_slider--' . $slideshow_ID .
+            ' wpss-swiper-arrow-' . esc_attr($arrow_style) .
+            ' wpss-swiper-button-pagination-' . esc_attr($pagination_style) .
+            ' ' . $grab_cursor_class .
+            ' ' . $autoplay_class .
+            ' ' . $ap_timing_class .
+            ' ' . $progress_class .
+            ' ' . $lazy_load_class 
+        );
+
+        ob_start();
+        wpss_get_template(
+            'frontend/slideshow.php',
+            array(
+                'imageIDs'             => $imageIDs, 
+                'slideshow_ID'         => $slideshow_ID,
+                'slideshow_main_class' => $slideshow_main_class,
+                'arrow_style'          => $arrow_style,
+                'slideshowAttr'        => json_encode($slideshowAttr)
+
+            )
+        );
+        return ob_get_clean();
+    }
+
+}
+new WPSS_Slider_Shortcode();
+
+endif;

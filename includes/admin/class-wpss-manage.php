@@ -8,7 +8,7 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
 
     class WPSS_Slider_Manage {
 
-        function __construct() {
+        public function __construct() {
             $this->event_handler();
         }
 
@@ -41,6 +41,7 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 $post->ID 
             );
         }
+
 
         public function include_admin_assets() {
             $screen = get_current_screen();

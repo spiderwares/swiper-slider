@@ -71,14 +71,14 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     ),
                     'default'       => 'style1'
                 ),
-                'control_autoplay'   => array(
+                'control_autoplay'  => array(
                     'name'          => esc_html__( 'Autoplay', 'wpss-simple-slider' ),
                     'field_type'    => 'switch',
                     'default'       => true
                 ),
                 'autoplay_timing'   => array(
                     'name'          => esc_html__( 'Autoplay timing', 'wpss-simple-slider' ),
-                    'field_type'    => 'range',
+                    'field_type'    => 'number',
                     'default'       => 3000
                 ),
                 'control_autoplay_progress'   => array(
@@ -101,23 +101,23 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'field_type'    => 'switch',
                     'default'       => true
                 ),
-                'items_in_desktop' => array(
-                    'name'        => esc_html__( 'Items in Standard Desktop', 'wpss-simple-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 4,
-                    'depends_on' => 'control_enable_responsive'
+                'items_in_desktop'  => array(
+                    'name'          => esc_html__( 'Items in Standard Desktop', 'wpss-simple-slider' ),
+                    'field_type'    => 'number',
+                    'default'       => 4,
+                    'depends_on'    => 'control_enable_responsive'
                 ),
-                'items_in_tablet' => array(
-                    'name'        => esc_html__( 'Items in Tablet', 'wpss-simple-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 2,
-                    'depends_on' => 'control_enable_responsive'
+                'items_in_tablet'   => array(
+                    'name'          => esc_html__( 'Items in Tablet', 'wpss-simple-slider' ),
+                    'field_type'    => 'number',
+                    'default'       => 2,
+                    'depends_on'    => 'control_enable_responsive'
                 ),
-                'items_in_mobile' => array(
-                    'name'        => esc_html__( 'Items in Mobile', 'wpss-simple-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 1,
-                    'depends_on' => 'control_enable_responsive'
+                'items_in_mobile'   => array(
+                    'name'          => esc_html__( 'Items in Mobile', 'wpss-simple-slider' ),
+                    'field_type'    => 'number',
+                    'default'       => 1,
+                    'depends_on'    => 'control_enable_responsive'
                 ),
             );
         }
