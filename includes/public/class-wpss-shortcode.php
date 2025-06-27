@@ -35,7 +35,7 @@ class WPSS_Slider_Shortcode {
         wp_enqueue_script(
             'wpss-swiper-init',
             WPSS_URL . 'assets/js/wpss-swiper-init.js',
-            array(),
+            array('jquery'),
             WPSS_VERSION,
             true
         );
@@ -46,7 +46,6 @@ class WPSS_Slider_Shortcode {
             array(),
             WPSS_VERSION
         );
-
     }
 
     public function genrate_slider_Shortcode( $args ) {
@@ -57,38 +56,21 @@ class WPSS_Slider_Shortcode {
         endif;
 
         $imageIDs         = json_decode( get_post_meta( $slideshow_ID, 'wpss_slider_image_ids', true ), true);
+
         $sliderOptions    = get_post_meta( $slideshow_ID, 'wpss_slider_option', true );
 
         if ( empty( $imageIDs ) || ! is_array( $imageIDs ) ) :
             return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'wpss-simple-slider' ) . '</p>';
         endif;
 
-        $slideshowAttr = array(
-            "navigation" => array(
-                'nextEl' => ".swiper-" . $slideshow_ID . "-next",
-                'prevEl' => ".swiper-" . $slideshow_ID . "-prev",
-            )
-        );
-
-        $arrow_style        = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
-        $pagination_style   = isset($sliderOptions['dots_navigation_style']) ? $sliderOptions['dots_navigation_style'] : 'style1';
-
-        $grab_cursor_class  = !empty($sliderOptions['control_grab_cursor']) && $sliderOptions['control_grab_cursor'] ? 'wpss-swiper-grab-cursor' : '';
-        $autoplay_class     = !empty($sliderOptions['control_autoplay']) && $sliderOptions['control_autoplay'] ? 'wpss-swiper-autoplay' : '';
-        $autoplay_timing    = !empty($sliderOptions['autoplay_timing']) ? intval($sliderOptions['autoplay_timing']) : 3000;
-        $ap_timing_class    = 'wpss-swiper-autoplay-' . $autoplay_timing;
-        $progress_class     = !empty($sliderOptions['control_autoplay_progress']) && $sliderOptions['control_autoplay_progress'] ? 'wpss-wpss-swiper-autoplay-progress' : '';
-        $lazy_load_class    = !empty($sliderOptions['control_lazyload_images']) && $sliderOptions['control_lazyload_images'] ? 'wpss-swiper-lazy-load' : '';
-    
+        $arrow_style  = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
+        $dot_style    = isset($sliderOptions['dots_navigation_style']) ? $sliderOptions['dots_navigation_style'] : 'style1';
+        $lazy_load    = isset($sliderOptions['control_lazyload_images']) ? $sliderOptions['control_lazyload_images'] : '';
+        
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
             ' wpss-swiper-arrow-' . esc_attr($arrow_style) .
-            ' wpss-swiper-button-pagination-' . esc_attr($pagination_style) .
-            ' ' . $grab_cursor_class .
-            ' ' . $autoplay_class .
-            ' ' . $ap_timing_class .
-            ' ' . $progress_class .
-            ' ' . $lazy_load_class 
+            ' wpss-swiper-dot-' . esc_attr($dot_style) 
         );
 
         ob_start();
@@ -99,7 +81,10 @@ class WPSS_Slider_Shortcode {
                 'slideshow_ID'         => $slideshow_ID,
                 'slideshow_main_class' => $slideshow_main_class,
                 'arrow_style'          => $arrow_style,
-                'slideshowAttr'        => json_encode($slideshowAttr)
+                'dot_style'            => $dot_style,
+                'lazy_load'            => $lazy_load,
+                'options'              => json_encode($sliderOptions)
+
 
             )
         );

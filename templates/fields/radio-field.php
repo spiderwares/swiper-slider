@@ -6,7 +6,7 @@
 <td>
     <?php if( isset( $field['options'] ) ) : ?>
         <?php foreach( $field['options'] as $optionKey => $optionImg ) : ?>
-            <p class="image-control">
+            <p class="wpss-image-control">
                 <input 
                     type="radio" 
                     name="wpss_slider_option[<?php esc_attr_e( $field_Key ); ?>]"

@@ -1,103 +1,114 @@
-class WPSS_Swiper_Slider {
-    constructor() {
-        this.init();
-    }
+jQuery(function ($) {
 
+    class WPSS_Slider_Frontend {
 
-    // Wait for DOM ready and then initialize sliders
-    init() {
-        document.addEventListener("DOMContentLoaded", () => {
-            this.initAllSliders();
-        });
-    }
+        constructor() {
+            this.init();
+        }
 
-    // Initialize all sliders with `.swiper` class
-    initAllSliders() {
-        const sliders = document.querySelectorAll(".swiper");
-        sliders.forEach((slider) => this.initSingleSlider(slider));
-    }
+        init() {
+            this.initializeSliders();
+        }
 
-    // Initialize a single slider
-    initSingleSlider(slider) {
-        const config = this.getSliderConfig(slider);
-        new Swiper(slider, config);
-    }
+        initializeSliders() {
+            $('.swiper.wpss-simple-slider-wrapper').each((index, element) => {
+                const slider = $(element),
+                    rawOptions = slider.attr('data-options');
 
-    getSliderConfig(slider) {
-        const config = {
-            loop: true,
-            navigation: {}
-        };
+                if (!rawOptions) return;
 
-        this.applyDataNavigation(slider, config);
-        this.applyGrabCursor(slider, config);
-        this.applyAutoplay(slider, config);
-        this.applyAutoplayProgress(slider, config);
-        this.applyLazyLoad(slider, config);
+                let options = this.parseOptions(rawOptions);
+                if (!options) return;
 
-        return config;
-    }
+                const finalOptions = this.buildSwiperOptions(slider, options);
+                this.createSwiperInstance(slider, finalOptions);
+            });
+        }
 
-
-    // Parse navigation data attribute and apply
-    applyDataNavigation(slider, config) {
-        const configData = slider.getAttribute("data-attr");
-        if (configData) {
+        parseOptions(rawOptions) {
             try {
-                const parsed = JSON.parse(configData);
-                if (parsed.navigation) {
-                    config.navigation = parsed.navigation;
-                }
+                return JSON.parse(rawOptions);
             } catch (error) {
-                console.warn("Invalid swiper data config:", error);
+                console.error("Invalid JSON in data-options:", error);
+                return null;
             }
         }
-    }
 
-    // Enable grab cursor if class present
-    applyGrabCursor(slider, config) {
-        if (slider.classList.contains("wpss-swiper-grab-cursor")) {
-            config.grabCursor = true;
+        buildSwiperOptions(slider, options) {
+            const isResponsive = options.control_enable_responsive === '1' || options.control_enable_responsive === 1,
+                effect = options.animation || 'slide',
+                progresscolor = options.progress_bar_color;
+
+            const baseOptions = {
+                loop: true,
+                speed: 400,
+                effect: effect,
+                spaceBetween: 10,
+                grabCursor: options.control_grab_cursor == '1',
+                slidesPerView: isResponsive ? parseInt(options.items_in_desktop) || 1 : 1,
+                autoplay: options.control_autoplay == '1' ? {
+                    delay: parseInt(options.autoplay_timing, 10) || 3000,
+                    disableOnInteraction: false,
+                } : false,
+                pagination: {
+                    el: slider.find('.swiper-pagination')[0],
+                    clickable: true,
+                    type: options.control_autoplay_progress == '1' ? 'progressbar' : 'bullets',
+                },
+
+                // pagination: [
+                //     {
+                //         el: slider.find('.swiper-pagination .swiper-pagination-bullets')[0],
+                //         clickable: true,
+                //         type: "bullets",
+                //     },
+                //     {
+                //         el: slider.find('.swiper-pagination .swiper-pagination-progressbar')[0],
+                //         type: "progressbar",
+                //     },
+                // ],
+                navigation: {
+                    nextEl: slider.find('.swiper-button-next')[0],
+                    prevEl: slider.find('.swiper-button-prev')[0],
+                },
+                lazy: true,
+                on: {
+                    init: function () {
+                        if (progresscolor && options.control_autoplay_progress == '1') {
+                            const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
+                            $progressbar.css({ background: progresscolor });
+                        }
+                    }
+                },
+            };
+
+            if (isResponsive) {
+                baseOptions.breakpoints = this.getResponsiveBreakpoints(options);
+            }
+
+            return $.extend({}, baseOptions, options);
         }
-    }
 
-    // Enable autoplay with optional delay
-    applyAutoplay(slider, config) {
-        if (slider.classList.contains("wpss-swiper-autoplay")) {
-            const match = slider.className.match(/wpss-swiper-autoplay-(\d+)/);
-            const delay = match ? parseInt(match[1], 10) : 3000;
-            config.autoplay = {
-                delay: delay,
-                disableOnInteraction: false,
+        getResponsiveBreakpoints(options) {
+            return {
+                1024: {
+                    slidesPerView: parseInt(options.items_in_desktop) || 4,
+                },
+                768: {
+                    slidesPerView: parseInt(options.items_in_tablet) || 2,
+                },
+                400: {
+                    slidesPerView: parseInt(options.items_in_mobile) || 1,
+                }
             };
         }
-    }
 
-    // Add progress bar if required
-    applyAutoplayProgress(slider, config) {
-        if (slider.classList.contains("wpss-wpss-swiper-autoplay-progress")) {
-            const paginationEl = document.createElement("div");
-            paginationEl.classList.add("swiper-pagination");
-            slider.appendChild(paginationEl);
-
-            config.pagination = {
-                el: paginationEl,
-                type: "progressbar",
-            };
+        createSwiperInstance(slider, finalOptions) {
+            new Swiper(slider[0], finalOptions);
         }
+
     }
 
-    // Enable lazy loading of images
-    applyLazyLoad(slider, config) {
-        if (slider.classList.contains("wpss-swiper-lazy-load")) {
-            config.lazy = {
-                loadPrevNext: true,
-                loadOnTransitionStart: true,
-            };
-            config.watchSlidesProgress = true;
-        }
-    }
-}
+    new WPSS_Slider_Frontend();
 
-// Initialize the class
-new WPSS_Swiper_Slider();
+});

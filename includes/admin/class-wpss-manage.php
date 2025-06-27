@@ -49,6 +49,8 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 wp_enqueue_script( 'jquery-ui-core' );
                 wp_enqueue_script( 'jquery-ui-widget' );
                 wp_enqueue_script( 'jquery-ui-sortable' );
+                wp_enqueue_style('wp-color-picker');
+                wp_enqueue_script('wp-color-picker');
 
                 if ( ! did_action( 'wp_enqueue_media' ) )
                     wp_enqueue_media();
@@ -104,14 +106,30 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
         }
 
         public function add_slider_thumbnail_for_js_response( $sizes ) {
-			$sizes['wpss_slider_thumbnail'] = esc_html__( 'WPSS slider Thumbnail' );
+			$sizes['wpss_slider_thumbnail'] = esc_html__e( 'WPSS slider Thumbnail' );
             return $sizes;
         }
-        
+
         public static function register_post_type() {
+            $labels = array(
+                'name'               => esc_html__( 'Sliders', 'wpss-simple-slider' ),
+                'singular_name'      => esc_html__( 'Slider', 'wpss-simple-slider' ),
+                'menu_name'          => esc_html__( 'Simple Slider', 'wpss-simple-slider' ),
+                'name_admin_bar'     => esc_html__( 'Slider', 'wpss-simple-slider' ),
+                'add_new_item'       => esc_html__( 'Add Slider', 'wpss-simple-slider' ),
+                'new_item'           => esc_html__( 'New Slider', 'wpss-simple-slider' ),
+                'edit_item'          => esc_html__( 'Edit Slider', 'wpss-simple-slider' ),
+                'view_item'          => esc_html__( 'View Slider', 'wpss-simple-slider' ),
+                'all_items'          => esc_html__( 'Simple Slider', 'wpss-simple-slider' ),
+                'search_items'       => esc_html__( 'Search Sliders', 'wpss-simple-slider' ),
+                'parent_item_colon'  => esc_html__( 'Parent Sliders:', 'wpss-simple-slider' ),
+                'not_found'          => esc_html__( 'No sliders found.', 'wpss-simple-slider' ),
+                'not_found_in_trash' => esc_html__( 'No sliders found in Trash.', 'wpss-simple-slider' ),
+            );
+
             $args = array(
                 'label'               => esc_html__( 'Simple Slider', 'wpss-simple-slider' ),
-                'labels'              => esc_html__( 'Sliders', 'wpss-simple-slider' ),
+                'labels'              => $labels,
                 'supports'            => array( 'title' ),
                 'hierarchical'        => true,
                 'public'              => true,
@@ -128,8 +146,10 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 'publicly_queryable'  => false,
                 'capability_type'     => 'page',
             );
+
             register_post_type( 'wpss_slider', $args );
         }
+
 
     }
     new WPSS_Slider_Manage();

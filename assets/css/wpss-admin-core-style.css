@@ -118,15 +118,15 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     color: #9e9e9e;
 }
 
-.wpss_slides_wrap .image-control {
+.wpss_slides_wrap .wpss-image-control {
     display: inline-block;
 }
 
-.wpss_slides_wrap .image-control input {
+.wpss_slides_wrap .wpss-image-control input {
     display: none;
 }
 
-.wpss_slides_wrap .image-control label {
+.wpss_slides_wrap .wpss-image-control label {
     position: relative;
     display: inline-block;
     border: 2px solid #e5e5e5;
@@ -143,21 +143,21 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     font-weight: 600;
 }
 
-.wpss_slides_wrap .image-control label img {
+.wpss_slides_wrap .wpss-image-control label img {
     display: block;
     margin-bottom: 3px;
 }
 
-.wpss_slides_wrap .image-control input:checked + label {
+.wpss_slides_wrap .wpss-image-control input:checked + label {
     border: 2px solid #03A9F4;
     box-shadow: 0 0 5px rgb(0 57 84 / 60%);
 }
 
-.wpss_slides_wrap label.form-switch input[type="checkbox"] {
+.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"] {
     display: none;
 }
 
-.wpss_slides_wrap label.form-switch span {
+.wpss_slides_wrap label.wpss-form-switch span {
     position: relative;
     display: inline-block;
     border-radius: 12px;
@@ -175,8 +175,8 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     text-align: right;
 }
 
-.wpss_slides_wrap label.form-switch span:after, 
-.wpss_slides_wrap label.form-switch span:before {
+.wpss_slides_wrap label.wpss-form-switch span:after, 
+.wpss_slides_wrap label.wpss-form-switch span:before {
     position: absolute;
     display: block;
     content: "";
@@ -184,34 +184,36 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     height: 30px;
     top: 2px;
 }
-
-.wpss_slides_wrap label.form-switch input[type="checkbox"]:checked + span:after {
+.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"]:checked + span:after {
     right: 2px;
     left: auto;
     content: 'ON';
 }
 
-.wpss_slides_wrap label.form-switch input[type="checkbox"] + span:after {
+.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"] + span:after {
     content: 'OFF';
     font-size: 9px;
     font-weight: bold;
     line-height: 30px;
     text-align: center;
 }
-
-.wpss_slides_wrap label.form-switch span:after {
+p.description {
+    color: #333;
+    font-size: 14px;
+}
+.wpss_slides_wrap label.wpss-form-switch span:after {
     left: 2px;
     border-radius: 30px;
     background: #fff;
     transition: all .2s ease;
 }
 
-.wpss_slides_wrap label.form-switch input[type="checkbox"]:checked + span {
-    background-color: #03A9F4;
-    color: #03A9F4;
+.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"]:checked + span {
+    background-color: #0213ff;
+    color: #0213ff;
 }
 
-.wpss_slides_wrap label.form-switch span {
+.wpss_slides_wrap label.wpss-form-switch span {
     position: relative;
     display: inline-block;
     border-radius: 23px;
@@ -286,4 +288,3 @@ input[type="range"]:hover {
     padding: 5px;
     background: #f7f7f7;
 }
-

@@ -1,19 +1,30 @@
 <?php if ( ! empty($imageIDs)) : ?>
-    <div class="swiper <?php echo esc_attr($slideshow_main_class); ?>" data-attr='<?php echo esc_attr($slideshowAttr); ?>'>
+    <div class="swiper wpss-simple-slider-wrapper <?php echo esc_attr($slideshow_main_class); ?>" 
+    data-options='<?php echo esc_attr( $options ); ?>'>
         <div class="swiper-wrapper">
             <?php foreach( $imageIDs as $imageID ) : ?>
                 <div class="swiper-slide">
-                    <img class="swiper-lazy" data-src="<?php echo wp_get_attachment_image_url( $imageID, 'full' ); ?>" />
-                    <div class="wpss-swiper-lazy-preloader"></div>
+                    <img 
+                        src="<?php echo esc_url( wp_get_attachment_image_url( $imageID, 'full' ) ); ?>" 
+                        alt="" 
+                        loading="lazy"  />
+
+                    <?php if( $lazy_load ): ?>
+                        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
 
-        <!-- <div class="swiper-pagination"></div> -->
-
+        <!-- Bullets Pagination -->
+        <?php if ( $dot_style != 'none' ) : ?>
+            <div class="swiper-pagination"></div>
+        <?php endif; ?>
+          
+        <!-- Prev & Next Button -->
         <?php if( $arrow_style != 'none' ): ?>
-            <div class="swiper-button-next swiper-<?php echo esc_attr( $slideshow_ID ); ?>-next"></div>
-            <div class="swiper-button-prev swiper-<?php echo esc_attr( $slideshow_ID ); ?>-prev"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         <?php endif; ?>
     </div>
 <?php endif; ?>

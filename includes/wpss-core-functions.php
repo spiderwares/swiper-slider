@@ -14,11 +14,12 @@ if( !function_exists( 'wpss_get_template' ) ) :
         
         $template = $template_path . $template_name;
         if ( ! file_exists( $template ) ) :
+            // translators: %s: The full path to the missing template file.
             return new WP_Error( 
                 'error', 
                 sprintf( 
-                    __( '%s does not exist.', 'wpss-simple-slider' ), 
-                    '<code>' . $template . '</code>' 
+                    esc_html__( '%s does not exist.', 'wpss-simple-slider' ), 
+                    '<code>' . esc_html( $template ). '</code>' 
                 ) 
             );
         endif;

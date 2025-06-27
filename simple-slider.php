@@ -23,7 +23,7 @@ if ( ! defined( 'WPSS_BASENAME' ) ) :
 endif;
 
 if ( ! defined( 'WPSS_VERSION' ) ) :
-    define( 'WPSS_VERSION', '1.0.0' ); // Plugin version
+    define( 'WPSS_VERSION', time() ); // Plugin version
 endif;
 
 if ( ! defined( 'WPSS_PATH' ) ) :

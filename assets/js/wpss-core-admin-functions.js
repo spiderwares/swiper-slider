@@ -10,6 +10,7 @@ jQuery(function($) {
             this.cacheSelectors();
             this.bindEvents();
             this.initSortable();
+            this.initColorPickers();
         }
 
         cacheSelectors() {
@@ -60,7 +61,6 @@ jQuery(function($) {
             mediaUploader.open();
         }
 
-
         handleRemoveSlide(e) {
             e.preventDefault();
             $(e.currentTarget).closest('li').remove();
@@ -77,6 +77,11 @@ jQuery(function($) {
             });
         }
 
+        initColorPickers() {
+            if ($.fn.wpColorPicker) {
+                $('.wpss-color-picker').wpColorPicker();
+            }
+        }
     }
 
     new WPSS_Admin_Core();

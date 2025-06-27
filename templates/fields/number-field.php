@@ -13,5 +13,11 @@
             class="wpss-input"
         >
     </div>
+
+    <?php if ( ! empty( $field['description'] ) ) : ?>
+        <p class="description" style="margin-top: 5px;">
+            <?php echo esc_html( $field['description'] ); ?>
+        </p>
+    <?php endif; ?>
 </td>
 

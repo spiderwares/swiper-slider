@@ -10,9 +10,6 @@
 				<tr class="<?php echo esc_attr( $row_class ); ?>">
 					<th scope="row">
 						<?php esc_html_e( $field['name'] ); ?>
-						
-						<small><?php esc_html_e( 'Default value: ', 'wpss-simple-slider' ); ?>
-						<?php esc_html_e( $field['default'] ); ?></small>
 					</th>
 
 					<?php switch( $field['field_type'] ) :
@@ -42,6 +39,28 @@
 						case "number":
 							wpss_get_template( 
 								'fields/number-field.php', 
+								array(
+									'field'          => $field,
+									'field_Val'      => $field_Val,
+									'field_Key'      => $field_Key 
+								) 
+							);
+							break;
+							
+						case "color":
+							wpss_get_template( 
+								'fields/color-field.php', 
+								array(
+									'field'          => $field,
+									'field_Val'      => $field_Val,
+									'field_Key'      => $field_Key 
+								) 
+							);
+							break;
+
+						case "select":
+							wpss_get_template( 
+								'fields/select-field.php', 
 								array(
 									'field'          => $field,
 									'field_Val'      => $field_Val,

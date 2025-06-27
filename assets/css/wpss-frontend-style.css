@@ -1,14 +1,15 @@
-img {
+.swiper-slide img {
     width: 100%;
     height: 400px;
     object-fit: cover;
     position: relative;
+    border-radius: 5px;
 }
 
-/* Arrow Style 1 */
+/* ============================= Arrow Style ========================== */
+/* Style 1 */
 .wpss-swiper-arrow-style1 .swiper-button-next,
 .wpss-swiper-arrow-style1 .swiper-button-prev {
-    background: #fff;
     color: #555;
     font-size: 40px;
     opacity: 0.9;
@@ -16,28 +17,39 @@ img {
 
 .wpss-swiper-arrow-style1 .swiper-button-next:hover,
 .wpss-swiper-arrow-style1 .swiper-button-prev:hover {
-    color: #000;
+    color: #fff;
 }
 
-/* Arrow Style 2 */
+/* Style 2 */
 .wpss-swiper-arrow-style2 .swiper-button-next,
 .wpss-swiper-arrow-style2 .swiper-button-prev {
-    background: #fff;
-    border: 2px solid #aaa;
-    color: #555;
+    background: #ffffff00;
+    border: 2px solid #fff;
+    color: #fff;
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    font-size: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Arrow Style 3 */
+.wpss-swiper-arrow-style2 .swiper-button-next:after, 
+.wpss-swiper-arrow-style2 .swiper-button-prev:after{
+    font-size: 30px;
+}
+
+.wpss-swiper-arrow-style2 .swiper-button-next:hover,
+.wpss-swiper-arrow-style2 .swiper-button-prev:hover {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+/* Style 3 */
 .wpss-swiper-arrow-style3 .swiper-button-next,
 .wpss-swiper-arrow-style3 .swiper-button-prev {
-    background: #333;
+    background: #555;
+    border: 2px solid #555;
     color: #fff;
     border-radius: 50%;
     width: 50px;
@@ -48,7 +60,109 @@ img {
     opacity: 0.9;
 }
 
-/* Grab Cursor */
+.wpss-swiper-arrow-style3 .swiper-button-next:after, 
+.wpss-swiper-arrow-style3 .swiper-button-prev:after{
+    font-size: 30px;
+}
+
+/* Style 4 */
+.wpss-swiper-arrow-style4 {
+    position: relative;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev,
+.wpss-swiper-arrow-style4 .swiper-button-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: 98%;
+    background: #fff;
+    border: 1px solid black;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: background 0.3s ease, color 0.3s ease;
+    z-index: 10;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev {
+    left: 0;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-next {
+    right: 0;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev:hover,
+.wpss-swiper-arrow-style4 .swiper-button-next:hover {
+    background: #55555585;
+    color: white;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev:after,
+.wpss-swiper-arrow-style4 .swiper-button-next:after {
+    font-size: 30px;
+}
+
+/* =========================== Dot Style =========================== */
+/* Style 1  */
+.wpss-swiper-dot-style1 .swiper-pagination-bullet {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 1;
+}
+.wpss-swiper-dot-style1 .swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+/* Style 2 */
+.wpss-swiper-dot-style2 .swiper-pagination-bullet {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    opacity: 1;
+}
+.wpss-swiper-dot-style2 .swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+/* Style 3 */
+.wpss-swiper-dot-style3 .swiper-pagination-bullet {
+    background: #999;
+    border-radius: 0;
+    width: 20px;
+    height: 4px;
+    opacity: 0.6;
+}
+.wpss-swiper-dot-style3 .swiper-pagination-bullet-active {
+    background: #fff;
+    opacity: 1;
+}
+
+/* Style 4 */
+.wpss-swiper-dot-style4 .swiper-pagination-bullet {
+    background: #fff;
+    border: 2px solid #333;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 1;
+}
+.wpss-swiper-dot-style4 .swiper-pagination-bullet-active {
+    background: #000;
+}
+
+/* =========================== Grab Cursor ========================== */
 .wpss-swiper-grab-cursor {
     cursor: grab;
 }
@@ -56,80 +170,13 @@ img {
     cursor: grabbing;
 }
 
-/* Progress Bar */
-.wpss-wpss-swiper-autoplay-progress .swiper-pagination {
-    margin-top: 400px;
-    height: 5px;
-    background: rgba(0, 0, 0, 0.1);
-}
-.wpss-wpss-swiper-autoplay-progress .swiper-pagination-progressbar-fill {
-    background: red;
-}
 
-/* Lazy Preloader */
-.wpss-swiper-lazy-preloader {
-    width: 30px;
-    height: 30px;
-    margin: auto;
-}
-
-
-/* Pagination Style 1 */
-.wpss-swiper-button-pagination-style1 .swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    background: #bbb;
-    opacity: 0.7;
-    margin: 0 5px;
-}
-
-.wpss-swiper-button-pagination-style1 .swiper-pagination-bullet-active {
-    background: #007aff;
-    opacity: 1;
-}
-
-/* Pagination Style 2 */
-.wpss-swiper-button-pagination-style2 .swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
-    background: #fff;
-    border: 2px solid #555;
-    opacity: 0.7;
-    margin: 0 5px;
-    border-radius: 50%;
-}
-
-.wpss-swiper-button-pagination-style2 .swiper-pagination-bullet-active {
-    background: #555;
-    opacity: 1;
-}
-
-/* Pagination Style 3 */
-.wpss-swiper-button-pagination-style3 .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    background: #333;
-    opacity: 0.6;
-    margin: 0 4px;
-    border-radius: 50%;
-}
-
-.wpss-swiper-button-pagination-style3 .swiper-pagination-bullet-active {
-    background: #fff;
-    opacity: 1;
-}
-
-/* Pagination Style 4 */
-.wpss-swiper-button-pagination-style4 .swiper-pagination-bullet {
-    width: 15px;
-    height: 5px;
-    background: #aaa;
-    opacity: 0.8;
-    margin: 0 3px;
-    border-radius: 3px;
-}
-
-.wpss-swiper-button-pagination-style4 .swiper-pagination-bullet-active {
-    background: #ff2d55;
-    opacity: 1;
+/* =========================== Progress Bar ============================= */
+.wpss-simple-slider-wrapper .swiper-pagination-progressbar {
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 25rem;
 }
