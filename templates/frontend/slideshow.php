@@ -1,5 +1,5 @@
 <?php if ( ! empty($imageIDs)) : ?>
-    <div class="swiper wpss-simple-slider-wrapper <?php echo esc_attr($slideshow_main_class); ?>" 
+    <div class="swiper swiper-slider-wrapper <?php echo esc_attr($slideshow_main_class); ?>" 
     data-options='<?php echo esc_attr( $options ); ?>'>
         <div class="swiper-wrapper">
             <?php foreach( $imageIDs as $imageID ) : ?>

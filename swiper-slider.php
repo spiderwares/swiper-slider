@@ -1,12 +1,14 @@
 <?php
 /**
- * Plugin Name:     Simple Slider
- * Plugin URI:      https://wordpress.org/plugins/wpss-simple-slider/
+ * Plugin Name:     Swiper Slider
+ * Plugin URI:      https://wordpress.org/plugins/swiper-slider/
  * Description:     A flexible plugin that allows you to create beautiful and slick sliders in your site or shop in a few seconds.
  * Version:         1.0.0
  * Author:          Kishan Mangukiya
- * Author URI:      mailto:kishanmangukiya.coderkube@gmail.com
- * Text Domain:     wpss-simple-slider
+ * Author URI:      https://spiderwares.com/
+ * License:         GPL v2 or later
+ * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:     swiper-slider
  */
 
 // Exit if accessed directly.
@@ -23,7 +25,7 @@ if ( ! defined( 'WPSS_BASENAME' ) ) :
 endif;
 
 if ( ! defined( 'WPSS_VERSION' ) ) :
-    define( 'WPSS_VERSION', time() ); // Plugin version
+    define( 'WPSS_VERSION', '1.0.0' ); // Plugin version
 endif;
 
 if ( ! defined( 'WPSS_PATH' ) ) :

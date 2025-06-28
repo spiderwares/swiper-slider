@@ -172,7 +172,7 @@
 
 
 /* =========================== Progress Bar ============================= */
-.wpss-simple-slider-wrapper .swiper-pagination-progressbar {
+.swiper-slider-wrapper .swiper-pagination-progressbar {
     height: 6px;
     background: #e0e0e0;
     border-radius: 50px;

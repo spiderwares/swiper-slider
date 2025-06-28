@@ -52,7 +52,7 @@ class WPSS_Slider_Shortcode {
         $slideshow_ID = !empty( $args['id'] ) ? $args['id'] : '';
 
         if ( empty( $slideshow_ID ) ) :
-            return '<p>' . esc_html__( "Error: Slideshow ID not found!", 'wpss-simple-slider' ) . '</p>';
+            return '<p>' . esc_html__( "Error: Slideshow ID not found!", 'swiper-slider' ) . '</p>';
         endif;
 
         $imageIDs         = json_decode( get_post_meta( $slideshow_ID, 'wpss_slider_image_ids', true ), true);
@@ -60,7 +60,7 @@ class WPSS_Slider_Shortcode {
         $sliderOptions    = get_post_meta( $slideshow_ID, 'wpss_slider_option', true );
 
         if ( empty( $imageIDs ) || ! is_array( $imageIDs ) ) :
-            return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'wpss-simple-slider' ) . '</p>';
+            return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'swiper-slider' ) . '</p>';
         endif;
 
         $arrow_style  = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';

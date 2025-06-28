@@ -9,7 +9,7 @@
 
 				<tr class="<?php echo esc_attr( $row_class ); ?>">
 					<th scope="row">
-						<?php esc_html_e( $field['name'] ); ?>
+						<?php echo esc_html( $field['name'] ); ?>
 					</th>
 
 					<?php switch( $field['field_type'] ) :

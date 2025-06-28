@@ -13,7 +13,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
 
         public $defaultOptions;
 
-        function __construct() {
+        public function __construct() {
             $this->default_Options();
             $this->event_handler();
         }
@@ -37,20 +37,20 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                 )
             );
 
-            $this->fields = array(
+            $this->fields = apply_filters( 'wpss_slider_fields', array(
                 'animation'  => array(
-                    'name'          => esc_html__( 'Transition type', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Transition type', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
                         'slide' =>  'animation-type-slide.gif',
                         'fade'  =>  'animation-type-fade.gif',
                         'flip'  =>  'animation-type-flip.gif',
-                        'cube'  =>  'animation-type-cube.gif'
+                        'cube'  =>  'animation-type-cube.gif',
                     ),
                     'default'       => 'slide'
                 ),
                 'navigation_arrow_style' => array(
-                    'name'          => esc_html__( 'Navigation arrows style', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Navigation arrows style', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
                         'none'   =>  'arrow-style-none.jpg',
@@ -62,7 +62,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'       => 'style1'
                 ),
                 'dots_navigation_style'  => array(
-                    'name'          => esc_html__( 'Bullet arrows style', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Bullet arrows style', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
                         'none'   =>  'arrow-style-none.jpg',
@@ -74,65 +74,65 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'       => 'style1'
                 ),
                 'control_autoplay'  => array(
-                    'name'          => esc_html__( 'Autoplay', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Autoplay', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => true,
-                    'description'   => esc_html__( 'Enable or disable autoplay functionality.', 'wpss-simple-slider' ),
+                    'description'   => esc_html__( 'Enable or disable autoplay functionality.', 'swiper-slider' ),
                 ),
                 'autoplay_timing'   => array(
-                    'name'          => esc_html__( 'Autoplay timing', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Autoplay timing', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 3000,
-                    'description'   => esc_html__( 'Enter autoplay speed in milliseconds (e.g., 3000 for 3 seconds).', 'wpss-simple-slider' ),
+                    'description'   => esc_html__( 'Enter autoplay speed in milliseconds (e.g., 3000 for 3 seconds).', 'swiper-slider' ),
                 ),
                 'control_autoplay_progress'   => array(
-                    'name'          => esc_html__( 'Autoplay progress', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => false,
-                    'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'wpss-simple-slider' )
+                    'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'swiper-slider' )
                 ),
                 'progress_bar_color' => array(
-                    'name'        => esc_html__( 'Progress bar color', 'wpss-simple-slider' ),
+                    'name'        => esc_html__( 'Progress bar color', 'swiper-slider' ),
                     'field_type'  => 'color',
                     'default'     => '#ff0000'
                 ),
                 'control_lazyload_images'   => array(
-                    'name'          => esc_html__( 'Lazy load images', 'wpss-simple-slider' ),  
+                    'name'          => esc_html__( 'Lazy load images', 'swiper-slider' ),  
                     'field_type'    => 'switch',
                     'default'       => true,
-                    'description'   => esc_html('Load images only when they are needed.', 'wpss-simple-slider')
+                    'description'   => esc_html('Load images only when they are needed.', 'swiper-slider')
                 ),
                 'control_grab_cursor'   => array(
-                    'name'          => esc_html__( 'Grab cursor', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Grab cursor', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => false,
-                    'description' => esc_html__( 'Change the mouse cursor to a hand icon when hovering over the slider.', 'wpss-simple-slider' )
+                    'description'   => esc_html__( 'Change the mouse cursor to a hand icon when hovering over the slider.', 'swiper-slider' )
                 ),
                 'control_enable_responsive'   => array(
-                    'name'          => esc_html__( 'Enable Responsive', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Enable Responsive', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => true,
-                    'description' => esc_html__( 'Enable responsive layout for different screen sizes (mobile, tablet, desktop).', 'wpss-simple-slider' )
+                    'description'   => esc_html__( 'Enable responsive layout for different screen sizes (mobile, tablet, desktop).', 'swiper-slider' )
                 ),
                 'items_in_desktop'  => array(
-                    'name'          => esc_html__( 'Items in Standard Desktop', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Items in Standard Desktop', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 4,
                     'depends_on'    => 'control_enable_responsive'
                 ),
                 'items_in_tablet'   => array(
-                    'name'          => esc_html__( 'Items in Tablet', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Items in Tablet', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 2,
                     'depends_on'    => 'control_enable_responsive'
                 ),
                 'items_in_mobile'   => array(
-                    'name'          => esc_html__( 'Items in Mobile', 'wpss-simple-slider' ),
+                    'name'          => esc_html__( 'Items in Mobile', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 1,
                     'depends_on'    => 'control_enable_responsive'
                 ),
-            );
+            ) );
         }
 
         public function intialize_slideshow_metabox() {
@@ -142,7 +142,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
 
                     add_meta_box(
                         $metaBoxID,
-                        esc_html__( $metaBox['name'], 'wpss-simple-slider' ),
+                        esc_html( $metaBox['name'], 'swiper-slider' ),
                         array( $this, $metaBox['callback'] ),
                         $screen_id,
                         'normal',
@@ -152,7 +152,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                 endforeach;
 
             endforeach;
-        }
+        } 
 
         public function genrate_slideshow_metabox( $slideshow ){
             $imageIDs = get_post_meta( $slideshow->ID, 'wpss_slider_image_ids', true );
@@ -185,12 +185,22 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
         }
 
         public function save_slideshow_metadata( $slideshow_ID ) {
-            if ( isset($_POST['wpss_slider_image_ids']) ) :
-                update_post_meta(  $slideshow_ID, 'wpss_slider_image_ids', json_encode( $_POST['wpss_slider_image_ids'] ) );
+            if ( ! isset( $_POST['wpss_slideshow_metabox_nonce'] ) | ! 
+                wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpss_slideshow_metabox_nonce'] ) ),
+                'wpss_slideshow_metabox_data' 
+                )
+            ) :
+                return;
             endif;
 
-            if ( isset($_POST['wpss_slider_option']) ) :
-                update_post_meta( $slideshow_ID, 'wpss_slider_option', $_POST['wpss_slider_option']  );
+            if ( isset( $_POST['wpss_slider_image_ids'] ) && is_array( $_POST['wpss_slider_image_ids'] ) ) :
+                $image_ids = array_map( 'absint', wp_unslash( $_POST['wpss_slider_image_ids'] ) ); 
+                update_post_meta( $slideshow_ID, 'wpss_slider_image_ids', wp_json_encode( $image_ids ) );
+            endif;
+
+            if ( isset( $_POST['wpss_slider_option'] ) && is_array( $_POST['wpss_slider_option'] ) ) :
+                $slider_options = array_map( 'sanitize_text_field', wp_unslash( $_POST['wpss_slider_option'] ) );
+                update_post_meta( $slideshow_ID, 'wpss_slider_option', $slider_options );
             endif;
 
             return $slideshow_ID;

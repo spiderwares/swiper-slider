@@ -9,14 +9,14 @@
             <p class="wpss-image-control">
                 <input 
                     type="radio" 
-                    name="wpss_slider_option[<?php esc_attr_e( $field_Key ); ?>]"
+                    name="wpss_slider_option[<?php echo esc_attr( $field_Key ); ?>]"
                     value="<?php echo esc_attr( $optionKey ); ?>"
-                    id="<?php esc_attr_e( $field_Key . "_" . $optionKey ) ?>" 
+                    id="<?php echo esc_attr( $field_Key . "_" . $optionKey ) ?>" 
                     <?php checked( $optionKey, $field_Val ); ?>>
 
-                <label for="<?php esc_attr_e( $field_Key . "_" . $optionKey ) ?>">
+                <label for="<?php echo esc_attr( $field_Key . "_" . $optionKey ) ?>">
                     <img width="150" src="<?php echo esc_url( WPSS_URL . "assets/images/options/" . $optionImg  ); ?>">
-                    <?php esc_html_e( $optionKey ); ?>
+                    <?php echo esc_html( $optionKey ); ?>
                 </label>
             </p>
         <?php endforeach; ?>

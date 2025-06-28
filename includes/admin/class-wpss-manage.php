@@ -37,8 +37,9 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
 
         public function shortcode_metabox_callback( $post ) {
             printf( 
-                '<p>Use the following shortcode to display the slider</p><hr><code>[wpss_simple_slider id="%d"]</code>', 
-                $post->ID 
+                '<p>%s</p><hr><code>[wpss_simple_slider id="%d"]</code>', 
+                esc_html__( 'Use the following shortcode to display the slider', 'swiper-slider' ), 
+                esc_attr( $post->ID ) 
             );
         }
 
@@ -49,19 +50,19 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 wp_enqueue_script( 'jquery-ui-core' );
                 wp_enqueue_script( 'jquery-ui-widget' );
                 wp_enqueue_script( 'jquery-ui-sortable' );
-                wp_enqueue_style('wp-color-picker');
-                wp_enqueue_script('wp-color-picker');
+                wp_enqueue_style( 'wp-color-picker' );
+                wp_enqueue_script( 'wp-color-picker' );
 
                 if ( ! did_action( 'wp_enqueue_media' ) )
                     wp_enqueue_media();
 
                 wp_enqueue_script( 
-                    'wpss-admin-core-admin-functions', 
-                    WPSS_URL . 'assets/js/wpss-core-admin-functions.js', 
-                    array(), 
-                    WPSS_VERSION, 
-                    true 
+                    'wpss-admin-core', 
+                    WPSS_URL . 'assets/js/wpss-admin-core.js', 
+                    array('jquery', 'media-editor', 'media-views'), 
+                    WPSS_VERSION
                 );
+
                 wp_enqueue_style( '
                     wpss-admin-core-style', 
                     WPSS_URL . 'assets/css/wpss-admin-core-style.css', 
@@ -69,10 +70,10 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                     WPSS_VERSION
                 );
 
-                 wp_enqueue_script(
+                wp_enqueue_script(
                     'wpss-slider-admin',
                     WPSS_URL . 'assets/js/wpss-slider-admin.js',
-                    ['jquery'],
+                    array('jquery'),
                     WPSS_VERSION,
                     true
                 );
@@ -86,7 +87,7 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 $new_columns[ $key ] = $value;
 
                 if ( $key === 'title' ) :
-                    $new_columns['wpss_shortcode'] = esc_html__( 'Shortcode', 'wpss-simple-slider' );
+                    $new_columns['wpss_shortcode'] = esc_html__( 'Shortcode', 'swiper-slider' );
                 endif;
             endforeach;
 
@@ -95,7 +96,9 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
 
         public function render_shortcode_column( $column, $post_id ) {
             if ( $column === 'wpss_shortcode' ) :
-                printf( '<code>[wpss_simple_slider id="%d"]</code>', $post_id );
+                printf( '<code>[wpss_simple_slider id="%d"]</code>', 
+                esc_attr( $post_id ) 
+            );
             endif;
         }
 
@@ -106,29 +109,29 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
         }
 
         public function add_slider_thumbnail_for_js_response( $sizes ) {
-			$sizes['wpss_slider_thumbnail'] = esc_html__e( 'WPSS slider Thumbnail' );
+			$sizes['wpss_slider_thumbnail'] = esc_html__( 'WPSS slider Thumbnail', 'swiper-slider' );
             return $sizes;
         }
 
         public static function register_post_type() {
             $labels = array(
-                'name'               => esc_html__( 'Sliders', 'wpss-simple-slider' ),
-                'singular_name'      => esc_html__( 'Slider', 'wpss-simple-slider' ),
-                'menu_name'          => esc_html__( 'Simple Slider', 'wpss-simple-slider' ),
-                'name_admin_bar'     => esc_html__( 'Slider', 'wpss-simple-slider' ),
-                'add_new_item'       => esc_html__( 'Add Slider', 'wpss-simple-slider' ),
-                'new_item'           => esc_html__( 'New Slider', 'wpss-simple-slider' ),
-                'edit_item'          => esc_html__( 'Edit Slider', 'wpss-simple-slider' ),
-                'view_item'          => esc_html__( 'View Slider', 'wpss-simple-slider' ),
-                'all_items'          => esc_html__( 'Simple Slider', 'wpss-simple-slider' ),
-                'search_items'       => esc_html__( 'Search Sliders', 'wpss-simple-slider' ),
-                'parent_item_colon'  => esc_html__( 'Parent Sliders:', 'wpss-simple-slider' ),
-                'not_found'          => esc_html__( 'No sliders found.', 'wpss-simple-slider' ),
-                'not_found_in_trash' => esc_html__( 'No sliders found in Trash.', 'wpss-simple-slider' ),
+                'name'               => esc_html__( 'Sliders', 'swiper-slider' ),
+                'singular_name'      => esc_html__( 'Slider', 'swiper-slider' ),
+                'menu_name'          => esc_html__( 'Swiper Slider', 'swiper-slider' ),
+                'name_admin_bar'     => esc_html__( 'Slider', 'swiper-slider' ),
+                'add_new_item'       => esc_html__( 'Add Slider', 'swiper-slider' ),
+                'new_item'           => esc_html__( 'New Slider', 'swiper-slider' ),
+                'edit_item'          => esc_html__( 'Edit Slider', 'swiper-slider' ),
+                'view_item'          => esc_html__( 'View Slider', 'swiper-slider' ),
+                'all_items'          => esc_html__( 'Swiper Slider', 'swiper-slider' ),
+                'search_items'       => esc_html__( 'Search Sliders', 'swiper-slider' ),
+                'parent_item_colon'  => esc_html__( 'Parent Sliders:', 'swiper-slider' ),
+                'not_found'          => esc_html__( 'No sliders found.', 'swiper-slider' ),
+                'not_found_in_trash' => esc_html__( 'No sliders found in Trash.', 'swiper-slider' ),
             );
 
             $args = array(
-                'label'               => esc_html__( 'Simple Slider', 'wpss-simple-slider' ),
+                'label'               => esc_html__( 'Swiper Slider', 'swiper-slider' ),
                 'labels'              => $labels,
                 'supports'            => array( 'title' ),
                 'hierarchical'        => true,

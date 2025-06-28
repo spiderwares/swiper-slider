@@ -11,7 +11,7 @@ jQuery(function ($) {
         }
 
         initializeSliders() {
-            $('.swiper.wpss-simple-slider-wrapper').each((index, element) => {
+            $('.swiper.swiper-slider-wrapper').each((index, element) => {
                 const slider = $(element),
                     rawOptions = slider.attr('data-options');
 
@@ -55,18 +55,6 @@ jQuery(function ($) {
                     clickable: true,
                     type: options.control_autoplay_progress == '1' ? 'progressbar' : 'bullets',
                 },
-
-                // pagination: [
-                //     {
-                //         el: slider.find('.swiper-pagination .swiper-pagination-bullets')[0],
-                //         clickable: true,
-                //         type: "bullets",
-                //     },
-                //     {
-                //         el: slider.find('.swiper-pagination .swiper-pagination-progressbar')[0],
-                //         type: "progressbar",
-                //     },
-                // ],
                 navigation: {
                     nextEl: slider.find('.swiper-button-next')[0],
                     prevEl: slider.find('.swiper-button-prev')[0],

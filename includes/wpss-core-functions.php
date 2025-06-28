@@ -1,6 +1,6 @@
 <?php
 /**
- * Simple Slideshow Core Functions
+ * Swiper Slideshow Core Functions
  *
  * General core functions available on both the front-end and admin.
  */
@@ -14,11 +14,11 @@ if( !function_exists( 'wpss_get_template' ) ) :
         
         $template = $template_path . $template_name;
         if ( ! file_exists( $template ) ) :
-            // translators: %s: The full path to the missing template file.
             return new WP_Error( 
                 'error', 
                 sprintf( 
-                    esc_html__( '%s does not exist.', 'wpss-simple-slider' ), 
+                    // translators: %s: The full path to the missing template file.
+                    esc_html__( '%s does not exist.', 'swiper-slider' ), 
                     '<code>' . esc_html( $template ). '</code>' 
                 ) 
             );

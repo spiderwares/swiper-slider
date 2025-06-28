@@ -22,7 +22,7 @@ jQuery(function($) {
             $(document.body).on('click', '.wpss_slide_remove', this.handleRemoveSlide.bind(this));
         }
 
-        handleUploadSlide(e) {
+        handleUploadSlide(e) {  
             e.preventDefault();
 
             const mediaUploader = wp.media({

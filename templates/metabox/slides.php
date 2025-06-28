@@ -7,13 +7,13 @@
                     <div class="wpss_slide_actions">
                         <a href="#" class="wpss_slide_move">
                             <span class="tooltip">
-                                <?php echo esc_html__( 'Drag & Sort' , 'wpss-simple-slider' ); ?>
+                                <?php echo esc_html__( 'Drag & Sort' , 'swiper-slider' ); ?>
                             </span>
                             <i class="dashicons dashicons-move"></i>
                         </a>
                         <a href="#" class="wpss_slide_remove">
                             <span class="tooltip">
-                                <?php echo esc_html__( 'Delete' , 'wpss-simple-slider' ) ?>
+                                <?php echo esc_html__( 'Delete' , 'swiper-slider' ) ?>
                         </span>
                             <i class="dashicons dashicons-trash"></i>
                         </a>
@@ -27,6 +27,6 @@
     <div style="clear:both"></div>
     <?php wp_nonce_field( 'wpss_slideshow_metabox_data', 'wpss_slideshow_metabox_nonce' ); ?>
     <a href="#" class="button wpss_upload_slide">
-        <?php echo esc_html__( 'Add Slide', 'wpss-simple-slider' ); ?>
+        <?php echo esc_html__( 'Add Slide', 'swiper-slider' ); ?>
     </a>
 </div>

@@ -43,8 +43,8 @@ if ( ! class_exists( 'WPSS_install' ) ) :
                 'manage_sldier' => sprintf(
                     '<a href="%s" aria-label="%s">%s</a>',
                     admin_url( 'edit.php?post_type=wpss_slider' ),
-                    esc_attr__( 'Manage Slider', 'wpss-simple-slider' ),
-                    esc_html__( 'Manage Slider', 'wpss-simple-slider' )
+                    esc_attr__( 'Manage Slider', 'swiper-slider' ),
+                    esc_html__( 'Manage Slider', 'swiper-slider' )
                 ),
             );
             return array_merge( $action_links, $links );
