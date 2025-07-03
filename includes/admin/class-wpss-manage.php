@@ -30,8 +30,8 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 'Slider Shortcode',
                 [$this, 'shortcode_metabox_callback'],
                 'wpss_slider',
-                'side', // position (normal, side, advanced)
-                'high' // priority (default, low, high, core)
+                'side', 
+                'high'
             );
         }
 
@@ -42,7 +42,6 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 esc_attr( $post->ID ) 
             );
         }
-
 
         public function include_admin_assets() {
             $screen = get_current_screen();
@@ -60,7 +59,8 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                     'wpss-admin-core', 
                     WPSS_URL . 'assets/js/wpss-admin-core.js', 
                     array('jquery', 'media-editor', 'media-views'), 
-                    WPSS_VERSION
+                    WPSS_VERSION,
+                    true
                 );
 
                 wp_enqueue_style( '
@@ -68,14 +68,6 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                     WPSS_URL . 'assets/css/wpss-admin-core-style.css', 
                     array(), 
                     WPSS_VERSION
-                );
-
-                wp_enqueue_script(
-                    'wpss-slider-admin',
-                    WPSS_URL . 'assets/js/wpss-slider-admin.js',
-                    array('jquery'),
-                    WPSS_VERSION,
-                    true
                 );
             endif;            
         }

@@ -63,29 +63,31 @@ class WPSS_Slider_Shortcode {
             return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'swiper-slider' ) . '</p>';
         endif;
 
-        $arrow_style  = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
-        $dot_style    = isset($sliderOptions['dots_navigation_style']) ? $sliderOptions['dots_navigation_style'] : 'style1';
-        $lazy_load    = isset($sliderOptions['control_lazyload_images']) ? $sliderOptions['control_lazyload_images'] : '';
-        
+        $arrow_style        = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
+        $dot_style          = isset($sliderOptions['dots_navigation_style']) ? $sliderOptions['dots_navigation_style'] : 'style1';
+        $lazy_load          = isset($sliderOptions['control_lazyload_images']) ? $sliderOptions['control_lazyload_images'] : '';
+        $pagination_type    = isset($sliderOptions['pagination_type'] ) ? $sliderOptions['pagination_type'] : 'bullets';
+        $progress_position  = isset($sliderOptions['progress_bar_position']) ? $sliderOptions['progress_bar_position'] : 'bottom';
+
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
             ' wpss-swiper-arrow-' . esc_attr($arrow_style) .
-            ' wpss-swiper-dot-' . esc_attr($dot_style) 
+            ' wpss-swiper-dot-' . esc_attr($dot_style) .
+            ' wpss-pagination-' . esc_attr($pagination_type) .
+            ' wpss-progress-' . esc_attr($progress_position) 
         );
 
         ob_start();
         wpss_get_template(
             'frontend/slideshow.php',
             array(
-                'imageIDs'             => $imageIDs, 
-                'slideshow_ID'         => $slideshow_ID,
-                'slideshow_main_class' => $slideshow_main_class,
-                'arrow_style'          => $arrow_style,
-                'dot_style'            => $dot_style,
-                'lazy_load'            => $lazy_load,
-                'options'              => json_encode($sliderOptions)
-
-
+                'imageIDs'              => $imageIDs, 
+                'slideshow_ID'          => $slideshow_ID,
+                'slideshow_main_class'  => $slideshow_main_class,
+                'dot_style'             => $dot_style,
+                'arrow_style'           => $arrow_style,
+                'lazy_load'             => $lazy_load,
+                'options'               => json_encode($sliderOptions)
             )
         );
         return ob_get_clean();

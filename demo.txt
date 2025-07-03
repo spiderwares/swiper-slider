@@ -1,0 +1,255 @@
+<?php echo $data_show . ' ' . $data_hide; ?>
+<?php if ( $dot_style != 'none' ) : ?>
+    <div class="swiper-pagination"></div>
+<?php endif; ?>
+
+jQuery(function($) {
+    class WPSS_Admin_Core {
+
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            this.cacheSelectors();
+            this.bindEvents();
+            this.initSortable();
+            this.initColorPickers();
+
+            $('.wpss-switch-field input[type="checkbox"], .wpss-select-field').each((i, el) => {
+                this.toggleVisibility({ currentTarget: el });
+            });
+        }
+
+        cacheSelectors() {
+            this.$slideContainer = $('.wpss_slides');
+        }
+
+        bindEvents() {
+            $(document.body).on('click', '.wpss_upload_slide', this.handleUploadSlide.bind(this));
+            $(document.body).on('click', '.wpss_slide_remove', this.handleRemoveSlide.bind(this));
+            $(document.body).on('change', '.wpss-switch-field input[type="checkbox"], .wpss-select-field',this.toggleVisibility.bind(this));
+        }
+
+        toggleVisibility(e) {
+            var __this = $(e.currentTarget);
+
+            if (__this.is('select')) {
+                var target     = __this.find(':selected').data('show'),
+                    hideElemnt = __this.data('hide');
+                $(document.body).find(hideElemnt).hide();
+                $(document.body).find(target).show();
+            } else {
+                var target = __this.data('show');
+                $(document.body).find(target).toggle(__this.is(':checked'));
+            }
+        }
+
+        handleUploadSlide(e) {
+            e.preventDefault();
+            const mediaUploader = wp.media({
+                title: 'Insert images',
+                library: { type: 'image' },
+                button: { text: 'Use these images' },
+                multiple: true
+            });
+
+            mediaUploader.on('select', () => {
+                const attachments = mediaUploader.state().get('selection').map(att => att.toJSON());
+
+                attachments.forEach(attachment => {
+                    const imageUrl = attachment.sizes?.wpss_slideshow_thumbnail?.url || attachment.url;
+
+                    const slideHtml = `
+                        <li>
+                            <img width="250" src="${imageUrl}" />
+                            <div class="wpss_slide_actions">
+                                <a href="#" class="wpss_slide_move">
+                                    <span class="tooltip">Drag & Sort</span>
+                                    <i class="dashicons dashicons-move"></i>
+                                </a>
+                                <a href="#" class="wpss_slide_remove">
+                                    <span class="tooltip">Delete</span>
+                                    <i class="dashicons dashicons-trash"></i>
+                                </a>
+                            </div>
+                            <input type="hidden" name="wpss_slider_image_ids[]" value="${attachment.id}" />
+                        </li>`;
+                    this.$slideContainer.append(slideHtml);
+                });
+            });
+
+            mediaUploader.open();
+        }
+
+        handleRemoveSlide(e) {
+            e.preventDefault();
+            $(e.currentTarget).closest('li').remove();
+        }
+
+        initSortable() {
+            this.$slideContainer.sortable({
+                items: 'li',
+                handle: '.wpss_slide_move',
+                cursor: '-webkit-grabbing',
+                stop: (event, ui) => {
+                    ui.item.removeAttr('style');
+                }
+            });
+        }
+
+        initColorPickers() {
+            if ($.fn.wpColorPicker) {
+                $('.wpss-color-picker').wpColorPicker();
+            }
+        }
+    }
+
+    new WPSS_Admin_Core();
+});
+
+
+
+<?php
+/**
+ * Select field html
+ */
+?>
+<td>
+    <select name="wpss_slider_option[<?php echo esc_attr($field_Key); ?>]" 
+            class="wpss-select wpss-select-field"
+            data-hide="<?php echo esc_attr($field['data_hide'] ?? ''); ?>">
+        <?php if (!empty($field['options']) && is_array($field['options'])) : ?>
+            <?php foreach ($field['options'] as $option_value => $option_label) :
+                $data_show = '';
+                if ($option_value === 'bullets') :
+                    $data_show = '.wpss-bullet-style';
+                elseif ($option_value === 'progressbar') :
+                    $data_show = '.wpss-autoplay-progress, .wpss-autoplay-progress';
+                elseif ($option_value === 'fraction') :
+                    $data_show = '.wpss-fraction-style';
+                endif;
+            ?>
+                <option 
+                    value="<?php echo esc_attr($option_value); ?>"
+                    data-show="<?php echo esc_attr($data_show); ?>"
+                    <?php selected($field_Val, $option_value); ?>
+                    <?php echo in_array($option_value, $field['disabled_options'] ?? []) ? 'disabled' : ''; ?>>
+                    <?php echo esc_html($option_label); ?>
+                </option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
+
+    <?php if (!empty($field['description'])) : ?>
+        <p class="description"><?php echo esc_html($field['description']); ?></p>
+    <?php endif; ?>
+</td>
+
+
+<?php
+/**
+ * Switch field html
+ */
+?>
+<td class="wpss-switch-field"> 
+    <?php if ( ! empty( $field['pro_version'] ) && ! defined( 'WPSS_PRO_VERSION' ) ) : ?>
+          <p class="wpss-pro-lock-message">
+            <?php 
+                echo ! empty( $field['pro_version_message'] ) 
+                    ? esc_html( $field['pro_version_message'] ) 
+                    : esc_html__( 'This option is available in the Pro version.', 'swiper-slider' );
+            ?>
+            <a href="https://x.ai/swiper-slider-pro" target="_blank">
+                <?php echo esc_html__( 'Get Pro Version', 'swiper-slider' ); ?>
+            </a>
+        </p>
+    <?php else : ?>
+        <label class="wpss-form-switch">
+            <input type="hidden" name="wpss_slider_option[<?php echo esc_attr($field_Key); ?>]" value="0">
+            <input 
+                type="checkbox"
+                name="wpss_slider_option[<?php echo esc_attr($field_Key); ?>]"
+                value="1"
+                data-show="<?php echo esc_attr($field['data_show'] ?? ''); ?>"
+                <?php checked($field_Val, 1); ?>
+            >
+            <span></span>
+        </label>
+        <?php if (!empty($field['description'])) : ?>
+            <p class="description"><?php echo esc_html($field['description']); ?></p>
+        <?php endif; ?>
+    <?php endif; ?>
+</td>
+
+<?php if ( $dot_style != 'none' ) : ?>
+    <div class="swiper-pagination"></div>
+<?php endif; ?>
+
+<td>
+    <?php if( isset( $field['options'] ) ) : ?>
+        <?php 
+        $disabled_options = isset( $field['disabled_options'] ) ? $field['disabled_options'] : array();
+        foreach( $field['options'] as $optionKey => $optionImg ) :
+            $is_disabled = in_array( $optionKey, $disabled_options );
+            $label_text = $optionKey . ( $is_disabled ? ' (Pro)' : '' );
+        ?>
+            <p class="wpss-image-control <?php echo $is_disabled ? 'wpss-disabled-option' : ''; ?>">
+                <input 
+                    type="radio" 
+                    name="wpss_slider_option[<?php echo esc_attr( $field_Key ); ?>]"
+                    value="<?php echo esc_attr( $optionKey ); ?>"
+                    id="<?php echo esc_attr( $field_Key . "_" . $optionKey ) ?>" 
+                    <?php checked( $optionKey, $field_Val ); ?>
+                    <?php echo $is_disabled ? 'disabled' : ''; ?>>
+
+                <label for="<?php echo esc_attr( $field_Key . "_" . $optionKey ) ?>">
+                    <img 
+                        width="150" 
+                        src="<?php echo esc_url( WPSS_URL . "assets/images/options/" . $optionImg ); ?>" 
+                        alt="<?php echo esc_attr( $label_text ); ?>" 
+                        style="<?php echo $is_disabled ? 'opacity: 0.5; cursor: not-allowed;' : ''; ?>"
+                    >
+                    <?php echo esc_html( $label_text ); ?>
+                </label>
+            </p>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</td>
+
+
+// on: {
+    //     init: function () {
+    //         if (progresscolor && options.pagination_type == 'progressbar') {
+    //             const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
+    //             $progressbar.css({ background: progresscolor });
+    //         }
+    //     }
+// },
+/* Progress bar js */
+toggleVisibility(e) {
+    const __this = $(e.currentTarget);
+
+    if (__this.is('select')) {
+        const selected = __this.find(':selected'),
+            target = selected.data('show'),
+            hideElement = __this.data('hide');
+        $(document.body).find(hideElement).hide();
+        $(document.body).find(target).show();
+
+        // Additional logic for progress bar fields
+        if (__this.is('[name="wpss_slider_option[pagination_type]"]')) {
+            const isProgressbar = __this.val() === 'progressbar',
+                isAutoplayProgressChecked = $('[name="wpss_slider_option[control_autoplay_progress]"]').is(':checked');
+            $(document.body).find('.wpss-progress-bar').toggle(isProgressbar && isAutoplayProgressChecked);
+        }
+    } else if (__this.is('input[type="checkbox"]')) {
+        const target = __this.data('show'),
+            isProgressbar = $('[name="wpss_slider_option[pagination_type]"]').val() === 'progressbar';
+        if (target === '.wpss-progress-bar') {
+            $(document.body).find(target).toggle(__this.is(':checked') && isProgressbar);
+        } else {
+            $(document.body).find(target).toggle(__this.is(':checked'));
+        }
+    }
+}

@@ -4,7 +4,7 @@
  */
 ?>
 <td>
-    <p class="wpss-color-control wpss-progress-bar">
+    <p class="wpss-color-control <?php echo esc_attr($field['class'] ?? ''); ?>">
         <label for="<?php echo esc_attr( $field_Key ); ?>">
             <input 
                 type="text" 

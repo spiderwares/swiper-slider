@@ -1,5 +1,4 @@
 jQuery(function($) {
-
     class WPSS_Admin_Core {
 
         constructor() {
@@ -11,6 +10,11 @@ jQuery(function($) {
             this.bindEvents();
             this.initSortable();
             this.initColorPickers();
+
+            $('.wpss-switch-field input[type="checkbox"], .wpss-select-field').each((i, el) => {
+                this.toggleVisibility({ currentTarget: el });
+            });
+
         }
 
         cacheSelectors() {
@@ -20,11 +24,60 @@ jQuery(function($) {
         bindEvents() {
             $(document.body).on('click', '.wpss_upload_slide', this.handleUploadSlide.bind(this));
             $(document.body).on('click', '.wpss_slide_remove', this.handleRemoveSlide.bind(this));
+            $(document.body).on('change', '.wpss-switch-field input[type="checkbox"], .wpss-select-field',this.toggleVisibility.bind(this));
         }
 
-        handleUploadSlide(e) {  
-            e.preventDefault();
+        toggleVisibility(e) {
+            var __this = $(e.currentTarget);
 
+            if (__this.is('select')) {
+                var target     = __this.find(':selected').data('show'),
+                    hideElement = __this.data('hide');
+                $(document.body).find(hideElement).hide();
+                $(document.body).find(target).show();
+            } else {
+                var target = __this.data('show');
+                $(document.body).find(target).toggle(__this.is(':checked'));
+            }
+        }
+
+        // toggleVisibility(e) {
+        //     const __this = $(e.currentTarget);
+
+        //     if (__this.is('select')) {
+        //         const target         = __this.find(':selected').data('show'),
+        //              hideElement     = __this.data('hide'),
+        //              isProgressbar   = selectedOption.val() === 'progressbar',
+        //              autoplaySwitch  = $('[name="wpss_slider_option[control_autoplay_progress]"]');
+
+        //         $(document.body).find(hideElement).hide();
+
+        //         if (isProgressbar) {
+        //             $(document.body).find('.wpss-autoplay-progress').show();
+        //             if (autoplaySwitch.is(':checked')) {
+        //                 $(document.body).find('.wpss-progress-bar').show();
+        //             } else {
+        //                 $(document.body).find('.wpss-progress-bar').hide();
+        //             }
+        //         } else {
+        //             $(document.body).find(target).show();
+        //         }
+
+        //     } else {
+        //         const target = __this.data('show'),
+        //              isProgressbar = $('[name="wpss_slider_option[pagination_type]"]').val() === 'progressbar';
+
+        //         if (target === '.wpss-progress-bar') {
+        //             $(document.body).find(target).toggle(__this.is(':checked') && isProgressbar);
+        //         } else {
+        //             $(document.body).find(target).toggle(__this.is(':checked'));
+        //         }
+        //     }
+        // }
+
+
+        handleUploadSlide(e) {
+            e.preventDefault();
             const mediaUploader = wp.media({
                 title: 'Insert images',
                 library: { type: 'image' },
@@ -40,7 +93,7 @@ jQuery(function($) {
 
                     const slideHtml = `
                         <li>
-                            <img width="250" src="${imageUrl}" />   
+                            <img width="250" src="${imageUrl}" />
                             <div class="wpss_slide_actions">
                                 <a href="#" class="wpss_slide_move">
                                     <span class="tooltip">Drag & Sort</span>
@@ -53,7 +106,6 @@ jQuery(function($) {
                             </div>
                             <input type="hidden" name="wpss_slider_image_ids[]" value="${attachment.id}" />
                         </li>`;
-
                     this.$slideContainer.append(slideHtml);
                 });
             });
@@ -85,5 +137,4 @@ jQuery(function($) {
     }
 
     new WPSS_Admin_Core();
-
 });

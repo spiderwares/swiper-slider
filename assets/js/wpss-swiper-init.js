@@ -36,14 +36,15 @@ jQuery(function ($) {
 
         buildSwiperOptions(slider, options) {
             const isResponsive = options.control_enable_responsive === '1' || options.control_enable_responsive === 1,
-                effect = options.animation || 'slide',
-                progresscolor = options.progress_bar_color;
+                progresscolor = options.progress_bar_color,
+                isVertical = options.control_slider_vertical == '1' || options.control_slider_vertical === true;
+
+            if (options.pagination_type === 'progressbar' && isVertical) {
+                slider.addClass('wpss-vertical');
+            }
 
             const baseOptions = {
-                loop: true,
-                speed: 400,
-                effect: effect,
-                spaceBetween: 10,
+                effect: options.animation || 'slide',
                 grabCursor: options.control_grab_cursor == '1',
                 slidesPerView: isResponsive ? parseInt(options.items_in_desktop) || 1 : 1,
                 autoplay: options.control_autoplay == '1' ? {
@@ -53,21 +54,26 @@ jQuery(function ($) {
                 pagination: {
                     el: slider.find('.swiper-pagination')[0],
                     clickable: true,
-                    type: options.control_autoplay_progress == '1' ? 'progressbar' : 'bullets',
+                    type: options.pagination_type === 'progressbar' ? 'progressbar' : 
+                        options.pagination_type === 'fraction' ? 'fraction' : 'bullets',
+                    horizontalClass: 'swiper-pagination-progressbar-horizontal',
+                    verticalClass: 'swiper-pagination-progressbar-vertical',
                 },
                 navigation: {
                     nextEl: slider.find('.swiper-button-next')[0],
                     prevEl: slider.find('.swiper-button-prev')[0],
                 },
-                lazy: true,
+                lazy: options.control_lazyload_images == '1' || options.control_lazyload_images === true,
                 on: {
                     init: function () {
-                        if (progresscolor && options.control_autoplay_progress == '1') {
+                        const isAutoplayProgress = options.control_autoplay_progress == '1' || options.control_autoplay_progress === true;
+                        if (isAutoplayProgress && progresscolor && options.pagination_type == 'progressbar') {
                             const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
                             $progressbar.css({ background: progresscolor });
                         }
                     }
                 },
+
             };
 
             if (isResponsive) {
