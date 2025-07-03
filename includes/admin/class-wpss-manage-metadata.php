@@ -37,17 +37,35 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                 )
             );
 
-            $this->fields = apply_filters( 'wpss_slider_fields', array(
+            $this->fields = array(
                 'animation'  => array(
                     'name'          => esc_html__( 'Transition type', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
-                        'slide' =>  'animation-type-slide.gif',
-                        'fade'  =>  'animation-type-fade.gif',
-                        'flip'  =>  'animation-type-flip.gif',
-                        'cube'  =>  'animation-type-cube.gif',
+                        'slide'             =>  'animation-type-slide.gif',
+                        'fade'              =>  'animation-type-fade.gif',
+                        'flip'              =>  'animation-type-flip.gif',
+                        'cube'              =>  'animation-type-cube.gif',
+                        'cards (pro)'       =>  'animation-type-cards.gif',
+                        'coverflow (pro)'   =>  'animation-type-coverflow.gif',
+                        'shadow push (pro)' =>  'animation-type-creative1.gif',
+                        'zoom split (pro)'  =>  'animation-type-creative2.gif',
+                        'ghost slide (pro)' =>  'animation-type-creative3.gif',
+                        'flip deck (pro)'   =>  'animation-type-creative4.gif',
+                        'twist flow (pro)'  =>  'animation-type-creative5.gif',
+                        'mirrorx (pro)'     =>  'animation-type-creative6.gif'
                     ),
-                    'default'       => 'slide'
+                    'disabled_options' => array( 
+                        'cards (pro)', 
+                        'coverflow (pro)', 
+                        'shadow push (pro)', 
+                        'zoom split (pro)', 
+                        'ghost slide (pro)', 
+                        'flip deck (pro)', 
+                        'twist flow (pro)', 
+                        'mirrorx (pro)'
+                    ),
+                    'default'       => 'slide',
                 ),
                 'navigation_arrow_style' => array(
                     'name'          => esc_html__( 'Navigation arrows style', 'swiper-slider' ),
@@ -57,9 +75,39 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                         'style1' =>  'arrow-style-1.jpg',
                         'style2' =>  'arrow-style-2.jpg',
                         'style3' =>  'arrow-style-3.jpg',
-                        'style4'  => 'arrow-style-preve-next-slide-visible.jpg'
+                        'style4' =>  'arrow-style-preve-next-slide-visible.jpg',
+                        'style5 (pro)' =>  'arrow-style-5.jpg',
                     ),
-                    'default'       => 'style1'
+                    'disabled_options' => array( 'style5 (pro)' ),
+                    'default'       => 'style1',
+                ),
+                'pagination_type' => array(
+                    'name'        => esc_html__( 'Pagination Type', 'swiper-slider' ),
+                    'field_type'  => 'select',
+                    'options'     => array(
+                        'bullets'     => esc_html__( 'Bullets', 'swiper-slider' ),
+                        'progressbar' => esc_html__( 'Progress Bar', 'swiper-slider' ),
+                        'fraction'    => esc_html__( 'Fraction', 'swiper-slider' ),
+                    ),
+                    'disabled_options' => array( 'fraction' ),
+                    'default'     => 'bullets',
+                    'description' => esc_html__( 'Choose between bullet dots or a progress bar for pagination.', 'swiper-slider' ),
+                    'data_hide'   => '.wpss-bullet-style, .wpss-autoplay-progress, .wpss-progress-bar, .wpss-fraction-style',
+                    'data_show_map' => array(
+                        'bullets'     => '.wpss-bullet-style',
+                        'progressbar' => '.wpss-autoplay-progress, .wpss-progress-bar',
+                        'fraction'    => '.wpss-fraction-style',
+                    ),
+                ),
+                'fraction_navigation_style'  => array(
+                    'name'        => esc_html__( 'Fraction arrows style', 'swiper-slider' ),
+                    'field_type'  => 'radio',
+                    'options'     => array(
+                        'style1'  => 'arrow-fraction.jpg',
+                    ),
+                    'default'     => 'style1',
+                    'class'       => 'wpss-fraction-style',
+                    'disabled_options' => array( 'style1' )
                 ),
                 'dots_navigation_style'  => array(
                     'name'          => esc_html__( 'Bullet arrows style', 'swiper-slider' ),
@@ -71,30 +119,57 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                         'style3' =>  'bullets-style-3.jpg',
                         'style4' =>  'bullets-style-4.jpg',
                     ),
-                    'default'       => 'style1'
+                    'default'       => 'style1',
+                    'class'         => 'wpss-bullet-style',
+                ),
+                'control_autoplay_progress'   => array(
+                    'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
+                    'field_type'    => 'switch',
+                    'default'       => false,
+                    'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'swiper-slider' ),
+                    'data_show'     => '.wpss-progress-bar',
+                    'class'         => 'wpss-autoplay-progress',
+                ),
+                'progress_bar_position' => array(
+                    'name'          => esc_html__( 'Progress Bar Position', 'swiper-slider' ),
+                    'field_type'    => 'select',
+                    'options'       => array(
+                        'bottom'    => esc_html__( 'Bottom (default)', 'swiper-slider' ),
+                        'top'       => esc_html__( 'Top', 'swiper-slider' ),
+                        'left'      => esc_html__( 'Left', 'swiper-slider' ),
+                        'right'     => esc_html__( 'Right', 'swiper-slider' ),
+                    ),
+                    'default'       => 'bottom',
+                    'description'   => esc_html__( 'Choose where to position the autoplay progress bar.', 'swiper-slider' ),
+                    'class'         => 'wpss-progress-bar',
+                ),
+                'progress_bar_color' => array(
+                    'name'          => esc_html__( 'Progress bar color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#ff0000',
+                    'class'         => 'wpss-progress-bar',
+                ),
+                'control_slider_vertical' => array(
+                    'name'        =>  esc_html__( 'Vertical Slider Control', 'swiper-slider' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'pro_version' =>  true,
+                    'description' =>  esc_html__( 'Enable vertical direction for the slider.', 'swiper-slider' ),
+                    'pro_version_message'  => esc_html__( 'Vertical slider direction is only available in the Pro version. Upgrade to unlock this feature.', 'swiper-slider' ),
                 ),
                 'control_autoplay'  => array(
                     'name'          => esc_html__( 'Autoplay', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => true,
                     'description'   => esc_html__( 'Enable or disable autoplay functionality.', 'swiper-slider' ),
+                    'data_show'     => '.wpss-autoplay-timing',
                 ),
                 'autoplay_timing'   => array(
                     'name'          => esc_html__( 'Autoplay timing', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 3000,
+                    'class'         => 'wpss-autoplay-timing',
                     'description'   => esc_html__( 'Enter autoplay speed in milliseconds (e.g., 3000 for 3 seconds).', 'swiper-slider' ),
-                ),
-                'control_autoplay_progress'   => array(
-                    'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
-                    'field_type'    => 'switch',
-                    'default'       => false,
-                    'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'swiper-slider' )
-                ),
-                'progress_bar_color' => array(
-                    'name'        => esc_html__( 'Progress bar color', 'swiper-slider' ),
-                    'field_type'  => 'color',
-                    'default'     => '#ff0000'
                 ),
                 'control_lazyload_images'   => array(
                     'name'          => esc_html__( 'Lazy load images', 'swiper-slider' ),  
@@ -112,27 +187,78 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'name'          => esc_html__( 'Enable Responsive', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => true,
-                    'description'   => esc_html__( 'Enable responsive layout for different screen sizes (mobile, tablet, desktop).', 'swiper-slider' )
+                    'description'   => esc_html__( 'Enable responsive layout for different screen sizes (mobile, tablet, desktop).', 'swiper-slider' ),
+                    'data_show'     => '.wpss-responsive-field',
                 ),
                 'items_in_desktop'  => array(
                     'name'          => esc_html__( 'Items in Standard Desktop', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 4,
-                    'depends_on'    => 'control_enable_responsive'
+                    'class'         => 'wpss-responsive-field',
                 ),
                 'items_in_tablet'   => array(
                     'name'          => esc_html__( 'Items in Tablet', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 2,
-                    'depends_on'    => 'control_enable_responsive'
+                    'class'         => 'wpss-responsive-field',
                 ),
                 'items_in_mobile'   => array(
                     'name'          => esc_html__( 'Items in Mobile', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 1,
-                    'depends_on'    => 'control_enable_responsive'
+                    'class'         => 'wpss-responsive-field',
                 ),
-            ) );
+                'control_loop_slider' => array(
+                    'name'        => esc_html__( 'Loop Slides', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => true,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Enable continuous loop mode for the slider.', 'swiper-slider' ),
+                    'pro_version_message' => esc_html__( 'Upgrade to Pro to enable loop mode.', 'swiper-slider' ),
+                ),
+                'control_slide_speed' => array(
+                    'name'        => esc_html__( 'Slide Speed', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 400,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set the speed of slide transition in milliseconds (e.g., 400 = 0.4 seconds).', 'swiper-slider' ),
+                    'pro_version_message'  => esc_html__( 'Slide speed customization is only available in the Pro version.', 'swiper-slider' ),
+                ),
+                'control_slide_space' => array(
+                    'name'        => esc_html__( 'Slides Space', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 10,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Space between each slide (in px).', 'swiper-slider' ),
+                    'pro_version_message' => esc_html__( 'Only available in Pro: Set space between slides.', 'swiper-slider' ),
+                ),
+                'zoom_images' => array(
+                    'name'        => esc_html__( 'Zoom Images', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => false,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Enable a zoom images for slider.', 'swiper-slider' ),
+                    'pro_version_message'  => esc_html__( 'Zoom Images is only available in the Pro version. Upgrade to enable zoom effect.', 'swiper-slider' ),
+                ),
+                'control_keyboard' => array(
+                    'name'        =>  esc_html__( 'Keyboard Control', 'swiper-slider' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'pro_version' =>  true,
+                    'description' =>  esc_html__( 'Enable keyboard navigation for the slider using arrow keys.', 'swiper-slider' ),
+                    'pro_version_message'  => esc_html__( 'Keyboard navigation is only available in the Pro version. Upgrade to enable keyboard control.', 'swiper-slider' ),
+                ),
+                'control_mousewheel' => array(
+                    'name'        =>  esc_html__( 'Mousewheel Control', 'swiper-slider' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'pro_version' =>  true,
+                    'description' =>  esc_html__( 'Enable mouse wheel navigation for the slider.', 'swiper-slider' ),
+                    'pro_version_message' => esc_html__( 'Mousewheel control is only available in the Pro version. Upgrade to enable this feature.', 'swiper-slider' ),
+                ),
+            );
+
+            $this->fields = apply_filters( 'wpss_slider_fields', $this->fields );
         }
 
         public function intialize_slideshow_metabox() {

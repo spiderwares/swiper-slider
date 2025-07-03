@@ -200,6 +200,12 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 p.description {
     color: #333;
     font-size: 14px;
+    margin-top: 5px;
+}
+.wpss-image-control img{
+    max-width: 150px;
+    max-height: 98px;
+    object-fit: cover;
 }
 .wpss_slides_wrap label.wpss-form-switch span:after {
     left: 2px;
@@ -211,6 +217,34 @@ p.description {
 .wpss_slides_wrap label.wpss-form-switch input[type="checkbox"]:checked + span {
     background-color: #0213ff;
     color: #0213ff;
+    transition: 0.3s ease-in-out;
+}
+.wpss-autoplay-progress:not(:visible) ~ .wpss-autoplay-progress-bar {
+    display: none !important;
+}
+/* .wpss-progress-bar,
+.wpss-fraction-style,
+.wpss-autoplay-progress,
+.wpss-bullet-style {
+    display: none;
+} */
+
+/* Pro Version message */
+.wpss-pro-lock-message {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-style: italic;
+}
+.wpss-pro-lock-message a {
+    color: #0073aa;
+    text-decoration: underline;
+}
+
+.wpss-disabled-option {
+    pointer-events: none;
+    opacity: 1;
 }
 
 .wpss_slides_wrap label.wpss-form-switch span {
@@ -266,9 +300,8 @@ input[type="range"]:hover {
     display: flex;
     align-items: center;
 }
-
-.wpss-input {
-    width: 80px;
+.wpss-input, .wpss-select{
+    width: 350px;
     height: 35px;
     padding: 5px 10px;
     border: 1px solid #ccc;

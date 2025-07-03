@@ -4,8 +4,8 @@
 
 			<?php  foreach( $fields as $field_Key => $field ) : 
 				$field_Val = isset( $options[$field_Key] ) ? $options[$field_Key] : $field['default'];
-				$row_class = ( strpos( $field_Key, 'items_in_' ) === 0 ) ? 'wpss-responsive-field' : ''; 
-				?>
+				$row_class = isset( $field['class'] ) ? $field['class'] : '' ;
+			?>
 
 				<tr class="<?php echo esc_attr( $row_class ); ?>">
 					<th scope="row">
