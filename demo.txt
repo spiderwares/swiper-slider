@@ -253,3 +253,394 @@ toggleVisibility(e) {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* ============================= Arrow Style ========================== */
+/* Style 1 */
+.wpss-swiper-arrow-style1 .swiper-button-next,
+.wpss-swiper-arrow-style1 .swiper-button-prev {
+    color: #555;
+    font-size: 40px;
+    opacity: 0.9;
+}
+
+.wpss-swiper-arrow-style1 .swiper-button-next:hover,
+.wpss-swiper-arrow-style1 .swiper-button-prev:hover {
+    color: #fff;
+}
+
+/* Style 2 */
+.wpss-swiper-arrow-style2 .swiper-button-next,
+.wpss-swiper-arrow-style2 .swiper-button-prev {
+    background: #ffffff00;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wpss-swiper-arrow-style2 .swiper-button-next:after, 
+.wpss-swiper-arrow-style2 .swiper-button-prev:after{
+    font-size: 30px;
+}
+
+.wpss-swiper-arrow-style2 .swiper-button-next:hover,
+.wpss-swiper-arrow-style2 .swiper-button-prev:hover {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+/* Style 3 */
+.wpss-swiper-arrow-style3 .swiper-button-next,
+.wpss-swiper-arrow-style3 .swiper-button-prev {
+    background: #555;
+    border: 2px solid #555;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+}
+
+.wpss-swiper-arrow-style3 .swiper-button-next:after, 
+.wpss-swiper-arrow-style3 .swiper-button-prev:after{
+    font-size: 30px;
+}
+
+/* Style 4 */
+.wpss-swiper-arrow-style4 {
+    position: relative;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev,
+.wpss-swiper-arrow-style4 .swiper-button-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    height: auto;
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    z-index: 10;
+    margin: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev {
+    left: 0;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-next {
+    right: 0;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev:hover,
+.wpss-swiper-arrow-style4 .swiper-button-next:hover {
+    background-color: rgba(85, 85, 85, 0.5);
+    color: #fff;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev:after,
+.wpss-swiper-arrow-style4 .swiper-button-next:after {
+    font-size: 30px;
+}
+
+/* =========================== Dot Style =========================== */
+
+.wp-site-blocks *:focus {
+	outline-width: 2px;
+	outline-style: none;
+}
+
+/* Style 1  */
+.wpss-swiper-dot-style1 .swiper-pagination-bullet {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 1;
+}
+.wpss-swiper-dot-style1 .swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+/* Style 2 */
+.wpss-swiper-dot-style2 .swiper-pagination-bullet {
+    background: transparent;
+    border: 2px solid #fff;
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    opacity: 1;
+}
+.wpss-swiper-dot-style2 .swiper-pagination-bullet-active {
+    background: #fff;
+}
+
+/* Style 3 */
+.wpss-swiper-dot-style3 .swiper-pagination-bullet {
+    background: #999;
+    border-radius: 0;
+    width: 20px;
+    height: 4px;
+    opacity: 0.6;
+}
+.wpss-swiper-dot-style3 .swiper-pagination-bullet-active {
+    background: #fff;
+    opacity: 1;
+}
+
+/* Style 4 */
+.wpss-swiper-dot-style4 .swiper-pagination-bullet {
+    background: #fff;
+    border: 2px solid #333;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    opacity: 1;
+}
+.wpss-swiper-dot-style4 .swiper-pagination-bullet-active {
+    background: #000;
+}
+
+/* =========================== Grab Cursor ========================== */
+.wpss-swiper-grab-cursor {
+    cursor: grab;
+}
+.wpss-swiper-grab-cursor:active {
+    cursor: grabbing;
+}
+
+
+/* =========================== Progress Bar ============================= */
+/* Top */
+.swiper-slider-wrapper.wpss-progress-top .swiper-pagination-progressbar {
+    top: 0;
+    bottom: auto;
+    z-index: 99;
+    height: 6px;
+}
+
+/* Bottom */
+.swiper-slider-wrapper.wpss-progress-bottom .swiper-pagination-progressbar {
+    bottom: 0;
+    top: auto;
+    z-index: 99;
+    height: 6px;
+} 
+/* Left */
+.swiper-slider-wrapper.wpss-progress-left.wpss-swiper-arrow-style4 .swiper-pagination-progressbar {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: auto;
+    z-index: 99;
+    width: 6px;
+}
+
+/* Right */
+.swiper-slider-wrapper.wpss-progress-right.wpss-swiper-arrow-style4 .swiper-pagination-progressbar {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    width: 6px;
+    z-index: 99;
+}
+
+/* ===================== Slides Per View =====================*/
+/* .swiper-slide:nth-child(2n) {
+    width: 40%;
+}
+.swiper-slide:nth-child(3n) {
+    width: 20%;
+}
+ .swiper-slide {
+    width: 60%;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+jQuery(function ($) {
+
+    class WPSS_Slider_Frontend {
+
+        constructor() {
+            this.init();
+        }
+
+        init() {
+            this.initializeSliders();
+        }
+
+        initializeSliders() {
+            $('.swiper.swiper-slider-wrapper').each((index, element) => {
+                const slider = $(element),
+                    rawOptions = slider.attr('data-options');
+
+                if (!rawOptions) return;
+
+                let options = this.parseOptions(rawOptions);
+                if (!options) return;
+
+                const finalOptions = this.buildSwiperOptions(slider, options);
+                this.createSwiperInstance(slider, finalOptions);
+            });
+        }
+
+        parseOptions(rawOptions) {
+            try {
+                return JSON.parse(rawOptions);
+            } catch (error) {
+                console.error("Invalid JSON in data-options:", error);
+                return null;
+            }
+        }
+
+        buildSwiperOptions(slider, options) {
+            const isResponsive = options.control_enable_responsive === '1' || options.control_enable_responsive === 1,
+                // isAutoSlides = options.slide_control_view_auto == '1' || options.slide_control_view_auto === true,
+                progresscolor = options.progress_bar_color,
+                fractionColor = options.fraction_color;
+
+            const baseOptions = {
+                effect: options.animation || 'slide',
+                grabCursor: options.control_grab_cursor == '1',
+                slidesPerView: isAutoSlides ? 'auto' : (isResponsive ? (parseInt(options.items_in_desktop) || 1) : 1),
+                autoplay: options.control_autoplay == '1' ? {
+                    delay: parseInt(options.autoplay_timing, 10) || 3000,
+                    disableOnInteraction: false,
+                } : false,
+                pagination: {
+                    el: slider.find('.swiper-pagination')[0],
+                    clickable: true,
+                    type: options.pagination_type === 'progressbar' ? 'progressbar' : 
+                        options.pagination_type === 'fraction' ? 'fraction' : 'bullets',
+                },
+                navigation: {
+                    nextEl: slider.find('.swiper-button-next')[0],
+                    prevEl: slider.find('.swiper-button-prev')[0],
+                },
+                lazy: options.control_lazyload_images == '1' || options.control_lazyload_images === true,
+                on: {
+                    init: function () {
+                        const isAutoplayProgress = options.control_autoplay_progress == '1' || options.control_autoplay_progress === true;
+                        if (isAutoplayProgress && progresscolor && options.pagination_type == 'progressbar') {
+                            const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
+                            $progressbar.css({ background: progresscolor });
+                        }
+
+                        if (options.pagination_type === 'fraction' && fractionColor) {
+                            const $fraction = slider.find('.swiper-pagination');
+                            $fraction.css('color', fractionColor);
+                        }
+                    }
+                },
+            };
+
+            if (!isAutoSlides && isResponsive) {
+                baseOptions.breakpoints = this.getResponsiveBreakpoints(options);
+            }
+
+            return $.extend({}, baseOptions, options);
+        }
+
+        getResponsiveBreakpoints(options) {
+            return {
+                1024: {
+                    slidesPerView: parseInt(options.items_in_desktop) || 4,
+                },
+                768: {
+                    slidesPerView: parseInt(options.items_in_tablet) || 2,
+                },
+                400: {
+                    slidesPerView: parseInt(options.items_in_mobile) || 1,
+                }
+            };
+        }
+
+        createSwiperInstance(slider, finalOptions) {
+            new Swiper(slider[0], finalOptions);
+        }
+
+    }
+
+    new WPSS_Slider_Frontend();
+
+});

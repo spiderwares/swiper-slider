@@ -81,6 +81,16 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'disabled_options' => array( 'style5 (pro)' ),
                     'default'       => 'style1',
                 ),
+                 'width_image'   => array(
+                    'name'          => esc_html__( 'Width of Image', 'swiper-slider' ),
+                    'field_type'    => 'number',
+                    'default'       => 500,
+                ),
+                'height_image'   => array(
+                    'name'          => esc_html__( 'Height of Image', 'swiper-slider' ),
+                    'field_type'    => 'number',
+                    'default'       => 500,
+                ),
                 'pagination_type' => array(
                     'name'        => esc_html__( 'Pagination Type', 'swiper-slider' ),
                     'field_type'  => 'select',
@@ -89,7 +99,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                         'progressbar' => esc_html__( 'Progress Bar', 'swiper-slider' ),
                         'fraction'    => esc_html__( 'Fraction', 'swiper-slider' ),
                     ),
-                    'disabled_options' => array( 'fraction' ),
+                    'disabled_options' => array( 'fraction' , 'custom'),
                     'default'     => 'bullets',
                     'description' => esc_html__( 'Choose between bullet dots or a progress bar for pagination.', 'swiper-slider' ),
                     'data_hide'   => '.wpss-bullet-style, .wpss-autoplay-progress, .wpss-progress-bar, .wpss-fraction-style',
@@ -108,6 +118,12 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     => 'style1',
                     'class'       => 'wpss-fraction-style',
                     'disabled_options' => array( 'style1' )
+                ),
+                'fraction_color' => array(
+                    'name'          => esc_html__( 'Fraction color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#ff0000',
+                    'class'         => 'wpss-fraction-style',
                 ),
                 'dots_navigation_style'  => array(
                     'name'          => esc_html__( 'Bullet arrows style', 'swiper-slider' ),
@@ -134,14 +150,15 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'name'          => esc_html__( 'Progress Bar Position', 'swiper-slider' ),
                     'field_type'    => 'select',
                     'options'       => array(
-                        'bottom'    => esc_html__( 'Bottom (default)', 'swiper-slider' ),
-                        'top'       => esc_html__( 'Top', 'swiper-slider' ),
-                        'left'      => esc_html__( 'Left', 'swiper-slider' ),
-                        'right'     => esc_html__( 'Right', 'swiper-slider' ),
+                        'bottom'    => esc_html__( 'Bottom (Use in Horizontal)', 'swiper-slider' ),
+                        'top'       => esc_html__( 'Top (Use in Horizontal)', 'swiper-slider' ),
+                        'left'      => esc_html__( 'Left (Use in Vertical)', 'swiper-slider' ),
+                        'right'     => esc_html__( 'Right (Use in Vertical)', 'swiper-slider' ),
                     ),
                     'default'       => 'bottom',
                     'description'   => esc_html__( 'Choose where to position the autoplay progress bar.', 'swiper-slider' ),
                     'class'         => 'wpss-progress-bar',
+                    'disabled_options' => array('right','left'),
                 ),
                 'progress_bar_color' => array(
                     'name'          => esc_html__( 'Progress bar color', 'swiper-slider' ),
@@ -208,6 +225,25 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'       => 1,
                     'class'         => 'wpss-responsive-field',
                 ),
+                'slide_control_view_auto' => array(
+                    'name'        =>  esc_html__( 'Slides Per View Auto', 'swiper-slider' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'description' =>  esc_html__( 'Enable slide show per view auto for the slider.', 'swiper-slider' ),
+                    'class'       => 'wpss-responsive-field',
+                ),
+                'slide_control_center' => array(
+                    'name'        =>  esc_html__( 'Slides Centered', 'swiper-slider' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'description' =>  esc_html__( 'Enable slide centered for the slider.', 'swiper-slider' ),
+                ),
+                'slide_control_center_auto' => array(
+                    'name'        =>  esc_html__( 'Slides Centered Auto', 'swiper-slider-pro' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'description' =>  esc_html__( 'Enable slide centered auto for the slider.', 'swiper-slider-pro' ),
+                ),
                 'control_loop_slider' => array(
                     'name'        => esc_html__( 'Loop Slides', 'swiper-slider' ),
                     'field_type'  => 'switch',
@@ -255,6 +291,21 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'pro_version' =>  true,
                     'description' =>  esc_html__( 'Enable mouse wheel navigation for the slider.', 'swiper-slider' ),
                     'pro_version_message' => esc_html__( 'Mousewheel control is only available in the Pro version. Upgrade to enable this feature.', 'swiper-slider' ),
+                ),
+                'control_scrollbar' => array(
+                    'name'        =>  esc_html__( 'Scrollbar Control', 'swiper-slider' ),
+                    'field_type'  =>  'switch',
+                    'default'     =>  false,
+                    'pro_version' =>  true,
+                    'description' =>  esc_html__( 'Enable scrollbar navigation for the slider.', 'swiper-slider' ),
+                    'pro_version_message' => esc_html__( 'Enable scrollbar navigation for the slider.', 'swiper-slider' ),
+                    'data_show'   => '.wpss-scrollbar-wrapper',
+                ),
+                'scrollbar_color' => array(
+                    'name'        =>  esc_html__( 'Scrollbar Color', 'swiper-slider' ),
+                    'field_type'  =>  'color',
+                    'default'     =>  '#999999',
+                    'class'       =>  'wpss-scrollbar-wrapper',
                 ),
             );
 

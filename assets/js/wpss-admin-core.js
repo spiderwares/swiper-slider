@@ -27,53 +27,45 @@ jQuery(function($) {
             $(document.body).on('change', '.wpss-switch-field input[type="checkbox"], .wpss-select-field',this.toggleVisibility.bind(this));
         }
 
+        // toggleVisibility(e) {
+        //     var __this = $(e.currentTarget);
+
+        //     if (__this.is('select')) {
+        //         var target     = __this.find(':selected').data('show'),
+        //             hideElement = __this.data('hide');
+        //         $(document.body).find(hideElement).hide();
+        //         $(document.body).find(target).show();
+        //     } else {
+        //         var target = __this.data('show');
+        //         $(document.body).find(target).toggle(__this.is(':checked'));
+        //     }
+        // }
+        
+
         toggleVisibility(e) {
-            var __this = $(e.currentTarget);
+            const __this = $(e.currentTarget);
 
             if (__this.is('select')) {
-                var target     = __this.find(':selected').data('show'),
+                const target    = __this.find(':selected').data('show'),
                     hideElement = __this.data('hide');
                 $(document.body).find(hideElement).hide();
                 $(document.body).find(target).show();
-            } else {
-                var target = __this.data('show');
-                $(document.body).find(target).toggle(__this.is(':checked'));
+
+                if (__this.is('[name="wpss_slider_option[pagination_type]"]')) {
+                    const isProgressbar = __this.val() === 'progressbar',
+                        isAutoplayProgressChecked = $('[name="wpss_slider_option[control_autoplay_progress]"]').is(':checked');
+                    $(document.body).find('.wpss-progress-bar').toggle(isProgressbar && isAutoplayProgressChecked);
+                }
+            } else if (__this.is('input[type="checkbox"]')) {
+                const target        = __this.data('show'),
+                    isProgressbar   = $('[name="wpss_slider_option[pagination_type]"]').val() === 'progressbar';
+                if (target === '.wpss-progress-bar') {
+                    $(document.body).find(target).toggle(__this.is(':checked') && isProgressbar);
+                } else {
+                    $(document.body).find(target).toggle(__this.is(':checked'));
+                }
             }
         }
-
-        // toggleVisibility(e) {
-        //     const __this = $(e.currentTarget);
-
-        //     if (__this.is('select')) {
-        //         const target         = __this.find(':selected').data('show'),
-        //              hideElement     = __this.data('hide'),
-        //              isProgressbar   = selectedOption.val() === 'progressbar',
-        //              autoplaySwitch  = $('[name="wpss_slider_option[control_autoplay_progress]"]');
-
-        //         $(document.body).find(hideElement).hide();
-
-        //         if (isProgressbar) {
-        //             $(document.body).find('.wpss-autoplay-progress').show();
-        //             if (autoplaySwitch.is(':checked')) {
-        //                 $(document.body).find('.wpss-progress-bar').show();
-        //             } else {
-        //                 $(document.body).find('.wpss-progress-bar').hide();
-        //             }
-        //         } else {
-        //             $(document.body).find(target).show();
-        //         }
-
-        //     } else {
-        //         const target = __this.data('show'),
-        //              isProgressbar = $('[name="wpss_slider_option[pagination_type]"]').val() === 'progressbar';
-
-        //         if (target === '.wpss-progress-bar') {
-        //             $(document.body).find(target).toggle(__this.is(':checked') && isProgressbar);
-        //         } else {
-        //             $(document.body).find(target).toggle(__this.is(':checked'));
-        //         }
-        //     }
-        // }
 
 
         handleUploadSlide(e) {

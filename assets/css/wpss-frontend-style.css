@@ -1,18 +1,30 @@
 .swiper-slide img {
     display: block;
-    width: 100%;
-    height: 100%;
+    width: auto;
+    height: auto;
     object-fit: cover;
+    margin: 0 auto;
 }
-
-.swipe  r-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #444;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.swiper.swiper-slider-wrapper {
+    height: auto !important;
 }
+/* .swiper-slide {
+    height: auto !important;
+} */
+/* .swiper.swiper-slider-wrapper.vertical {
+    height: auto !important;
+}
+.swiper-slide {
+    height: auto !important;
+}
+.swiper-slide img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    object-fit: cover;
+    margin: 0 auto;
+} */
 
 /* ============================= Arrow Style ========================== */
 /* Style 1 */
@@ -84,19 +96,21 @@
     top: 0;
     bottom: 0;
     width: 50px;
-    height: 398px;
-    background: #fff;
-    border: 1px solid black;
-    color: black;
+    height: auto;
+    background-color: #fff;
+    border: 1px solid #000;
+    color: #000;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 1;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
     z-index: 10;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
+    font-size: 20px;
+    cursor: pointer;
 }
+
 .wpss-swiper-arrow-style4 .swiper-button-prev {
     left: 0;
 }
@@ -107,8 +121,8 @@
 
 .wpss-swiper-arrow-style4 .swiper-button-prev:hover,
 .wpss-swiper-arrow-style4 .swiper-button-next:hover {
-    background: #55555585;
-    color: white;
+    background-color: rgba(85, 85, 85, 0.5);
+    color: #fff;
 }
 
 .wpss-swiper-arrow-style4 .swiper-button-prev:after,
@@ -185,35 +199,46 @@
 
 
 /* =========================== Progress Bar ============================= */
-/* Base Progressbar (Horizontal default) */
-.swiper-slider-wrapper .swiper-pagination-progressbar {
-    height: 6px;
-    background: #e0e0e0;
-    border-radius: 50px;
-    overflow: hidden;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: auto;
-    bottom: 0;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
 
-/* Horizontal Fill */
-.swiper-slider-wrapper.wpss-vertical .swiper-pagination-progressbar-fill {
-    height: 100%;
-    width: 0%;
-    background-color: #ff0000;
-    border-radius: 50px;
-}
-
-/* Horizontal Positions */
 .swiper-slider-wrapper.wpss-progress-top .swiper-pagination-progressbar {
     top: 0;
     bottom: auto;
+    z-index: 99;
+    height: 6px;
 }
 
 .swiper-slider-wrapper.wpss-progress-bottom .swiper-pagination-progressbar {
     bottom: 0;
     top: auto;
+    z-index: 99;
+    height: 6px;
+} 
+
+.swiper-slider-wrapper.wpss-progress-left .swiper-pagination-progressbar {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: auto;
+    z-index: 99;
+    width: 6px;
 }
+
+.swiper-slider-wrapper.wpss-progress-right .swiper-pagination-progressbar {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: auto;
+    width: 6px;
+    z-index: 99;
+}
+
+/* ===================== Slides Per View =====================*/
+/* .swiper-slide:nth-child(2n) {
+    width: 40%;
+}
+.swiper-slide:nth-child(3n) {
+    width: 20%;
+}
+ .swiper-slide {
+    width: 60%;
+} */
