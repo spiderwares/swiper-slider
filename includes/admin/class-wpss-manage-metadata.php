@@ -81,15 +81,17 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'disabled_options' => array( 'style5 (pro)' ),
                     'default'       => 'style1',
                 ),
-                 'width_image'   => array(
+                'width_image'   => array(
                     'name'          => esc_html__( 'Width of Image', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 500,
+                    'description' =>  esc_html__( 'Specify the width of each slide image (in px).', 'swiper-slider' ),
                 ),
                 'height_image'   => array(
                     'name'          => esc_html__( 'Height of Image', 'swiper-slider' ),
                     'field_type'    => 'number',
                     'default'       => 500,
+                    'description' =>  esc_html__( 'Specify the height of each slide image (in px).', 'swiper-slider' ),
                 ),
                 'pagination_type' => array(
                     'name'        => esc_html__( 'Pagination Type', 'swiper-slider' ),
@@ -172,7 +174,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     =>  false,
                     'pro_version' =>  true,
                     'description' =>  esc_html__( 'Enable vertical direction for the slider.', 'swiper-slider' ),
-                    'pro_version_message'  => esc_html__( 'Vertical slider direction is only available in the Pro version. Upgrade to unlock this feature.', 'swiper-slider' ),
                 ),
                 'control_autoplay'  => array(
                     'name'          => esc_html__( 'Autoplay', 'swiper-slider' ),
@@ -239,10 +240,10 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'description' =>  esc_html__( 'Enable slide centered for the slider.', 'swiper-slider' ),
                 ),
                 'slide_control_center_auto' => array(
-                    'name'        =>  esc_html__( 'Slides Centered Auto', 'swiper-slider-pro' ),
+                    'name'        =>  esc_html__( 'Slides Centered Auto', 'swiper-slider' ),
                     'field_type'  =>  'switch',
                     'default'     =>  false,
-                    'description' =>  esc_html__( 'Enable slide centered auto for the slider.', 'swiper-slider-pro' ),
+                    'description' =>  esc_html__( 'Enable slide centered auto for the slider.', 'swiper-slider' ),
                 ),
                 'control_loop_slider' => array(
                     'name'        => esc_html__( 'Loop Slides', 'swiper-slider' ),
@@ -250,7 +251,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     => true,
                     'pro_version' => true,
                     'description' => esc_html__( 'Enable continuous loop mode for the slider.', 'swiper-slider' ),
-                    'pro_version_message' => esc_html__( 'Upgrade to Pro to enable loop mode.', 'swiper-slider' ),
                 ),
                 'control_slide_speed' => array(
                     'name'        => esc_html__( 'Slide Speed', 'swiper-slider' ),
@@ -258,7 +258,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     => 400,
                     'pro_version' => true,
                     'description' => esc_html__( 'Set the speed of slide transition in milliseconds (e.g., 400 = 0.4 seconds).', 'swiper-slider' ),
-                    'pro_version_message'  => esc_html__( 'Slide speed customization is only available in the Pro version.', 'swiper-slider' ),
                 ),
                 'control_slide_space' => array(
                     'name'        => esc_html__( 'Slides Space', 'swiper-slider' ),
@@ -266,7 +265,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     => 10,
                     'pro_version' => true,
                     'description' => esc_html__( 'Space between each slide (in px).', 'swiper-slider' ),
-                    'pro_version_message' => esc_html__( 'Only available in Pro: Set space between slides.', 'swiper-slider' ),
                 ),
                 'zoom_images' => array(
                     'name'        => esc_html__( 'Zoom Images', 'swiper-slider' ),
@@ -274,7 +272,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     => false,
                     'pro_version' => true,
                     'description' => esc_html__( 'Enable a zoom images for slider.', 'swiper-slider' ),
-                    'pro_version_message'  => esc_html__( 'Zoom Images is only available in the Pro version. Upgrade to enable zoom effect.', 'swiper-slider' ),
                 ),
                 'control_keyboard' => array(
                     'name'        =>  esc_html__( 'Keyboard Control', 'swiper-slider' ),
@@ -282,7 +279,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     =>  false,
                     'pro_version' =>  true,
                     'description' =>  esc_html__( 'Enable keyboard navigation for the slider using arrow keys.', 'swiper-slider' ),
-                    'pro_version_message'  => esc_html__( 'Keyboard navigation is only available in the Pro version. Upgrade to enable keyboard control.', 'swiper-slider' ),
                 ),
                 'control_mousewheel' => array(
                     'name'        =>  esc_html__( 'Mousewheel Control', 'swiper-slider' ),
@@ -290,7 +286,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     =>  false,
                     'pro_version' =>  true,
                     'description' =>  esc_html__( 'Enable mouse wheel navigation for the slider.', 'swiper-slider' ),
-                    'pro_version_message' => esc_html__( 'Mousewheel control is only available in the Pro version. Upgrade to enable this feature.', 'swiper-slider' ),
                 ),
                 'control_scrollbar' => array(
                     'name'        =>  esc_html__( 'Scrollbar Control', 'swiper-slider' ),
@@ -298,15 +293,46 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'     =>  false,
                     'pro_version' =>  true,
                     'description' =>  esc_html__( 'Enable scrollbar navigation for the slider.', 'swiper-slider' ),
-                    'pro_version_message' => esc_html__( 'Enable scrollbar navigation for the slider.', 'swiper-slider' ),
                     'data_show'   => '.wpss-scrollbar-wrapper',
+                ),
+                'scrollbar_position' => array(
+                    'name'        => esc_html__('Scrollbar Position', 'swiper-slider'),
+                    'field_type'  => 'select',
+                    'default'     => 'bottom',
+                    'description' => esc_html__('Choose scrollbar position.', 'swiper-slider'),
+                    'options'     => array(
+                        'bottom' => esc_html__('Bottom (Use in Horizontal)', 'swiper-slider'),
+                        'top'    => esc_html__('Top (Use in Horizontal)', 'swiper-slider'),
+                        'left'   => esc_html__('Left ( Use in Vertical)', 'swiper-slider'),
+                        'right'  => esc_html__('Right ( Use in Vertical)', 'swiper-slider'),
+                    ),
+                    'pro_version' =>  true,
+                    'class'       => 'wpss-scrollbar-wrapper',
                 ),
                 'scrollbar_color' => array(
                     'name'        =>  esc_html__( 'Scrollbar Color', 'swiper-slider' ),
                     'field_type'  =>  'color',
                     'default'     =>  '#999999',
                     'class'       =>  'wpss-scrollbar-wrapper',
+                    'pro_version' =>  true,
+                ),  
+                'control_rtl_slider' => array(
+                    'name'        => esc_html__( 'Enable RTL', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => false,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Enable Right-to-Left sliding for RTL languages.', 'swiper-slider' ),
                 ),
+                'enable_grid_layout' => array(
+                    'name'        => esc_html__('Enable Grid Layout', 'swiper-slider'),
+                    'field_type'  => 'switch',
+                    'default'     => false,
+                    'pro_version' => true,
+                    'description' => esc_html__('Enable Swiper grid layout.', 'swiper-slider'),
+                    'data_show'   => 'grid_layout_axis',
+                    'data_show'   => '.wpss-grid-layout',
+                ),
+
             );
 
             $this->fields = apply_filters( 'wpss_slider_fields', $this->fields );

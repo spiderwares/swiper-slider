@@ -10,8 +10,13 @@
                             src="<?php echo esc_url( wp_get_attachment_image_url( $imageID, 'full' ) ); ?>" 
                             alt="" 
                             loading="lazy"  
-                            style="width: <?php echo esc_attr($width_image); ?>px; height: <?php echo esc_attr($height_image); ?>px; object-fit: cover;"
-                            />
+                            style="<?php 
+                            $is_vertical = isset($sliderOptions['control_slider_vertical']) && ($sliderOptions['control_slider_vertical'] == '1' || $sliderOptions['control_slider_vertical'] === true);
+                            echo $is_vertical 
+                                ? 'max-width: 100%; height: auto; object-fit: cover;'
+                                : 'width: ' . esc_attr($width_image) . 'px; height: ' . esc_attr($height_image) . 'px; object-fit: cover;';
+                            ?>"
+                        />
 
                         <?php if( $lazy_load ): ?>
                             <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>

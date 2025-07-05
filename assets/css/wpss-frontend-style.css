@@ -1,29 +1,50 @@
 .swiper-slide img {
     display: block;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    margin: 0 auto;
 }
 .swiper.swiper-slider-wrapper {
-    height: auto !important;
+    height: 500px;
+    position: relative;
+    width: 100% !important;
 }
+
 /* .swiper-slide {
-    height: auto !important;
-} */
-/* .swiper.swiper-slider-wrapper.vertical {
-    height: auto !important;
+    width: 100% !important; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.swiper-slide {
-    height: auto !important;
+
+.swiper-slider-wrapper {
+    position: relative;
+    width: 100%;
 }
+
+.swiper-slider-wrapper.vertical {
+    overflow: hidden;
+}
+
+.swiper-vertical .swiper-slide {
+    width: 100% !important; 
+    height: auto;
+}
+
 .swiper-slide img {
     display: block;
-    width: auto;
-    height: auto;
-    max-width: 100%;
     object-fit: cover;
-    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+}
+
+.swiper-vertical .swiper-zoom-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 } */
 
 /* ============================= Arrow Style ========================== */
@@ -232,13 +253,21 @@
     z-index: 99;
 }
 
+.swiper-pagination-progressbar-fill {
+    width: 100%;
+    height: 100%;
+}
+
+
 /* ===================== Slides Per View =====================*/
-/* .swiper-slide:nth-child(2n) {
+ .swiper-slide {
+    width: 60%;
+}
+
+.swiper-slide:nth-child(2n) {
     width: 40%;
 }
+
 .swiper-slide:nth-child(3n) {
     width: 20%;
 }
- .swiper-slide {
-    width: 60%;
-} */

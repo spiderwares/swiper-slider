@@ -112,6 +112,11 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 }
 
 /************* Metabox options control ************/
+.wpss_slides_wrap table tr th ,
+.wpss_slides_wrap table tr td{
+    border-bottom: 1px dashed #eee;
+}
+
 .wpss_slides_wrap table th small{
     display: block;
     font-weight: normal;
@@ -157,49 +162,81 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     display: none;
 }
 
-.wpss_slides_wrap label.wpss-form-switch span {
-    position: relative;
-    display: inline-block;
-    border-radius: 12px;
-    box-sizing: border-box;
-    padding: 2px;
-    width: 50px;
-    height: 24px;
-    background: #a8bece;
-    vertical-align: middle;
-    outline: 0;
+/* ==================== Switch Icon ========================== */
+.wpss-toggle-wrapper {
+    display: inline-flex;
+    align-items: center;
     cursor: pointer;
-    transition: all .4s ease;
-    box-shadow: none;
-    color: #87a6bc;
-    text-align: right;
+    user-select: none;
 }
 
-.wpss_slides_wrap label.wpss-form-switch span:after, 
-.wpss_slides_wrap label.wpss-form-switch span:before {
+.wpss-toggle-input {
+    display: none;
+}
+
+.wpss-toggle-switch {
+    width: 44px;
+    height: 24px;
+    background-color: #e2e8f0;
+    border-radius: 30px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.wpss-toggle {
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
     position: absolute;
-    display: block;
-    content: "";
-    width: 30px;
-    height: 30px;
     top: 2px;
-}
-.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"]:checked + span:after {
-    right: 2px;
-    left: auto;
-    content: 'ON';
+    left: 2px;
+    transition: left 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"] + span:after {
-    content: 'OFF';
-    font-size: 9px;
-    font-weight: bold;
-    line-height: 30px;
-    text-align: center;
+.wpss-toggle-input:checked + .wpss-toggle-switch {
+    background-color: #98AA36;
 }
-p.description {
+
+.wpss-toggle-input:checked + .wpss-toggle-switch .wpss-toggle {
+    left: 22px;
+}
+
+.wpss-toggle svg {
+    width: 10px;
+    height: 14px;
+    stroke: #94a3b8;
+    stroke-width: 2;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.wpss-icon-on {
+    fill: #98AA36;
+    display: none;
+}
+
+.wpss-icon-off {
+    fill: #94a3b8;
+    display: block;
+}
+
+.wpss-toggle-input:checked + .wpss-toggle-switch .wpss-icon-on {
+    display: block;
+    transform: rotate(360deg);
+}
+
+.wpss-toggle-input:checked + .wpss-toggle-switch .wpss-icon-off {
+    display: none;
+}
+
+/* ================ Switch Icon ==================*/
+
+.wpss_slides_wrap table p.description {
     color: #333;
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 5px;
 }
 .wpss-image-control img{
@@ -207,63 +244,21 @@ p.description {
     max-height: 98px;
     object-fit: cover;
 }
-.wpss_slides_wrap label.wpss-form-switch span:after {
-    left: 2px;
-    border-radius: 30px;
-    background: #fff;
-    transition: all .2s ease;
-}
 
-.wpss_slides_wrap label.wpss-form-switch input[type="checkbox"]:checked + span {
-    background-color: #0213ff;
-    color: #0213ff;
-    transition: 0.3s ease-in-out;
-}
 .wpss-autoplay-progress:not(:visible) ~ .wpss-autoplay-progress-bar {
     display: none !important;
 }
-/* .wpss-progress-bar,
-.wpss-fraction-style,
-.wpss-autoplay-progress,
-.wpss-bullet-style {
-    display: none;
-} */
 
-/* Pro Version message */
-.wpss-pro-lock-message {
-    background-color: #f8f9fa;
-    padding: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    font-style: italic;
+/* ============== Pro Version message ============= */
+.wpss-pro-message {
+    color: #c9356e;
 }
-.wpss-pro-lock-message a {
-    color: #0073aa;
-    text-decoration: underline;
-}
-
 .wpss-disabled-option {
     pointer-events: none;
     opacity: 1;
 }
 
-.wpss_slides_wrap label.wpss-form-switch span {
-    position: relative;
-    display: inline-block;
-    border-radius: 23px;
-    box-sizing: border-box;
-    padding: 4px;
-    width: 60px;
-    height: 34px;
-    background: #a8bece;
-    vertical-align: middle;
-    outline: 0;
-    cursor: pointer;
-    transition: all .4s ease;
-    box-shadow: none;
-    color: #87a6bc;
-    text-align: right;
-}
+/* ============== Pro Version message ============= */
 
 .wpss_slides_wrap label.form-slider .slider {
     -webkit-appearance: none;
@@ -320,38 +315,4 @@ input[type="range"]:hover {
     display: block;
     padding: 5px;
     background: #f7f7f7;
-}
-
-.wpss-animation-option {
-  display: inline-block;
-  width: 140px;
-  height: 140px;
-  text-align: center;
-  margin: 10px;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  padding: 5px;
-  box-sizing: border-box;
-}
-
-.wpss-animation-option img {
-  width: 100%;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 4px;
-}
-
-.wpss-animation-option span {
-  display: block;
-  margin-top: 5px;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.wpss-animation-option input[type="radio"] {
-  display: none;
-}
-
-.wpss-animation-option input[type="radio"]:checked + img {
-  outline: 2px solid #0073aa;
 }

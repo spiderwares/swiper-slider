@@ -59,10 +59,6 @@ class WPSS_Slider_Shortcode {
 
         $sliderOptions    = get_post_meta( $slideshow_ID, 'wpss_slider_option', true );
 
-        // echo "<pre>";
-        // print_r($sliderOptions);
-        // die;
-
         if ( empty( $imageIDs ) || ! is_array( $imageIDs ) ) :
             return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'swiper-slider' ) . '</p>';
         endif;
@@ -74,6 +70,9 @@ class WPSS_Slider_Shortcode {
         $progress_position  = isset($sliderOptions['progress_bar_position']) ? $sliderOptions['progress_bar_position'] : 'bottom';
         $width_image        = !empty($sliderOptions['width_image']) ? $sliderOptions['width_image'] : 500;
         $height_image       = !empty($sliderOptions['height_image']) ? $sliderOptions['height_image'] : 500;
+        // $is_vertical        = isset($sliderOptions['control_slider_vertical']) && ($sliderOptions['control_slider_vertical'] == '1' || $sliderOptions['control_slider_vertical'] === true);
+        $thumbs_enabled     = isset($sliderOptions['enable_thumbs_gallery']) ? $sliderOptions['enable_thumbs_gallery'] : false;
+
 
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
@@ -96,6 +95,7 @@ class WPSS_Slider_Shortcode {
                 'pagination_type'       => $pagination_type,
                 'width_image'           => $width_image,
                 'height_image'          => $height_image,
+                'thumbs_enabled'          => $thumbs_enabled,
                 'options'               => json_encode($sliderOptions)
             )
         );

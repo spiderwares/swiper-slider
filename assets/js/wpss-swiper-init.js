@@ -20,6 +20,24 @@ jQuery(function ($) {
                 let options = this.parseOptions(rawOptions);
                 if (!options) return;
 
+                // Progress Bar Position 
+                const isProgressbar = options.pagination_type === 'progressbar',
+                    progressPosition = options.progress_bar_position || 'bottom';
+
+                if (isProgressbar) {
+                    slider.removeClass('wpss-progress-top wpss-progress-bottom wpss-progress-left wpss-progress-right');
+
+                    if (progressPosition === 'top') {
+                        slider.addClass('wpss-progress-top');
+                    } else if (progressPosition === 'left') {
+                        slider.addClass('wpss-progress-left');
+                    } else if (progressPosition === 'right') {
+                        slider.addClass('wpss-progress-right');
+                    } else {
+                        slider.addClass('wpss-progress-bottom');
+                    }
+                }
+            
                 const finalOptions = this.buildSwiperOptions(slider, options);
                 this.createSwiperInstance(slider, finalOptions);
             });
@@ -51,8 +69,8 @@ jQuery(function ($) {
                 pagination: {
                     el: slider.find('.swiper-pagination')[0],
                     clickable: true,
-                    type: options.pagination_type === 'progressbar' ? 'progressbar' : 
-                        options.pagination_type === 'fraction' ? 'fraction' : 'bullets',
+                    type: options.pagination_type === 'progressbar' ? 'progressbar' :
+                           options.pagination_type === 'fraction' ? 'fraction' : 'bullets',
                 },
                 navigation: {
                     nextEl: slider.find('.swiper-button-next')[0],
@@ -62,6 +80,7 @@ jQuery(function ($) {
                 on: {
                     init: function () {
                         const isAutoplayProgress = options.control_autoplay_progress == '1' || options.control_autoplay_progress === true;
+
                         if (isAutoplayProgress && progresscolor && options.pagination_type == 'progressbar') {
                             const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
                             $progressbar.css({ background: progresscolor });

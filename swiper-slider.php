@@ -36,6 +36,11 @@ if ( ! defined( 'WPSS_URL' ) ) :
     define( 'WPSS_URL', plugin_dir_url( __FILE__ ) ); // URL to plugin directory
 endif;
 
+if ( ! defined( 'WPSS_PRO_VERSION_URL' ) ) :
+    define( 'WPSS_PRO_VERSION_URL', '#' ); // Pro Version URL
+endif;
+
+
 if ( ! class_exists( 'WPSS', false ) ) :
     require_once WPSS_PATH . 'includes/class-wpss.php';
 endif;
