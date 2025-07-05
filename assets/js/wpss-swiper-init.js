@@ -37,8 +37,31 @@ jQuery(function ($) {
                         slider.addClass('wpss-progress-bottom');
                     }
                 }
-            
+
+                // Only initialize thumbs if enabled in options
+                let thumbsSwiper = null;
+                if (options.show_thumb_gallery == '1' || options.show_thumb_gallery === true) {
+                    const thumbsGallery = slider.next('.wpss-swiper-thumbs-gallery');
+                    if (thumbsGallery.length) {
+                        thumbsSwiper = new Swiper(thumbsGallery[0], {
+                            spaceBetween: 8,
+                            slidesPerView: 6,
+                            freeMode: true,
+                            watchSlidesProgress: true,
+                            watchSlidesVisibility: true,
+                            breakpoints: {
+                                1024: { slidesPerView: 6 },
+                                768: { slidesPerView: 4 },
+                                400: { slidesPerView: 3 }
+                            }
+                        });
+                    }
+                }
+
                 const finalOptions = this.buildSwiperOptions(slider, options);
+                if (thumbsSwiper) {
+                    finalOptions.thumbs = { swiper: thumbsSwiper };
+                }
                 this.createSwiperInstance(slider, finalOptions);
             });
         }
@@ -55,8 +78,12 @@ jQuery(function ($) {
         buildSwiperOptions(slider, options) {
             const isResponsive  = options.control_enable_responsive === '1' || options.control_enable_responsive === 1,
                 isAutoSlides    = options.slide_control_view_auto == '1' || options.slide_control_view_auto === true,
-                progresscolor   = options.progress_bar_color,
-                fractionColor   = options.fraction_color;
+                paginationType  = options.pagination_type || 'bullets',
+                customStyle     = options.custom_navigation_style || 'style1',
+                customTextColor = options.custom_text_color || '#ff0000',
+                customBackgroundColor = options.custom_background_color || '#007aff',
+                customActiveTextColor = options.custom_active_text_color || '#0a0607',
+                customActiveBackgroundColor = options.custom_active_background_color || '#0a0607';
 
             const baseOptions = {
                 effect: options.animation || 'slide',
@@ -69,8 +96,15 @@ jQuery(function ($) {
                 pagination: {
                     el: slider.find('.swiper-pagination')[0],
                     clickable: true,
-                    type: options.pagination_type === 'progressbar' ? 'progressbar' :
-                           options.pagination_type === 'fraction' ? 'fraction' : 'bullets',
+                    renderBullet: function (index, className) {
+                        if (paginationType === 'custom') {
+                            return `<span class="${className} wpss-swiper-custom-${customStyle}">${index + 1}</span>`;
+                        }
+                        return `<span class="${className}"></span>`;
+                    },
+                    type: paginationType === 'progressbar' ? 'progressbar' :
+                        paginationType === 'fraction' ? 'fraction' :
+                        'bullets',
                 },
                 navigation: {
                     nextEl: slider.find('.swiper-button-next')[0],
@@ -81,14 +115,24 @@ jQuery(function ($) {
                     init: function () {
                         const isAutoplayProgress = options.control_autoplay_progress == '1' || options.control_autoplay_progress === true;
 
-                        if (isAutoplayProgress && progresscolor && options.pagination_type == 'progressbar') {
+                        if (isAutoplayProgress && options.progress_bar_color && options.pagination_type == 'progressbar') {
                             const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
-                            $progressbar.css({ background: progresscolor });
+                            $progressbar.css({ background: options.progress_bar_color });
                         }
 
-                        if (options.pagination_type === 'fraction' && fractionColor) {
+                        if (options.pagination_type === 'fraction' && options.fraction_color) {
                             const $fraction = slider.find('.swiper-pagination');
-                            $fraction.css('color', fractionColor);
+                            $fraction.css('color', options.fraction_color);
+                        }
+
+                        if (paginationType === 'custom') {
+                            const $pagination = slider.find('.swiper-pagination');
+                            $pagination.css({
+                                '--wpss-custom-text-color': customTextColor,
+                                '--wpss-custom-bg-color': customBackgroundColor,
+                                '--wpss-custom-active-text-color': customActiveTextColor,
+                                '--wpss-custom-active-bg-color': customActiveBackgroundColor
+                            });
                         }
                     }
                 },

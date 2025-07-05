@@ -65,22 +65,28 @@ class WPSS_Slider_Shortcode {
 
         $arrow_style        = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
         $dot_style          = isset($sliderOptions['dots_navigation_style']) ? $sliderOptions['dots_navigation_style'] : 'style1';
+        $custom_style       = isset($sliderOptions['custom_navigation_style']) ? $sliderOptions['custom_navigation_style'] : 'style1';
         $lazy_load          = isset($sliderOptions['control_lazyload_images']) ? $sliderOptions['control_lazyload_images'] : '';
-        $pagination_type    = isset($sliderOptions['pagination_type'] ) ? $sliderOptions['pagination_type'] : 'bullets';
+        $pagination_type    = isset($sliderOptions['pagination_type']) ? $sliderOptions['pagination_type'] : 'bullets';
         $progress_position  = isset($sliderOptions['progress_bar_position']) ? $sliderOptions['progress_bar_position'] : 'bottom';
         $width_image        = !empty($sliderOptions['width_image']) ? $sliderOptions['width_image'] : 500;
         $height_image       = !empty($sliderOptions['height_image']) ? $sliderOptions['height_image'] : 500;
-        // $is_vertical        = isset($sliderOptions['control_slider_vertical']) && ($sliderOptions['control_slider_vertical'] == '1' || $sliderOptions['control_slider_vertical'] === true);
-        $thumbs_enabled     = isset($sliderOptions['enable_thumbs_gallery']) ? $sliderOptions['enable_thumbs_gallery'] : false;
 
+        $is_vertical        = isset($sliderOptions['control_slider_vertical']) && ($sliderOptions['control_slider_vertical'] == '1' || $sliderOptions['control_slider_vertical'] === true);
+        $wrapper_style      = $is_vertical ? '' : 'style="max-width:' . (int) $width_image . 'px;"';
 
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
             ' wpss-swiper-arrow-' . esc_attr($arrow_style) .
-            ' wpss-swiper-dot-' . esc_attr($dot_style) .
+            ($pagination_type === 'custom' ? '' : ' wpss-swiper-dot-' . esc_attr($dot_style)) .
+            ' wpss-swiper-custom-' . esc_attr($custom_style) .
             ' wpss-pagination-' . esc_attr($pagination_type) .
-            ' wpss-progress-' . esc_attr($progress_position) 
+            ' wpss-progress-' . esc_attr($progress_position) .
+            ( $is_vertical ? ' vertical' : '' )
         );
+
+        // Prepare thumb gallery options for template
+        $show_thumb_gallery = isset($sliderOptions['show_thumb_gallery']) && ($sliderOptions['show_thumb_gallery'] == '1' || $sliderOptions['show_thumb_gallery'] === true);
 
         ob_start();
         wpss_get_template(
@@ -90,13 +96,15 @@ class WPSS_Slider_Shortcode {
                 'slideshow_ID'          => $slideshow_ID,
                 'slideshow_main_class'  => $slideshow_main_class,
                 'dot_style'             => $dot_style,
+                'custom_style'          => $custom_style,
                 'arrow_style'           => $arrow_style,
                 'lazy_load'             => $lazy_load,
                 'pagination_type'       => $pagination_type,
                 'width_image'           => $width_image,
                 'height_image'          => $height_image,
-                'thumbs_enabled'          => $thumbs_enabled,
-                'options'               => json_encode($sliderOptions)
+                'wrapper_style'         => $wrapper_style,
+                'options'               => json_encode($sliderOptions),
+                'show_thumb_gallery'    => $show_thumb_gallery,
             )
         );
         return ob_get_clean();

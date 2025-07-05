@@ -198,7 +198,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 }
 
 .wpss-toggle-input:checked + .wpss-toggle-switch {
-    background-color: #98AA36;
+    background-color: #3655AA;
 }
 
 .wpss-toggle-input:checked + .wpss-toggle-switch .wpss-toggle {
@@ -214,7 +214,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 }
 
 .wpss-icon-on {
-    fill: #98AA36;
+    fill: #3655AA;
     display: none;
 }
 

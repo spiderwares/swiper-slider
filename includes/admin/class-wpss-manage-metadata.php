@@ -38,6 +38,13 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
             );
 
             $this->fields = array(
+                'show_thumb_gallery' => array(
+                    'name'        => esc_html__( 'Show Thumbnail Gallery', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => '0',
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Enable to display a thumbnail gallery below the main slider.', 'swiper-slider' ),
+                ),
                 'animation'  => array(
                     'name'          => esc_html__( 'Transition type', 'swiper-slider' ),
                     'field_type'    => 'radio',
@@ -100,26 +107,27 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                         'bullets'     => esc_html__( 'Bullets', 'swiper-slider' ),
                         'progressbar' => esc_html__( 'Progress Bar', 'swiper-slider' ),
                         'fraction'    => esc_html__( 'Fraction', 'swiper-slider' ),
+                        'custom'      => esc_html__( 'Custom', 'swiper-slider' ),
                     ),
                     'disabled_options' => array( 'fraction' , 'custom'),
                     'default'     => 'bullets',
                     'description' => esc_html__( 'Choose between bullet dots or a progress bar for pagination.', 'swiper-slider' ),
-                    'data_hide'   => '.wpss-bullet-style, .wpss-autoplay-progress, .wpss-progress-bar, .wpss-fraction-style',
+                    'data_hide'   => '.wpss-bullet-style, .wpss-autoplay-progress, .wpss-progress-bar, .wpss-fraction-style, .wpss-custom-style',
                     'data_show_map' => array(
                         'bullets'     => '.wpss-bullet-style',
                         'progressbar' => '.wpss-autoplay-progress, .wpss-progress-bar',
                         'fraction'    => '.wpss-fraction-style',
+                        'custom'      => '.wpss-custom-style',
                     ),
                 ),
                 'fraction_navigation_style'  => array(
-                    'name'        => esc_html__( 'Fraction arrows style', 'swiper-slider' ),
+                    'name'        => esc_html__( 'Fraction style', 'swiper-slider' ),
                     'field_type'  => 'radio',
                     'options'     => array(
-                        'style1'  => 'arrow-fraction.jpg',
+                        'style1'  => 'fraction-style1.jpg',
                     ),
                     'default'     => 'style1',
                     'class'       => 'wpss-fraction-style',
-                    'disabled_options' => array( 'style1' )
                 ),
                 'fraction_color' => array(
                     'name'          => esc_html__( 'Fraction color', 'swiper-slider' ),
@@ -127,8 +135,45 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'default'       => '#ff0000',
                     'class'         => 'wpss-fraction-style',
                 ),
+                'custom_navigation_style'  => array(
+                    'name'        => esc_html__( 'Custom style', 'swiper-slider' ),
+                    'field_type'  => 'radio',
+                    'options'     => array(
+                        'style1'  => 'custom-style1.jpg',
+                    ),
+                    'default'     => 'style1',
+                    'class'       => 'wpss-custom-style',
+                ),
+               'custom_text_color' => array(
+                    'name'          => esc_html__( 'Custom Color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#ff0000',
+                    'class'         => 'wpss-custom-style',
+                    'description'   => esc_html__( 'Set the text color for numbered pagination bullets.', 'swiper-slider' ),
+                ),
+                'custom_background_color' => array(
+                    'name'          => esc_html__( 'Custom Background Color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#007aff',
+                    'class'         => 'wpss-custom-style',
+                    'description'   => esc_html__( 'Set the background color for active pagination bullets.', 'swiper-slider' ),
+                ),
+               'custom_active_text_color' => array(
+                    'name'          => esc_html__( 'Custom active Text Color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#0a0607',
+                    'class'         => 'wpss-custom-style',
+                    'description'   => esc_html__( 'Set the text color for inactive numbered pagination bullets.', 'swiper-slider' ),
+                ),
+                'custom_active_background_color' => array(
+                    'name'          => esc_html__( 'Custom active Background Color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#0a0607',
+                    'class'         => 'wpss-custom-style',
+                    'description'   => esc_html__( 'Set the background color for inactive pagination bullets.', 'swiper-slider' ),
+                ),
                 'dots_navigation_style'  => array(
-                    'name'          => esc_html__( 'Bullet arrows style', 'swiper-slider' ),
+                    'name'          => esc_html__( 'Bullet style', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
                         'none'   =>  'arrow-style-none.jpg',
