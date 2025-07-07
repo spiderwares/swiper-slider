@@ -20,33 +20,18 @@ jQuery(function ($) {
                 let options = this.parseOptions(rawOptions);
                 if (!options) return;
 
-                // Progress Bar Position 
-                const isProgressbar = options.pagination_type === 'progressbar',
-                    progressPosition = options.progress_bar_position || 'bottom';
-
-                if (isProgressbar) {
-                    slider.removeClass('wpss-progress-top wpss-progress-bottom wpss-progress-left wpss-progress-right');
-
-                    if (progressPosition === 'top') {
-                        slider.addClass('wpss-progress-top');
-                    } else if (progressPosition === 'left') {
-                        slider.addClass('wpss-progress-left');
-                    } else if (progressPosition === 'right') {
-                        slider.addClass('wpss-progress-right');
-                    } else {
-                        slider.addClass('wpss-progress-bottom');
-                    }
+                if (options.slide_control_view_auto == '1' || options.slide_control_view_auto === true) {
+                    slider.addClass('wpss-auto-slides-enabled');
                 }
-
+                
                 // Only initialize thumbs if enabled in options
                 let thumbsSwiper = null;
                 if (options.show_thumb_gallery == '1' || options.show_thumb_gallery === true) {
                     const thumbsGallery = slider.next('.wpss-swiper-thumbs-gallery');
                     if (thumbsGallery.length) {
                         thumbsSwiper = new Swiper(thumbsGallery[0], {
-                            spaceBetween: 8,
-                            slidesPerView: 6,
-                            freeMode: true,
+                            spaceBetween: 10,
+                            slidesPerView: 3,
                             watchSlidesProgress: true,
                             watchSlidesVisibility: true,
                             breakpoints: {
@@ -58,7 +43,7 @@ jQuery(function ($) {
                     }
                 }
 
-                const finalOptions = this.buildSwiperOptions(slider, options);
+                const finalOptions = this.swiperOptions(slider, options);
                 if (thumbsSwiper) {
                     finalOptions.thumbs = { swiper: thumbsSwiper };
                 }
@@ -75,7 +60,7 @@ jQuery(function ($) {
             }
         }
 
-        buildSwiperOptions(slider, options) {
+        swiperOptions(slider, options) {
             const isResponsive  = options.control_enable_responsive === '1' || options.control_enable_responsive === 1,
                 isAutoSlides    = options.slide_control_view_auto == '1' || options.slide_control_view_auto === true,
                 paginationType  = options.pagination_type || 'bullets',
@@ -94,7 +79,7 @@ jQuery(function ($) {
                     disableOnInteraction: false,
                 } : false,
                 pagination: {
-                    el: slider.find('.swiper-pagination')[0],
+                    el: '.swiper-pagination',
                     clickable: true,
                     renderBullet: function (index, className) {
                         if (paginationType === 'custom') {

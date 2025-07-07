@@ -41,9 +41,26 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                 'show_thumb_gallery' => array(
                     'name'        => esc_html__( 'Show Thumbnail Gallery', 'swiper-slider' ),
                     'field_type'  => 'switch',
-                    'default'     => '0',
+                    'default'     => false,
                     'pro_version' => true,
                     'description' => esc_html__( 'Enable to display a thumbnail gallery below the main slider.', 'swiper-slider' ),
+                    'data_show'       => '.wpss-thumb-gallery',
+                ),
+                'show_thumb_gallery_width' => array(
+                    'name'        => esc_html__( 'Thumbnail Width', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 80,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set width of thumbnail images in px.', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'show_thumb_gallery_height' => array(
+                    'name'        => esc_html__( 'Thumbnail Height', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 80,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set height of thumbnail images in px.', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
                 ),
                 'animation'  => array(
                     'name'          => esc_html__( 'Transition type', 'swiper-slider' ),
@@ -283,12 +300,6 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'field_type'  =>  'switch',
                     'default'     =>  false,
                     'description' =>  esc_html__( 'Enable slide centered for the slider.', 'swiper-slider' ),
-                ),
-                'slide_control_center_auto' => array(
-                    'name'        =>  esc_html__( 'Slides Centered Auto', 'swiper-slider' ),
-                    'field_type'  =>  'switch',
-                    'default'     =>  false,
-                    'description' =>  esc_html__( 'Enable slide centered auto for the slider.', 'swiper-slider' ),
                 ),
                 'control_loop_slider' => array(
                     'name'        => esc_html__( 'Loop Slides', 'swiper-slider' ),

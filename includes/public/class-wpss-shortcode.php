@@ -71,9 +71,11 @@ class WPSS_Slider_Shortcode {
         $progress_position  = isset($sliderOptions['progress_bar_position']) ? $sliderOptions['progress_bar_position'] : 'bottom';
         $width_image        = !empty($sliderOptions['width_image']) ? $sliderOptions['width_image'] : 500;
         $height_image       = !empty($sliderOptions['height_image']) ? $sliderOptions['height_image'] : 500;
-
         $is_vertical        = isset($sliderOptions['control_slider_vertical']) && ($sliderOptions['control_slider_vertical'] == '1' || $sliderOptions['control_slider_vertical'] === true);
         $wrapper_style      = $is_vertical ? '' : 'style="max-width:' . (int) $width_image . 'px;"';
+        $show_thumb_gallery = isset($sliderOptions['show_thumb_gallery']) && ($sliderOptions['show_thumb_gallery'] == '1' || $sliderOptions['show_thumb_gallery'] === true);
+        $thumb_width        = !empty($sliderOptions['show_thumb_gallery_width']) ? (int)$sliderOptions['show_thumb_gallery_width'] : 70;
+        $thumb_height       = !empty($sliderOptions['show_thumb_gallery_height']) ? (int)$sliderOptions['show_thumb_gallery_height'] : 70;
 
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
@@ -81,12 +83,8 @@ class WPSS_Slider_Shortcode {
             ($pagination_type === 'custom' ? '' : ' wpss-swiper-dot-' . esc_attr($dot_style)) .
             ' wpss-swiper-custom-' . esc_attr($custom_style) .
             ' wpss-pagination-' . esc_attr($pagination_type) .
-            ' wpss-progress-' . esc_attr($progress_position) .
-            ( $is_vertical ? ' vertical' : '' )
+            ' wpss-progress-' . esc_attr($progress_position) 
         );
-
-        // Prepare thumb gallery options for template
-        $show_thumb_gallery = isset($sliderOptions['show_thumb_gallery']) && ($sliderOptions['show_thumb_gallery'] == '1' || $sliderOptions['show_thumb_gallery'] === true);
 
         ob_start();
         wpss_get_template(
@@ -104,7 +102,9 @@ class WPSS_Slider_Shortcode {
                 'height_image'          => $height_image,
                 'wrapper_style'         => $wrapper_style,
                 'options'               => json_encode($sliderOptions),
-                'show_thumb_gallery'    => $show_thumb_gallery,
+                'show_thumb_gallery'         => $show_thumb_gallery,
+                'thumb_width'           => $thumb_width,
+                'thumb_height'          => $thumb_height,
             )
         );
         return ob_get_clean();

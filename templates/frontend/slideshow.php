@@ -52,22 +52,17 @@
         
     </div>
 
-    <!-- Swiper Thumbs Gallery -->
-    <?php if (!empty($show_thumb_gallery)): ?>
-    <div class="swiper wpss-swiper-thumbs-gallery wpss-thumbs-<?php echo esc_attr($thumb_gallery_orientation ?? 'horizontal'); ?>"
-        data-thumb-width="<?php echo esc_attr($thumb_gallery_img_width ?? 68); ?>"
-        data-thumb-height="<?php echo esc_attr($thumb_gallery_img_height ?? 68); ?>">
-        <div class="swiper-wrapper">
-            <?php foreach( $imageIDs as $imageID ) : ?>
-                <div class="swiper-slide">
-                    <img 
-                        src="<?php echo esc_url( wp_get_attachment_image_url( $imageID, 'thumbnail' ) ); ?>" 
-                        alt="" 
-                        style="width:<?php echo esc_attr($thumb_gallery_img_width ?? 68); ?>px;height:<?php echo esc_attr($thumb_gallery_img_height ?? 68); ?>px;object-fit:cover;"
-                    />
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-    <?php endif; ?>
-<?php endif; ?>
+   <!-- Swiper Thumbs Gallery -->
+    <?php
+    if ( ! empty( $show_thumb_gallery ) ) {
+        $show_thumb_gallery = apply_filters( 'wpss_pro_slider_show_thumb_gallery', '', array(
+            'image_ids'      => $imageIDs,
+            'thumb_width'    => $thumb_width,
+            'thumb_height'   => $thumb_height,
+            'main_class'     => $slideshow_main_class,
+        ) );
+        echo wp_kses_post( $show_thumb_gallery );
+    }
+    ?>
+
+<?php endif; ?> 

@@ -147,6 +147,29 @@ jQuery(function($) {
 </td>
 
 
+
+
+const isProgressbar = options.pagination_type === 'progressbar',
+    progressPosition = options.progress_bar_position || 'bottom';
+
+if (isProgressbar) {
+    slider.removeClass('wpss-progress-top wpss-progress-bottom wpss-progress-left wpss-progress-right');
+
+    if (progressPosition === 'top') {
+        slider.addClass('wpss-progress-top');
+    } else if (progressPosition === 'left') {
+        slider.addClass('wpss-progress-left');
+    } else if (progressPosition === 'right') {
+        slider.addClass('wpss-progress-right');
+    } else {
+        slider.addClass('wpss-progress-bottom');
+    }
+}
+
+
+
+
+
 <?php
 /**
  * Switch field html
