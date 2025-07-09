@@ -272,25 +272,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     transition: opacity .2s;
     margin: 0 30px 15px 0;
 }
-.wpss-range-output {
-    margin-left: 10px;
-    font-weight: bold;
-    color: #333;
-}
 
-/* Optional: style the range slider itself */
-input[type="range"] {
-    width: 250px;
-    height: 4px;
-    background: #ccc;
-    border-radius: 3px;
-    outline: none;
-    transition: background 0.3s ease;
-}
-
-input[type="range"]:hover {
-    background: #999;
-}
 .wpss-number-field .wpss-number-wrap {
     display: flex;
     align-items: center;

@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Select field html
  */
@@ -11,15 +12,14 @@
             <?php endif; ?>>
 
         <?php foreach ($field['options'] as $option_value => $option_label) : 
-            $data_show_attr = $field['data_show_map'][$option_value] ?? '';
-        ?>
+            $data_show_attr = isset($field['data_show_map'][$option_value]) ? $field['data_show_map'][$option_value] : ''; ?>
             <option
                 value="<?php echo esc_attr($option_value); ?>"
                 <?php if ($data_show_attr) : ?>
                     data-show="<?php echo esc_attr($data_show_attr); ?>"
                 <?php endif; ?>
                 <?php selected($field_Val, $option_value); ?>
-                <?php echo in_array($option_value, $field['disabled_options'] ?? [], true) ? 'disabled' : ''; ?>>
+               <?php echo in_array($option_value, isset($field['disabled_options']) ? $field['disabled_options'] : [], true) ? 'disabled' : ''; ?>>
                 <?php echo esc_html($option_label); ?>
             </option>
         <?php endforeach; ?>

@@ -3,6 +3,7 @@
  * Manage slider post type
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
 

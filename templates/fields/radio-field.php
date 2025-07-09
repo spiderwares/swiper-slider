@@ -1,4 +1,5 @@
 <?php 
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Radio image field html
  */
@@ -8,8 +9,7 @@
         <?php 
         $disabled_options = isset( $field['disabled_options'] ) ? $field['disabled_options'] : array();
         foreach( $field['options'] as $optionKey => $optionImg ) :
-            $is_disabled = in_array( $optionKey, $disabled_options );
-        ?>
+            $is_disabled = in_array( $optionKey, $disabled_options ); ?>
             <p class="wpss-image-control <?php echo $is_disabled ? 'wpss-disabled-option' : ''; ?>">
                 <input 
                     type="radio" 

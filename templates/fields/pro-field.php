@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Pro version lock-only field
  */
@@ -6,11 +7,11 @@
 <td>
     <div class="wpss-pro-message">
         <?php 
-            if ( ! empty( $field['pro_version_message'] ) ) {
+            if ( ! empty( $field['pro_version_message'] ) ) :
                 echo esc_html( $field['pro_version_message'] );
-            } else {
+            else:
                 echo esc_html__( 'This feature is available in the Pro version only.', 'swiper-slider' );
-            }
+            endif;
         ?>
 
         <?php echo esc_html__( 'Click', 'swiper-slider' ); ?>

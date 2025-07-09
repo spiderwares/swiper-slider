@@ -27,21 +27,6 @@ jQuery(function($) {
             $(document.body).on('change', '.wpss-switch-field input[type="checkbox"], .wpss-select-field',this.toggleVisibility.bind(this));
         }
 
-        // toggleVisibility(e) {
-        //     var __this = $(e.currentTarget);
-
-        //     if (__this.is('select')) {
-        //         var target     = __this.find(':selected').data('show'),
-        //             hideElement = __this.data('hide');
-        //         $(document.body).find(hideElement).hide();
-        //         $(document.body).find(target).show();
-        //     } else {
-        //         var target = __this.data('show');
-        //         $(document.body).find(target).toggle(__this.is(':checked'));
-        //     }
-        // }
-        
-
         toggleVisibility(e) {
             const __this = $(e.currentTarget);
 
@@ -66,7 +51,6 @@ jQuery(function($) {
                 }
             }
         }
-
 
         handleUploadSlide(e) {
             e.preventDefault();

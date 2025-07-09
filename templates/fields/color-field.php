@@ -1,10 +1,11 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Color picker field HTML
  */
 ?>
 <td>
-    <p class="wpss-color-control <?php echo esc_attr($field['class'] ?? ''); ?>">
+    <p class="wpss-color-control <?php echo isset($field['class']) ? esc_attr($field['class']) : ''; ?>">
         <label for="<?php echo esc_attr( $field_Key ); ?>">
             <input 
                 type="text" 

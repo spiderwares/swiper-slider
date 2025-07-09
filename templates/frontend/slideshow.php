@@ -1,5 +1,9 @@
-<?php if ( ! empty($imageIDs)) : ?>
-    <div class="swiper swiper-slider-wrapper <?php echo esc_attr($slideshow_main_class); ?>" 
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! empty($imageIDs)) : 
+?>
+    <div class="wpss-swiper swiper swiper-slider-wrapper <?php echo esc_attr($slideshow_main_class); ?>" 
     data-options='<?php echo esc_attr( $options );?>'
     <?php echo wp_kses_post( $wrapper_style ); ?>>
         <div class="swiper-wrapper">
@@ -8,8 +12,7 @@
                     'width: %dpx; height: %dpx; object-fit: cover;',
                     (int) $width_image,
                     (int) $height_image
-                );
-            ?>
+                ); ?>
                 <div class="swiper-slide">
                     <div class="swiper-zoom-container">
                         <img 
@@ -41,8 +44,7 @@
             ) );
 
             // Proper escaping for filter output
-            echo wp_kses_post( $scrollbar );
-        ?>
+            echo wp_kses_post( $scrollbar ); ?>
 
         <!-- Next & Prev Button -->
         <?php if( $arrow_style != 'none' ): ?>
@@ -54,15 +56,15 @@
 
    <!-- Swiper Thumbs Gallery -->
     <?php
-    if ( ! empty( $show_thumb_gallery ) ) {
-        $show_thumb_gallery = apply_filters( 'wpss_pro_slider_show_thumb_gallery', '', array(
+    if ( ! empty( $thumb_gallery ) ) :
+        $thumb_gallery = apply_filters( 'wpss_pro_slider_thumb_gallery', '', array(
             'image_ids'      => $imageIDs,
             'thumb_width'    => $thumb_width,
             'thumb_height'   => $thumb_height,
             'main_class'     => $slideshow_main_class,
         ) );
-        echo wp_kses_post( $show_thumb_gallery );
-    }
+        echo wp_kses_post( $thumb_gallery );
+    endif;
     ?>
 
 <?php endif; ?> 

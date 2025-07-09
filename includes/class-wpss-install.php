@@ -1,10 +1,8 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Installation related functions and actions.
  */
-
-defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPSS_install' ) ) :
 

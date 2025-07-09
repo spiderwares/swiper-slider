@@ -2,6 +2,7 @@
 /**
  * Manage slider post type
  */
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'WPSS_Slider_Shortcode' ) ) :
 
@@ -73,9 +74,9 @@ class WPSS_Slider_Shortcode {
         $height_image       = !empty($sliderOptions['height_image']) ? $sliderOptions['height_image'] : 500;
         $is_vertical        = isset($sliderOptions['control_slider_vertical']) && ($sliderOptions['control_slider_vertical'] == '1' || $sliderOptions['control_slider_vertical'] === true);
         $wrapper_style      = $is_vertical ? '' : 'style="max-width:' . (int) $width_image . 'px;"';
-        $show_thumb_gallery = isset($sliderOptions['show_thumb_gallery']) && ($sliderOptions['show_thumb_gallery'] == '1' || $sliderOptions['show_thumb_gallery'] === true);
-        $thumb_width        = !empty($sliderOptions['show_thumb_gallery_width']) ? (int)$sliderOptions['show_thumb_gallery_width'] : 70;
-        $thumb_height       = !empty($sliderOptions['show_thumb_gallery_height']) ? (int)$sliderOptions['show_thumb_gallery_height'] : 70;
+        $thumb_gallery      = isset($sliderOptions['thumb_gallery']) && ($sliderOptions['thumb_gallery'] == '1' || $sliderOptions['thumb_gallery'] === true);
+        $thumb_width        = !empty($sliderOptions['thumb_gallery_width']) ? (int)$sliderOptions['thumb_gallery_width'] : 70;
+        $thumb_height       = !empty($sliderOptions['thumb_gallery_height']) ? (int)$sliderOptions['thumb_gallery_height'] : 70;
 
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
@@ -101,10 +102,10 @@ class WPSS_Slider_Shortcode {
                 'width_image'           => $width_image,
                 'height_image'          => $height_image,
                 'wrapper_style'         => $wrapper_style,
-                'options'               => json_encode($sliderOptions),
-                'show_thumb_gallery'         => $show_thumb_gallery,
+                'thumb_gallery'         => $thumb_gallery,
                 'thumb_width'           => $thumb_width,
                 'thumb_height'          => $thumb_height,
+                'options'               => json_encode($sliderOptions),
             )
         );
         return ob_get_clean();

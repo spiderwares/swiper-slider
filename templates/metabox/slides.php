@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; 
+?>
 <div class="wpss_slides_wrap">
     <ul class="wpss_slides">
         <?php if (isset($imageIDs) && !empty($imageIDs)) : 

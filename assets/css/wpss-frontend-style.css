@@ -1,18 +1,3 @@
-/* .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}   */
-
 /* ============================= Arrow Style ========================== */
 
 /* Style 1 */
@@ -118,11 +103,9 @@
     font-size: 30px;
 }
 
-/* ============================ End Arrow Style =================================== */
-
 /* =========================== Dot Pagination Style =========================== */
 
-.wp-site-blocks *:focus {
+.wpss-swiper *:focus {
     outline-width: 2px;
     outline-style: none;
 }
@@ -179,8 +162,6 @@
     background: #000;
 }
 
-/* ============================ End Dot Pagination Style =================================== */
-
 /* ============================ Custom Pagination Style =================================== */
 
 .wpss-pagination-custom.wpss-swiper-custom-style1 .swiper-pagination-bullet {
@@ -198,8 +179,6 @@
     background: var(--wpss-custom-bg-color, #007aff);
 }
 
-/* ============================ End Custom Pagination Style =================================== */
-
 /* =========================== Grab Cursor ========================== */
 
 .wpss-swiper-grab-cursor {
@@ -209,25 +188,23 @@
     cursor: grabbing;
 }
 
-/* ============================ End Grab Cursor =================================== */
-
 /* =========================== Progress Bar ============================= */
 
-.swiper-slider-wrapper.wpss-progress-top .swiper-pagination-progressbar {
+.wpss-progress-top .swiper-pagination-progressbar {
     top: 0;
     bottom: auto;
     z-index: 99;
     height: 6px;
 }
 
-.swiper-slider-wrapper.wpss-progress-bottom .swiper-pagination-progressbar {
+.wpss-progress-bottom .swiper-pagination-progressbar {
     bottom: 0;
     top: auto;
     z-index: 99;
     height: 6px;
 } 
 
-.swiper-slider-wrapper.wpss-progress-left .swiper-pagination-progressbar {
+.wpss-progress-left .swiper-pagination-progressbar {
     left: 0;
     top: 0;
     bottom: 0;
@@ -236,7 +213,7 @@
     width: 6px;
 }
 
-.swiper-slider-wrapper.wpss-progress-right .swiper-pagination-progressbar {
+.wpss-progress-right .swiper-pagination-progressbar {
     right: 0;
     top: 0;
     bottom: 0;
@@ -245,24 +222,22 @@
     z-index: 99;
 }
 
-.swiper-pagination-progressbar-fill {
+.wpss-progressbar-fill {
     width: 100%;
     height: 100%;
 }
 
-/* ============================ End Progress Bar =================================== */
-
 /* ===================== Slides Per View =====================*/
 
-.wpss-auto-slides-enabled .swiper-slide {
+.wpss-auto-slides .swiper-slide {
     width: 60% !important;
 }
 
-.wpss-auto-slides-enabled .swiper-slide:nth-child(2n) {
+.wpss-auto-slides .swiper-slide:nth-child(2n) {
     width: 40% !important;
 }
 
-.wpss-auto-slides-enabled .swiper-slide:nth-child(3n) {
+.wpss-auto-slides .swiper-slide:nth-child(3n) {
     width: 20% !important;
 }
 

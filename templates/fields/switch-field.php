@@ -1,4 +1,5 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Switch field html
  */
@@ -11,9 +12,8 @@
             class="wpss-toggle-input"
             name="wpss_slider_option[<?php echo esc_attr($field_Key); ?>]"
             value="1"
-            data-show="<?php echo esc_attr($field['data_show'] ?? ''); ?>"
-            <?php checked($field_Val, 1); ?>
-        >
+            data-show="<?php echo isset($field['data_show']) ? esc_attr($field['data_show']) : ''; ?>"
+            <?php checked($field_Val, 1); ?> >
 
         <div class="wpss-toggle-switch">
             <div class="wpss-toggle">

@@ -1,3 +1,6 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; 
+?>
 <div class="wpss_slides_wrap">
     <table class="form-table">
         <tbody>

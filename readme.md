@@ -38,19 +38,19 @@ Perfect for product showcases, image carousels, hero banners, and more — all f
 
 # Frequently Asked Questions
 
-= How do I add a slider to my page? =  
+### = How do I add a slider to my page? 
 Use the shortcode `[wpss_simple_slider id="SLIDER_ID"]` where `SLIDER_ID` is the ID of the slider post.
 
-= Can I change slider settings? =  
+### = Can I change slider settings? 
 Yes. Each slider has configurable options like loop, autoplay, navigation arrows, and pagination dots.
 
-= Does this plugin support responsive design? =  
+### = Does this plugin support responsive design?
 Absolutely! All sliders are fully responsive and support touch gestures for mobile.
 
-= Will this work with my theme? =  
+### = Will this work with my theme?  
 It works with most well-coded WordPress themes. For custom themes, minimal CSS adjustments may be needed.
 
-= Can I use multiple sliders on one page? =  
+### = Can I use multiple sliders on one page? 
 Yes! You can insert multiple sliders using different shortcodes on the same or different pages.
 
 # Screenshots
@@ -64,7 +64,7 @@ Yes! You can insert multiple sliders using different shortcodes on the same or d
 
 # Changelog
 
-= 1.0.0 =
+### = 1.0.0
 * Initial release
 * Swiper.js-powered responsive slider
 * Admin interface with media uploader and slide sorting
@@ -72,7 +72,7 @@ Yes! You can insert multiple sliders using different shortcodes on the same or d
 
 # Upgrade Notice
 
-= 1.0.0 =
+### = 1.0.0
 First release. More customization options and advanced controls coming soon.
 
 # Support

@@ -1,6 +1,6 @@
 jQuery(function ($) {
 
-    class WPSS_Slider_Frontend {
+    class WPSS_Frontend {
 
         constructor() {
             this.init();
@@ -11,7 +11,7 @@ jQuery(function ($) {
         }
 
         initializeSliders() {
-            $('.swiper.swiper-slider-wrapper').each((index, element) => {
+            $('.wpss-swiper').each((index, element) => {
                 const slider = $(element),
                     rawOptions = slider.attr('data-options');
 
@@ -21,24 +21,19 @@ jQuery(function ($) {
                 if (!options) return;
 
                 if (options.slide_control_view_auto == '1' || options.slide_control_view_auto === true) {
-                    slider.addClass('wpss-auto-slides-enabled');
+                    slider.addClass('wpss-auto-slides');
                 }
                 
                 // Only initialize thumbs if enabled in options
                 let thumbsSwiper = null;
-                if (options.show_thumb_gallery == '1' || options.show_thumb_gallery === true) {
-                    const thumbsGallery = slider.next('.wpss-swiper-thumbs-gallery');
+                if (options.thumb_gallery == '1' || options.thumb_gallery === true) {
+                     const thumbsGallery = slider.parent().find('.wpss-swiper-thumbs-gallery');
                     if (thumbsGallery.length) {
                         thumbsSwiper = new Swiper(thumbsGallery[0], {
-                            spaceBetween: 10,
+                            loop: options.thumb_gallery_loop === '1',
+                            spaceBetween: parseInt(options.thumb_gallery_space, 10) || 10,
                             slidesPerView: 3,
                             watchSlidesProgress: true,
-                            watchSlidesVisibility: true,
-                            breakpoints: {
-                                1024: { slidesPerView: 6 },
-                                768: { slidesPerView: 4 },
-                                400: { slidesPerView: 3 }
-                            }
                         });
                     }
                 }
@@ -101,7 +96,7 @@ jQuery(function ($) {
                         const isAutoplayProgress = options.control_autoplay_progress == '1' || options.control_autoplay_progress === true;
 
                         if (isAutoplayProgress && options.progress_bar_color && options.pagination_type == 'progressbar') {
-                            const $progressbar = slider.find('.swiper-pagination-progressbar-fill');
+                            const $progressbar = slider.find('.swiper-pagination-progressbar-fill').addClass('wpss-progressbar-fill');
                             $progressbar.css({ background: options.progress_bar_color });
                         }
 
@@ -150,6 +145,6 @@ jQuery(function ($) {
 
     }
 
-    new WPSS_Slider_Frontend();
+    new WPSS_Frontend();
 
 });

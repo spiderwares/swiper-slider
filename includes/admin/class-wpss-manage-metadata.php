@@ -2,10 +2,11 @@
 /**
  * Metabox handling class
  */
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if( ! class_exists( 'WPSS_slider_init' ) ) :
+if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
 
-    class WPSS_slider_init {
+    class WPSS_Manage_Metadata {
         private $screens;
         private $metaKey;
         private $metaBoxs;
@@ -38,46 +39,22 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
             );
 
             $this->fields = array(
-                'show_thumb_gallery' => array(
-                    'name'        => esc_html__( 'Show Thumbnail Gallery', 'swiper-slider' ),
-                    'field_type'  => 'switch',
-                    'default'     => false,
-                    'pro_version' => true,
-                    'description' => esc_html__( 'Enable to display a thumbnail gallery below the main slider.', 'swiper-slider' ),
-                    'data_show'       => '.wpss-thumb-gallery',
-                ),
-                'show_thumb_gallery_width' => array(
-                    'name'        => esc_html__( 'Thumbnail Width', 'swiper-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 80,
-                    'pro_version' => true,
-                    'description' => esc_html__( 'Set width of thumbnail images in px.', 'swiper-slider' ),
-                    'class'       => 'wpss-thumb-gallery',
-                ),
-                'show_thumb_gallery_height' => array(
-                    'name'        => esc_html__( 'Thumbnail Height', 'swiper-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 80,
-                    'pro_version' => true,
-                    'description' => esc_html__( 'Set height of thumbnail images in px.', 'swiper-slider' ),
-                    'class'       => 'wpss-thumb-gallery',
-                ),
                 'animation'  => array(
                     'name'          => esc_html__( 'Transition type', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
-                        'slide'             =>  'animation-type-slide.gif',
-                        'fade'              =>  'animation-type-fade.gif',
-                        'flip'              =>  'animation-type-flip.gif',
-                        'cube'              =>  'animation-type-cube.gif',
-                        'cards (pro)'       =>  'animation-type-cards.gif',
-                        'coverflow (pro)'   =>  'animation-type-coverflow.gif',
-                        'shadow push (pro)' =>  'animation-type-creative1.gif',
-                        'zoom split (pro)'  =>  'animation-type-creative2.gif',
-                        'ghost slide (pro)' =>  'animation-type-creative3.gif',
-                        'flip deck (pro)'   =>  'animation-type-creative4.gif',
-                        'twist flow (pro)'  =>  'animation-type-creative5.gif',
-                        'mirrorx (pro)'     =>  'animation-type-creative6.gif'
+                        'slide'             =>  'animation-slide.gif',
+                        'fade'              =>  'animation-fade.gif',
+                        'flip'              =>  'animation-flip.gif',
+                        'cube'              =>  'animation-cube.gif',
+                        'cards (pro)'       =>  'animation-cards.gif',
+                        'coverflow (pro)'   =>  'animation-coverflow.gif',
+                        'shadow push (pro)' =>  'animation-creative1.gif',
+                        'zoom split (pro)'  =>  'animation-creative2.gif',
+                        'ghost slide (pro)' =>  'animation-creative3.gif',
+                        'flip deck (pro)'   =>  'animation-creative4.gif',
+                        'twist flow (pro)'  =>  'animation-creative5.gif',
+                        'mirrorx (pro)'     =>  'animation-creative6.gif'
                     ),
                     'disabled_options' => array( 
                         'cards (pro)', 
@@ -266,7 +243,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                 'control_enable_responsive'   => array(
                     'name'          => esc_html__( 'Enable Responsive', 'swiper-slider' ),
                     'field_type'    => 'switch',
-                    'default'       => true,
+                    'default'       => false,
                     'description'   => esc_html__( 'Enable responsive layout for different screen sizes (mobile, tablet, desktop).', 'swiper-slider' ),
                     'data_show'     => '.wpss-responsive-field',
                 ),
@@ -292,6 +269,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'name'        =>  esc_html__( 'Slides Per View Auto', 'swiper-slider' ),
                     'field_type'  =>  'switch',
                     'default'     =>  false,
+                    'pro_version' => true,
                     'description' =>  esc_html__( 'Enable slide show per view auto for the slider.', 'swiper-slider' ),
                     'class'       => 'wpss-responsive-field',
                 ),
@@ -299,6 +277,7 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'name'        =>  esc_html__( 'Slides Centered', 'swiper-slider' ),
                     'field_type'  =>  'switch',
                     'default'     =>  false,
+                    'pro_version' => true,
                     'description' =>  esc_html__( 'Enable slide centered for the slider.', 'swiper-slider' ),
                 ),
                 'control_loop_slider' => array(
@@ -388,6 +367,69 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
                     'data_show'   => 'grid_layout_axis',
                     'data_show'   => '.wpss-grid-layout',
                 ),
+                'grid_layout_axis' => array(
+                    'name'        => esc_html__('Grid Layout Type', 'swiper-slider'),
+                    'field_type'  => 'select',
+                    'default'     => 'row',
+                    'options'     => array(
+                        'row'    => esc_html__('Row', 'swiper-slider'),
+                        'column' => esc_html__('Column', 'swiper-slider'),
+                    ),
+                    'pro_version' => true,
+                    'description'     => esc_html__('Choose grid layout: Row or Column.', 'swiper-slider'),
+                    'data_show_map'   => array(
+                        'row'    => 'grid_count',
+                        'column' => 'grid_count',
+                    ),
+                    'class'   => 'wpss-grid-layout',
+                ),
+                'grid_count' => array(
+                    'name'        => esc_html__('Grid Count', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 2,
+                    'pro_version' => true,
+                    'description' => esc_html__('Set the number of rows or columns based on your layout.', 'swiper-slider'),
+                    'class'   => 'wpss-grid-layout',
+                ),
+                'thumb_gallery' => array(
+                    'name'        => esc_html__( 'Show Thumbnail Gallery', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => false,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Enable to display a thumbnail gallery below the main slider.', 'swiper-slider' ),
+                    'data_show'       => '.wpss-thumb-gallery',
+                ),
+                'thumb_gallery_loop' => array(
+                    'name'        => esc_html__( 'Thumbnail Gallery Loop', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => true,
+                    'description' => esc_html__( 'Enable continuous loop mode for the thumbs gallery.', 'swiper-slider' ),
+                    'pro_version' => true,
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'thumb_gallery_space' => array(
+                    'name'        => esc_html__( 'Thumbnail Gallery Space', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 10,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Space between each thumbs gallery (in px).', 'swiper-slider' ),
+                ),
+                'thumb_gallery_width' => array(
+                    'name'        => esc_html__( 'Thumbnail Width', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 80,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set width of thumbnail images in px.', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'thumb_gallery_height' => array(
+                    'name'        => esc_html__( 'Thumbnail Height', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 80,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set height of thumbnail images in px.', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
+                ),
 
             );
 
@@ -468,5 +510,5 @@ if( ! class_exists( 'WPSS_slider_init' ) ) :
 
 
     }
-    new WPSS_slider_init();
+    new WPSS_Manage_Metadata();
 endif;
