@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
                 id="<?php echo esc_attr( $field_Key ); ?>" 
                 value="<?php echo esc_attr( $field_Val ); ?>" 
                 data-default-color="<?php echo esc_attr( isset( $field['default'] ) ? $field['default'] : '#ff0000' ); ?>" 
+                data-alpha-enabled="true"
             />
         </label>
     </p>

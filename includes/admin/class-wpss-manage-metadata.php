@@ -25,8 +25,8 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
         }
 
         public function default_Options() {
-            $this->metaKey = 'wpss_slider_image_ids';
-            $this->screens = array( 'wpss_slider'  );
+            $this->metaKey  = 'wpss_slider_image_ids';
+            $this->screens  = array( 'wpss_slider'  );
             $this->metaBoxs = array(
                 'wpss-slideshow-metabox'     => array(
                     'name'      =>  'Slides',
@@ -35,7 +35,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                 'wpss-slideshow-options-metabox'    => array(
                     'name'      =>  'Slider Options',
                     'callback'  =>  'genrate_slideshow_option_metabox',
-                )
+                ),
             );
 
             $this->fields = array(
@@ -51,68 +51,293 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                         'coverflow (pro)'   =>  'animation-coverflow.gif',
                         'shadow push (pro)' =>  'animation-creative1.gif',
                         'zoom split (pro)'  =>  'animation-creative2.gif',
-                        'ghost slide (pro)' =>  'animation-creative3.gif',
+                        'slide flow(pro)' =>  'animation-creative3.gif',
                         'flip deck (pro)'   =>  'animation-creative4.gif',
                         'twist flow (pro)'  =>  'animation-creative5.gif',
-                        'mirrorx (pro)'     =>  'animation-creative6.gif'
+                        'mirror (pro)'     =>  'animation-creative6.gif',
                     ),
                     'disabled_options' => array( 
                         'cards (pro)', 
                         'coverflow (pro)', 
                         'shadow push (pro)', 
                         'zoom split (pro)', 
-                        'ghost slide (pro)', 
+                        'slide flow(pro)', 
                         'flip deck (pro)', 
                         'twist flow (pro)', 
-                        'mirrorx (pro)'
+                        'mirror (pro)'
                     ),
                     'default'       => 'slide',
+                    'data_hide'     => '.wpss-coverflow-options, .wpss-cube-options',
+                    'data_show_map' => array(
+                        'cube'      => '.wpss-cube-options',
+                        'coverflow' => '.wpss-coverflow-options',
+                    ),
+                ),
+                'cube_shadows' => array(
+                    'name'        => esc_html__('Shadows', 'swiper-slider'),
+                    'field_type'  => 'switch',
+                    'default'     => true,
+                    'class'       => 'wpss-cube-options',
+                    'description' => esc_html__('Enable shadows.', 'swiper-slider'),
+                ),
+                'cube_slide_shadows' => array(
+                    'name'        => esc_html__('Slide Shadows', 'swiper-slider'),
+                    'field_type'  => 'switch',
+                    'default'     => true,
+                    'class'       => 'wpss-cube-options',
+                    'description' => esc_html__('Enable slide shadows.', 'swiper-slider'),
+                ),
+                'cube_shadowoffset' => array(
+                    'name'        => esc_html__('Shadow Offset', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 20,
+                    'class'       => 'wpss-cube-options',
+                    'description' => esc_html__('Shadow Offset in slides.', 'swiper-slider'),
+                ),
+                'cube_shadowScale' => array(
+                    'name'        => esc_html__('Shadow Scale', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 0.94,
+                    'class'       => 'wpss-cube-options',
+                    'description' => esc_html__('Shadow Scale in slides.', 'swiper-slider'),
+                ),
+
+                'coverflow_rotate' => array(
+                    'name'        => esc_html__('Rotate', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 50,
+                    'class'       => 'wpss-coverflow-options',
+                    'description' => esc_html__('Rotation angle for coverflow.', 'swiper-slider'),
+                ),
+                'coverflow_stretch' => array(
+                    'name'        => esc_html__('Stretch', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 0,
+                    'class'       => 'wpss-coverflow-options',
+                    'description' => esc_html__('Space between slides.', 'swiper-slider'),
+                ),
+                'coverflow_depth' => array(
+                    'name'        => esc_html__('Depth', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 100,
+                    'class'       => 'wpss-coverflow-options',
+                    'description' => esc_html__('Depth offset.', 'swiper-slider'),
+                ),
+                'coverflow_modifier' => array(
+                    'name'        => esc_html__('Modifier', 'swiper-slider'),
+                    'field_type'  => 'number',
+                    'default'     => 1,
+                    'class'       => 'wpss-coverflow-options',
+                    'description' => esc_html__('Effect multiplier.', 'swiper-slider'),
+                ),
+                'coverflow_shadows' => array(
+                    'name'        => esc_html__('Slide Shadows', 'swiper-slider'),
+                    'field_type'  => 'switch',
+                    'default'     => true,
+                    'class'       => 'wpss-coverflow-options',
+                    'description' => esc_html__('Enable slide shadows.', 'swiper-slider'),
                 ),
                 'navigation_arrow_style' => array(
                     'name'          => esc_html__( 'Navigation arrows style', 'swiper-slider' ),
                     'field_type'    => 'radio',
                     'options'       => array(
-                        'none'   =>  'arrow-style-none.jpg',
-                        'style1' =>  'arrow-style-1.jpg',
-                        'style2' =>  'arrow-style-2.jpg',
-                        'style3' =>  'arrow-style-3.jpg',
-                        'style4' =>  'arrow-style-preve-next-slide-visible.jpg',
-                        'style5 (pro)' =>  'arrow-style-5.jpg',
+                        'none'   => 'arrow-style-none.jpg',
+                        'style1' => 'arrow-style-1.jpg',
+                        'style2' => 'arrow-style-2.jpg',
+                        'style3' => 'arrow-style-preve-next-slide-visible.jpg',
+                        'style4' => 'arrow-style-4.jpg',
+                        'style5 (pro)' => 'arrow-style-5.jpg',
+                        'custom (pro)' => 'arrow-cusotm.jpg',
                     ),
-                    'disabled_options' => array( 'style5 (pro)' ),
+                    'disabled_options' => array( 
+                        'style5 (pro)',
+                        'custom (pro)', 
+                    ),
                     'default'       => 'style1',
+                    'data_hide'     => '.wpss-arrow-color, .wpss-arrow-hover-color, .wpss-arrow-colors, .wpss-arrow-border-color, .wpss-arrow-position',
+                    'data_show_map' => array(
+                        'style1' => '.wpss-arrow-color, .wpss-arrow-hover-color',
+                        'style2' => '.wpss-arrow-colors, .wpss-arrow-color, .wpss-arrow-hover-color, .wpss-arrow-border-color',
+                        'style3' => '.wpss-arrow-colors, .wpss-arrow-color, .wpss-arrow-hover-color, .wpss-arrow-border-color',
+                        'style4' => '.wpss-arrow-colors, .wpss-arrow-color, .wpss-arrow-hover-color, .wpss-arrow-border-color',
+                        'style5' => '.wpss-arrow-color, .wpss-arrow-hover-color',
+                        'custom' => '.wpss-arrow-color, .wpss-arrow-hover-color, .wpss-arrow-border-color, .wpss-arrow-position',
+                    ),
+                ),
+                'arrow_position_unit' => array(
+                    'name'        => esc_html__( 'Arrow Position Unit', 'swiper-slider' ),
+                    'field_type'  => 'select',
+                    'options'     => array(
+                        'px'  => 'px',
+                        '%'   => '%',
+                        'em'  => 'em',
+                        'rem' => 'rem',
+                    ),
+                    'default'     => 'px',
+                    'class'       => 'wpss-arrow-position',
+                ),
+                'arrow_position_top' => array(
+                    'name'        => esc_html__( 'Arrow Top Position', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 50,
+                    'description' => esc_html__( 'Distance from the top. Leave bottom blank if this is set.', 'swiper-slider' ),
+                    'class'       => 'wpss-arrow-position',
+                ),
+                'arrow_position_bottom' => array(
+                    'name'        => esc_html__( 'Arrow Bottom Position', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 50,
+                    'description' => esc_html__( 'Distance from the bottom. Leave top blank if this is set.', 'swiper-slider' ),
+                    'class'       => 'wpss-arrow-position',
+                ),
+                'arrow_position_left' => array(
+                    'name'        => esc_html__( 'Arrow Left Position', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 20,
+                    'description' => esc_html__( 'Distance from the left.', 'swiper-slider' ),
+                    'class'       => 'wpss-arrow-position',
+                ),
+                'arrow_position_right' => array(
+                    'name'        => esc_html__( 'Arrow Right Position', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 20,
+                    'description' => esc_html__( 'Distance from the right.', 'swiper-slider' ),
+                    'class'       => 'wpss-arrow-position',
+                ),
+                'arrow_color' => array(
+                    'name'        => esc_html__( 'Arrow Color', 'swiper-slider' ),
+                    'field_type'  => 'color', 
+                    'default'     => '#ffffff',
+                    'class'       => 'wpss-arrow-color',
+                ),
+                'arrow_bg_color' => array(
+                    'name'        => esc_html__( 'Arrow Background Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#000000',
+                    'class'       => 'wpss-arrow-colors',
+                ),
+                'arrow_hover_color' => array(
+                    'name'        => esc_html__( 'Arrow Hover Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#ffffff',
+                    'class'       => 'wpss-arrow-hover-color',
+                ),
+                'arrow_hover_bg_color' => array(
+                    'name'        => esc_html__( 'Arrow Hover Background Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#333333',
+                    'class'       => 'wpss-arrow-colors',
+                ),
+                'arrow_border_color' => array(
+                    'name'        => esc_html__( 'Arrow Border Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#ffffff',
+                    'class'       => 'wpss-arrow-border-color',
+                ),
+                'image_unit' => array(
+                    'name'        => esc_html__( 'Set Width & Height', 'swiper-slider' ),
+                    'field_type'  => 'select',
+                    'options'     => array(
+                        'px'  => 'px',
+                        '%'   => '%',
+                        'em'  => 'em',
+                        'rem' => 'rem',
+                        'vh'  => 'vh',
+                    ),
+                    'default'     => 'px',
+                    'class'       => 'wpss-image-unit',
                 ),
                 'width_image'   => array(
-                    'name'          => esc_html__( 'Width of Image', 'swiper-slider' ),
-                    'field_type'    => 'number',
-                    'default'       => 500,
-                    'description' =>  esc_html__( 'Specify the width of each slide image (in px).', 'swiper-slider' ),
+                    'name'        => esc_html__( 'Width of Image', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 500,
+                    'description' =>  esc_html__( 'Specify the width of each slide image.', 'swiper-slider' ),
                 ),
                 'height_image'   => array(
-                    'name'          => esc_html__( 'Height of Image', 'swiper-slider' ),
-                    'field_type'    => 'number',
-                    'default'       => 500,
-                    'description' =>  esc_html__( 'Specify the height of each slide image (in px).', 'swiper-slider' ),
+                    'name'        => esc_html__( 'Height of Image', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 500,
+                    'description' =>  esc_html__( 'Specify the height of each slide image.', 'swiper-slider' ),
                 ),
                 'pagination_type' => array(
                     'name'        => esc_html__( 'Pagination Type', 'swiper-slider' ),
                     'field_type'  => 'select',
                     'options'     => array(
+                        'none'        => esc_html__( 'None', 'swiper-slider' ),
                         'bullets'     => esc_html__( 'Bullets', 'swiper-slider' ),
                         'progressbar' => esc_html__( 'Progress Bar', 'swiper-slider' ),
                         'fraction'    => esc_html__( 'Fraction', 'swiper-slider' ),
                         'custom'      => esc_html__( 'Custom', 'swiper-slider' ),
                     ),
-                    'disabled_options' => array( 'fraction' , 'custom'),
-                    'default'     => 'bullets',
-                    'description' => esc_html__( 'Choose between bullet dots or a progress bar for pagination.', 'swiper-slider' ),
-                    'data_hide'   => '.wpss-bullet-style, .wpss-autoplay-progress, .wpss-progress-bar, .wpss-fraction-style, .wpss-custom-style',
+                    'disabled_options' => array( 'fraction' , 'custom' ),
+                    'default'       => 'bullets',
+                    'description'   => esc_html__( 'Choose the type of pagination for the slider.', 'swiper-slider' ),
+                    'data_hide'     => '.wpss-bullet-style, .wpss-autoplay-progress, .wpss-progress-bar, .wpss-fraction-style, .wpss-custom-style, .wpss-bullets-bg-color, .wpss-bullets-hover-bg-color, .wpss-bullets-border-color',
                     'data_show_map' => array(
-                        'bullets'     => '.wpss-bullet-style',
+                        'bullets'     => '.wpss-bullet-style, .wpss-bullets-bg-color, .wpss-bullets-hover-bg-color, .wpss-bullets-border-color',
                         'progressbar' => '.wpss-autoplay-progress, .wpss-progress-bar',
                         'fraction'    => '.wpss-fraction-style',
                         'custom'      => '.wpss-custom-style',
+                        'none'        => '',
                     ),
+                ),
+                'bullets_navigation_style'  => array(
+                    'name'          => esc_html__( 'Bullet style', 'swiper-slider' ),
+                    'field_type'    => 'radio',
+                    'options'       => array(
+                        'style1' =>  'bullets-style-1.jpg',
+                        'style2' =>  'bullets-style-2.jpg',
+                        'style3' =>  'bullets-style-3.jpg',
+                        'style4' =>  'bullets-style-4.jpg',
+                    ),
+                    'default'       => 'style1',
+                    'class'         => 'wpss-bullet-style',
+                ),
+                'bullets_bg_color' => array(
+                    'name'        => esc_html__( 'Bullet Background Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#ffffff',
+                    'class'       => 'wpss-bullets-bg-color',
+                ),
+                'bullets_hover_bg_color' => array(
+                    'name'        => esc_html__( 'Bullet Hover Background Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#000000',
+                    'class'       => 'wpss-bullets-hover-bg-color',
+                ),
+                'bullets_border_color' => array(
+                    'name'        => esc_html__( 'Bullet Border Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#ffffff',
+                    'class'       => 'wpss-bullets-border-color',
+                ),
+                'control_autoplay_progress'   => array(
+                    'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
+                    'field_type'    => 'switch',
+                    'default'       => false,
+                    'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'swiper-slider' ),
+                    'data_show'     => '.wpss-progress-bar',
+                    'class'         => 'wpss-autoplay-progress',
+                ),
+                'progress_bar_position' => array(
+                    'name'          => esc_html__( 'Progress Bar Position', 'swiper-slider' ),
+                    'field_type'    => 'select',
+                    'options'       => array(
+                        'bottom'    => esc_html__( 'Bottom (Use in Horizontal)', 'swiper-slider' ),
+                        'top'       => esc_html__( 'Top (Use in Horizontal)', 'swiper-slider' ),
+                        'left'      => esc_html__( 'Left (Use in Vertical)', 'swiper-slider' ),
+                        'right'     => esc_html__( 'Right (Use in Vertical)', 'swiper-slider' ),
+                    ),
+                    'default'       => 'bottom',
+                    'description'   => esc_html__( 'Choose where to position the autoplay progress bar.', 'swiper-slider' ),
+                    'class'         => 'wpss-progress-bar',
+                    'disabled_options' => array('right','left'),
+                ),
+                'progress_bar_color' => array(
+                    'name'          => esc_html__( 'Progress bar color', 'swiper-slider' ),
+                    'field_type'    => 'color',
+                    'default'       => '#ff0000',
+                    'class'         => 'wpss-progress-bar',
                 ),
                 'fraction_navigation_style'  => array(
                     'name'        => esc_html__( 'Fraction style', 'swiper-slider' ),
@@ -129,6 +354,14 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'       => '#ff0000',
                     'class'         => 'wpss-fraction-style',
                 ),
+                'fraction_font_size' => array(
+                    'name'        => esc_html__( 'Fraction Font Size (px)', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 16,
+                    'class'       => 'wpss-fraction-style',
+                    'description' => esc_html__( 'Set the font size for the fraction pagination.', 'swiper-slider' ),
+                ),
+
                 'custom_navigation_style'  => array(
                     'name'        => esc_html__( 'Custom style', 'swiper-slider' ),
                     'field_type'  => 'radio',
@@ -141,7 +374,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                'custom_text_color' => array(
                     'name'          => esc_html__( 'Custom Color', 'swiper-slider' ),
                     'field_type'    => 'color',
-                    'default'       => '#ff0000',
+                    'default'       => '#ffffff',
                     'class'         => 'wpss-custom-style',
                     'description'   => esc_html__( 'Set the text color for numbered pagination bullets.', 'swiper-slider' ),
                 ),
@@ -155,7 +388,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                'custom_active_text_color' => array(
                     'name'          => esc_html__( 'Custom active Text Color', 'swiper-slider' ),
                     'field_type'    => 'color',
-                    'default'       => '#0a0607',
+                    'default'       => '#ffffff',
                     'class'         => 'wpss-custom-style',
                     'description'   => esc_html__( 'Set the text color for inactive numbered pagination bullets.', 'swiper-slider' ),
                 ),
@@ -165,19 +398,6 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'       => '#0a0607',
                     'class'         => 'wpss-custom-style',
                     'description'   => esc_html__( 'Set the background color for inactive pagination bullets.', 'swiper-slider' ),
-                ),
-                'dots_navigation_style'  => array(
-                    'name'          => esc_html__( 'Bullet style', 'swiper-slider' ),
-                    'field_type'    => 'radio',
-                    'options'       => array(
-                        'none'   =>  'arrow-style-none.jpg',
-                        'style1' =>  'bullets-style-1.jpg',
-                        'style2' =>  'bullets-style-2.jpg',
-                        'style3' =>  'bullets-style-3.jpg',
-                        'style4' =>  'bullets-style-4.jpg',
-                    ),
-                    'default'       => 'style1',
-                    'class'         => 'wpss-bullet-style',
                 ),
                 'control_autoplay_progress'   => array(
                     'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
@@ -227,6 +447,41 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'       => 3000,
                     'class'         => 'wpss-autoplay-timing',
                     'description'   => esc_html__( 'Enter autoplay speed in milliseconds (e.g., 3000 for 3 seconds).', 'swiper-slider' ),
+                ),
+                'control_autoplay_timeleft' => array(
+                    'name'        => esc_html__( 'Circular Autoplay Progress', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => false,
+                    'description' => esc_html__( 'Show circular progress countdown during autoplay (available for all pagination types).', 'swiper-slider' ),
+                    'data_show'   => '.wpss-autoplay-timeleft', 
+                ),
+                'control_autoplay_timeleft_color' => array(
+                    'name'        => esc_html__( 'TimeLeft Color', 'swiper-slider' ),
+                    'field_type'  => 'color',
+                    'default'     => '#007aff',
+                    'description' => esc_html__( 'Set color for circular autoplay progress.', 'swiper-slider' ),
+                    'class'       => 'wpss-autoplay-timeleft',
+                ),
+                'control_autoplay_timeleft_position' => array(
+                    'name'        => esc_html__( 'Autoplay TimeLeft Position', 'swiper-slider' ),
+                    'field_type'  => 'select',
+                    'default'     => 'bottom-right',
+                    'options'     => array(
+                        'top-left'     => esc_html__( 'Top Left', 'swiper-slider' ),
+                        'top-right'    => esc_html__( 'Top Right', 'swiper-slider' ),
+                        'bottom-left'  => esc_html__( 'Bottom Left', 'swiper-slider' ),
+                        'bottom-right' => esc_html__( 'Bottom Right', 'swiper-slider' ),
+                    ),
+                    'description' => esc_html__( 'Choose position for autoplay time left circle.', 'swiper-slider' ),
+                    'class'       => 'wpss-autoplay-timeleft',
+                ),
+                'control_autoplay_timeleft_font_size' => array(
+                    'name'        => esc_html__( 'Time Left Font Size', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 20,
+                    'description' => esc_html__( 'Font size for the autoplay time left number (in px).', 'swiper-slider' ),
+                    'unit'        => 'px',
+                    'class'       => 'wpss-autoplay-timeleft',
                 ),
                 'control_lazyload_images'   => array(
                     'name'          => esc_html__( 'Lazy load images', 'swiper-slider' ),  
@@ -371,11 +626,11 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'name'        => esc_html__('Grid Layout Type', 'swiper-slider'),
                     'field_type'  => 'select',
                     'default'     => 'row',
+                    'pro_version' => true,
                     'options'     => array(
                         'row'    => esc_html__('Row', 'swiper-slider'),
                         'column' => esc_html__('Column', 'swiper-slider'),
                     ),
-                    'pro_version' => true,
                     'description'     => esc_html__('Choose grid layout: Row or Column.', 'swiper-slider'),
                     'data_show_map'   => array(
                         'row'    => 'grid_count',
@@ -430,7 +685,6 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'description' => esc_html__( 'Set height of thumbnail images in px.', 'swiper-slider' ),
                     'class'       => 'wpss-thumb-gallery',
                 ),
-
             );
 
             $this->fields = apply_filters( 'wpss_slider_fields', $this->fields );
@@ -486,8 +740,9 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
         }
 
         public function save_slideshow_metadata( $slideshow_ID ) {
-            if ( ! isset( $_POST['wpss_slideshow_metabox_nonce'] ) | ! 
-                wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpss_slideshow_metabox_nonce'] ) ),
+            if ( ! isset( $_POST['wpss_slideshow_metabox_nonce'] ) || ! 
+                wp_verify_nonce( 
+                    sanitize_text_field( wp_unslash( $_POST['wpss_slideshow_metabox_nonce'] ) ),
                 'wpss_slideshow_metabox_data' 
                 )
             ) :

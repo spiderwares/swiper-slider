@@ -53,13 +53,21 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
                 wp_enqueue_style( 'wp-color-picker' );
                 wp_enqueue_script( 'wp-color-picker' );
 
+                wp_enqueue_script( 
+                    'wp-color-picker-alpha', 
+                    WPSS_URL . 'assets/js/wp-color-picker-alpha.js', 
+                    array('jquery', 'wp-color-picker'), 
+                    WPSS_VERSION,
+                    true
+                );
+
                 if ( ! did_action( 'wp_enqueue_media' ) )
                     wp_enqueue_media();
 
                 wp_enqueue_script( 
                     'wpss-admin-core', 
                     WPSS_URL . 'assets/js/wpss-admin-core.js', 
-                    array('jquery', 'media-editor', 'media-views'), 
+                    array('jquery', 'media-editor', 'media-views', 'wp-color-picker-alpha'), 
                     WPSS_VERSION,
                     true
                 );

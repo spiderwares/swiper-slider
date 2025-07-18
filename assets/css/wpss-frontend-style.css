@@ -1,67 +1,57 @@
 /* ============================= Arrow Style ========================== */
 
-/* Style 1 */
+/* === Style 1 === */
 .wpss-swiper-arrow-style1 .swiper-button-next,
 .wpss-swiper-arrow-style1 .swiper-button-prev {
-    color: #fff;
-    font-size: 40px;
+    font-size: 30px;
     opacity: 0.9;
 }
 
-/* Style 2 */
+/* === Style 2 === */
+.wpss-swiper-arrow-custom .swiper-button-next,
+.wpss-swiper-arrow-custom .swiper-button-prev {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    width: 33px;
+    height: 33px;
+}
+
+.wpss-swiper-arrow-custom .swiper-button-next:after, 
+.wpss-swiper-arrow-custom .swiper-button-prev:after{
+    font-size: 16px;
+}
+
+/* === Style 3 === */
 .wpss-swiper-arrow-style2 .swiper-button-next,
 .wpss-swiper-arrow-style2 .swiper-button-prev {
-    background: #ffffff00;
-    border: 2px solid #fff;
-    color: #fff;
+    border: 2px solid #555;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 33px;
+    height: 33px;
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.9;
 }
 
 .wpss-swiper-arrow-style2 .swiper-button-next:after, 
 .wpss-swiper-arrow-style2 .swiper-button-prev:after{
-    font-size: 30px;
+    font-size: 16px;
 }
 
-/* Style 3 */
-.wpss-swiper-arrow-style3 .swiper-button-next,
-.wpss-swiper-arrow-style3 .swiper-button-prev {
-    background: #555;
-    border: 2px solid #555;
-    color: #fff;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.9;
-}
-
-.wpss-swiper-arrow-style3 .swiper-button-next:after, 
-.wpss-swiper-arrow-style3 .swiper-button-prev:after{
-    font-size: 30px;
-}
-
-/* Style 4 */
-.wpss-swiper-arrow-style4 {
+/* === Style 4 === */
+.wpss-swiper-arrow-style3 {
     position: relative;
 }
 
-.wpss-swiper-arrow-style4 .swiper-button-prev,
-.wpss-swiper-arrow-style4 .swiper-button-next {
+.wpss-swiper-arrow-style3 .swiper-button-prev,
+.wpss-swiper-arrow-style3 .swiper-button-next {
     position: absolute;
     top: 0;
     bottom: 0;
     width: 50px;
     height: auto;
-    background-color: #fff;
     border: 1px solid #000;
-    color: #000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,24 +63,19 @@
     cursor: pointer;
 }
 
-.wpss-swiper-arrow-style4 .swiper-button-prev {
+.wpss-swiper-arrow-style3 .swiper-button-prev {
     left: 0;
 }
 
-.wpss-swiper-arrow-style4 .swiper-button-next {
+.wpss-swiper-arrow-style3 .swiper-button-next {
     right: 0;
 }
 
-.wpss-swiper-arrow-style4 .swiper-button-prev:hover,
-.wpss-swiper-arrow-style4 .swiper-button-next:hover {
-    background-color: rgba(85, 85, 85, 0.5);
-    color: #fff;
-}
-
-.wpss-swiper-arrow-style4 .swiper-button-prev:after,
-.wpss-swiper-arrow-style4 .swiper-button-next:after {
+.wpss-swiper-arrow-style3 .swiper-button-prev:after,
+.wpss-swiper-arrow-style3 .swiper-button-next:after {
     font-size: 30px;
 }
+
 
 /* =========================== Dot Pagination Style =========================== */
 
@@ -99,12 +84,12 @@
     outline-style: none;
 }
 
-/* Style 1  */
+/* === Style 1  === */
 .wpss-swiper-dot-style1 .swiper-pagination-bullet {
     background: transparent;
-    border: 2px solid #fff;
-    width: 8px;
-    height: 8px;
+    border: 1px solid #fff;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     opacity: 1;
 }
@@ -112,12 +97,12 @@
     background: #fff;
 }
 
-/* Style 2 */
+/* === Style 2 === */
 .wpss-swiper-dot-style2 .swiper-pagination-bullet {
     background: transparent;
-    border: 2px solid #fff;
-    width: 8px;
-    height: 8px;
+    border: 1px solid #fff;
+    width: 10px;
+    height: 10px;
     border-radius: 0;
     opacity: 1;
 }
@@ -125,7 +110,7 @@
     background: #fff;
 }
 
-/* Style 3 */
+/* === Style 3 === */
 .wpss-swiper-dot-style3 .swiper-pagination-bullet {
     background: #999;
     border-radius: 0;
@@ -138,18 +123,25 @@
     opacity: 1;
 }
 
-/* Style 4 */
+/* === Style 4 === */
 .wpss-swiper-dot-style4 .swiper-pagination-bullet {
-    background: #fff;
-    border: 2px solid #333;
     width: 10px;
     height: 10px;
     border-radius: 50%;
+    margin: 0 4px;
+    transition: all 0.3s ease;
+    background: transparent; 
+    border: 2px solid #fff;  
+    opacity: 0.8;
+}
+
+.wpss-swiper-dot-style4 .swiper-pagination-bullet-active {
+    width: 28px;
+    border-radius: 999px;
+    background: #fff; 
     opacity: 1;
 }
-.wpss-swiper-dot-style4 .swiper-pagination-bullet-active {
-    background: #000;
-}
+
 
 /* ============================ Custom Pagination Style =================================== */
 
@@ -231,3 +223,46 @@
 }
 
 
+.wpss-swiper .autoplay-progress {
+  position: absolute;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.wpss-swiper .wpss-timeleft-top-left {
+  top: 16px;
+  left: 16px;
+}
+
+.wpss-swiper .wpss-timeleft-top-right {
+  top: 16px;
+  right: 16px;
+}
+
+.wpss-swiper .wpss-timeleft-bottom-left {
+  bottom: 16px;
+  left: 16px;
+}
+
+.wpss-swiper .wpss-timeleft-bottom-right {
+  bottom: 16px;
+  right: 16px;
+}
+
+.wpss-swiper .autoplay-progress svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  stroke-width: 4px;
+  fill: none;
+  stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
+  stroke-dasharray: 125.6;
+  transform: rotate(-90deg);
+}

@@ -298,3 +298,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
     padding: 5px;
     background: #f7f7f7;
 }
+
+.wpss-pagination-none .swiper-pagination {
+  display: none !important;
+}

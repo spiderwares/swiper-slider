@@ -3,15 +3,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! empty($imageIDs)) : 
 ?>
+    <?php if ( ! empty( $arrow_css ) ) : ?>
+        <style><?php echo esc_html( $arrow_css ); ?></style>
+    <?php endif; ?>
+
     <div class="wpss-swiper swiper swiper-slider-wrapper <?php echo esc_attr($slideshow_main_class); ?>" 
     data-options='<?php echo esc_attr( $options );?>'
     <?php echo wp_kses_post( $wrapper_style ); ?>>
         <div class="swiper-wrapper">
             <?php foreach( $imageIDs as $imageID ) :
                 $image_style = sprintf(
-                    'width: %dpx; height: %dpx; object-fit: cover;',
-                    (int) $width_image,
-                    (int) $height_image
+                    'width: %s; height: %s; object-fit: cover;',
+                    esc_attr($width_image),
+                    esc_attr($height_image)
                 ); ?>
                 <div class="swiper-slide">
                     <div class="swiper-zoom-container">
@@ -31,9 +35,10 @@ if ( ! empty($imageIDs)) :
         </div>
 
         <!-- Pagination Type -->
-        <?php if ( $dot_style !== 'none' || in_array($pagination_type, ['progressbar', 'fraction', 'custom'], true) ) : ?>
+        <?php if ( $pagination_type !== 'none' ) : ?>
             <div class="swiper-pagination"></div>
         <?php endif; ?>
+
 
         <!-- Scrollbar --->
         <?php
@@ -44,14 +49,21 @@ if ( ! empty($imageIDs)) :
             ) );
 
             // Proper escaping for filter output
-            echo wp_kses_post( $scrollbar ); ?>
+            echo wp_kses_post( $scrollbar ); 
+        ?>
 
         <!-- Next & Prev Button -->
         <?php if( $arrow_style != 'none' ): ?>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         <?php endif; ?>
-        
+
+        <div class="autoplay-progress <?php echo esc_attr($timeleft_class); ?>">
+            <svg viewBox="0 0 48 48">
+                <circle cx="24" cy="24" r="20"></circle>
+            </svg>
+            <span style="font-size: <?php echo esc_attr($autoplay_timeleft_font_size); ?>px;"></span>
+        </div>
     </div>
 
    <!-- Swiper Thumbs Gallery -->

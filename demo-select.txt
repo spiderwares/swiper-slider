@@ -1,0 +1,392 @@
+<td>
+    <select name="wpss_slider_option[<?php echo esc_attr($field_Key); ?>]"
+            class="wpss-select wpss-select-field"
+            <?php if (!empty($field['data_hide'])) : ?>
+                data-hide="<?php echo esc_attr($field['data_hide']); ?>"
+            <?php endif; ?>>
+
+        <?php foreach ($field['options'] as $option_value => $option_label) : ?>
+            <option
+                value="<?php echo esc_attr($option_value); ?>"
+                data-show=".<?php echo esc_attr($option_value); ?>"
+                <?php selected($field_Val, $option_value); ?>
+               <?php echo in_array($option_value, isset($field['disabled_options']) ? $field['disabled_options'] : [], true) ? 'disabled' : ''; ?>>
+                <?php echo esc_html($option_label); ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+
+    <?php if (!empty($field['description'])) : ?>
+        <p class="description"><?php echo esc_html($field['description']); ?></p>
+    <?php endif; ?>
+</td>
+
+
+
+
+
+
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; 
+?>
+<div class="wpss_slides_wrap">
+    <table class="form-table">
+        <tbody>
+            <?php foreach( $fields as $field_Key => $field ) : 
+                $field_Val = isset( $options[$field_Key] ) ? $options[$field_Key] : ( isset( $field['default'] ) ? $field['default'] : '' );
+                $row_class = isset( $field['class'] ) ? $field['class'] : '' ;
+            ?>
+                <tr class="<?php echo esc_attr( $row_class ); ?>"
+                        <?php if( isset($field[ 'style' ] ) && !empty( $field[ 'style' ] ) ):
+                            $style = explode('.', $field['style'], 2); ?>
+                            style="<?php echo esc_attr( ( isset( $options[ $style[0] ] ) && $options[ $style[0] ] == $style[1] ) ? '' : 'display: none;' ); ?>"
+                        <?php endif; ?> >
+                    <th scope="row">
+                        <?php echo esc_html( $field['name'] ); ?>
+                    </th>
+                    <?php 
+                    // Check for pro version restriction first
+                    if ( ! empty( $field['pro_version'] ) && ! defined( 'WPSS_PRO_VERSION' ) ) :
+                        wpss_get_template(
+                            'fields/pro-field.php',
+                            array(
+                                'field' => $field
+                            )
+                        );
+                    else :
+                        switch( $field['field_type'] ) :
+                            case "radio" : 
+                                wpss_get_template(
+                                    'fields/radio-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "switch" : 
+                                wpss_get_template( 
+                                    'fields/switch-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+
+                            case "number":
+                                wpss_get_template( 
+                                    'fields/number-field.php', 
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+                                
+                            case "color":
+                                wpss_get_template( 
+                                    'fields/color-field.php', 
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+
+                            case "select":
+                                wpss_get_template( 
+                                    'fields/select-field.php', 
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+
+                            case "text":
+								wpss_get_template(
+									'fields/text-field.php',
+									array(
+										'field'      => $field,
+										'field_Val'  => $field_Val,
+										'field_Key'  => $field_Key
+									)
+								);
+								break;
+
+							case "pro":
+								wpss_get_template(
+									'fields/pro-field.php',
+									array(
+										'field'      => $field,
+										'field_Val'  => $field_Val,
+										'field_Key'  => $field_Key
+									)
+								);
+								break;
+
+
+                        endswitch; 
+                    endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>  
+
+
+
+/* Hide and show */
+
+<?php
+if (!defined('ABSPATH')) exit;
+?>
+<div class="wpss_slides_wrap">
+    <table class="form-table">
+        <tbody>
+            <?php foreach ($fields as $field_Key => $field) :
+                $field_Val = isset($options[$field_Key]) ? $options[$field_Key] : (isset($field['default']) ? $field['default'] : '');
+                $row_class = isset($field['class']) ? $field['class'] : '';
+
+                // Determine initial visibility based on controlling fields
+                $is_visible = true;
+                if (isset($field['class'])) {
+                    // Check if this field is controlled by a switch or select/radio with data_show/data_show_map
+                    foreach ($fields as $controller_key => $controller) {
+                        if (isset($controller['data_show']) && $controller['field_type'] === 'switch' && strpos($controller['data_show'], $field['class']) !== false) {
+                            // Field is controlled by a switch
+                            $controller_value = isset($options[$controller_key]) ? $options[$controller_key] : (isset($controller['default']) ? $controller['default'] : '0');
+                            $is_visible = $controller_value == '1';
+                        } elseif (isset($controller['data_show_map']) && isset($controller['data_show_map'][$options[$controller_key] ?? $controller['default']])) {
+                            // Field is controlled by a select or radio
+                            $target_classes = $controller['data_show_map'][$options[$controller_key] ?? $controller['default']];
+                            $is_visible = strpos($target_classes, $field['class']) !== false;
+                        }
+                    }
+                }
+            ?>
+                <tr class="<?php echo esc_attr($row_class); ?>" style="<?php echo $is_visible ? '' : 'display: none;'; ?>">
+                    <th scope="row">
+                        <?php echo esc_html($field['name']); ?>
+                    </th>
+                    <?php
+                    // Check for pro version restriction first
+                    if (!empty($field['pro_version']) && !defined('WPSS_PRO_VERSION')) :
+                        wpss_get_template(
+                            'fields/pro-field.php',
+                            array(
+                                'field' => $field
+                            )
+                        );
+                    else :
+                        switch ($field['field_type']) :
+                            case "radio":
+                                wpss_get_template(
+                                    'fields/radio-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "switch":
+                                wpss_get_template(
+                                    'fields/switch-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "number":
+                                wpss_get_template(
+                                    'fields/number-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "color":
+                                wpss_get_template(
+                                    'fields/color-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "select":
+                                wpss_get_template(
+                                    'fields/select-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "text":
+                                wpss_get_template(
+                                    'fields/text-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "pro":
+                                wpss_get_template(
+                                    'fields/pro-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                        endswitch;
+                    endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+
+
+
+/ * New hide and show */
+
+<?php 
+if ( ! defined( 'ABSPATH' ) ) exit; 
+?>
+<div class="wpss_slides_wrap">
+    <table class="form-table">
+        <tbody>
+            <?php foreach( $fields as $field_Key => $field ) : 
+                $field_Val = isset( $options[$field_Key] ) ? $options[$field_Key] : ( isset( $field['default'] ) ? $field['default'] : '' );
+                $row_class = isset( $field['class'] ) ? $field['class'] : '' ;
+
+                $is_visible = !$row_class || strpos(json_encode($options), $row_class) !== false;
+            ?>
+                <tr class="<?php echo esc_attr($row_class); ?>" style="<?php echo $is_visible ? '' : 'display: none;'; ?>">
+                    <th scope="row">
+                        <?php echo esc_html( $field['name'] ); ?>
+                    </th>
+                    <?php 
+                    // Check for pro version restriction first
+                    if ( ! empty( $field['pro_version'] ) && ! defined( 'WPSS_PRO_VERSION' ) ) :
+                        wpss_get_template(
+                            'fields/pro-field.php',
+                            array(
+                                'field' => $field
+                            )
+                        );
+                    else :
+                        switch( $field['field_type'] ) :
+                            case "radio" : 
+                                wpss_get_template(
+                                    'fields/radio-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key
+                                    )
+                                );
+                                break;
+
+                            case "switch" : 
+                                wpss_get_template( 
+                                    'fields/switch-field.php',
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+
+                            case "number":
+                                wpss_get_template( 
+                                    'fields/number-field.php', 
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+                                
+                            case "color":
+                                wpss_get_template( 
+                                    'fields/color-field.php', 
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+
+                            case "select":
+                                wpss_get_template( 
+                                    'fields/select-field.php', 
+                                    array(
+                                        'field'     => $field,
+                                        'field_Val' => $field_Val,
+                                        'field_Key' => $field_Key 
+                                    ) 
+                                );
+                                break;
+
+                            case "text":
+								wpss_get_template(
+									'fields/text-field.php',
+									array(
+										'field'      => $field,
+										'field_Val'  => $field_Val,
+										'field_Key'  => $field_Key
+									)
+								);
+								break;
+
+							case "pro":
+								wpss_get_template(
+									'fields/pro-field.php',
+									array(
+										'field'      => $field,
+										'field_Val'  => $field_Val,
+										'field_Key'  => $field_Key
+									)
+								);
+								break;
+
+
+                        endswitch; 
+                    endif; ?>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>

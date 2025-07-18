@@ -5,10 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
     <table class="form-table">
         <tbody>
             <?php foreach( $fields as $field_Key => $field ) : 
-                $field_Val = isset( $options[$field_Key] ) ? $options[$field_Key] : $field['default'];
-                $row_class = isset( $field['class'] ) ? $field['class'] : '' ;
+                $field_Val  = isset( $options[$field_Key] ) ? $options[$field_Key] : ( isset( $field['default'] ) ? $field['default'] : '' );
+                $row_class  = isset( $field['class'] ) ? $field['class'] : '' ;
+                $is_visible = !$row_class || strpos(json_encode($options), $row_class) !== false;
             ?>
-                <tr class="<?php echo esc_attr( $row_class ); ?>">
+                 <tr class="<?php echo esc_attr($row_class); ?>" style="<?php echo $is_visible ? '' : 'display: none;'; ?>">
                     <th scope="row">
                         <?php echo esc_html( $field['name'] ); ?>
                     </th>

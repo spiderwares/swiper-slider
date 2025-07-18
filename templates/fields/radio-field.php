@@ -5,30 +5,32 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 ?>
 <td>
-    <?php if( isset( $field['options'] ) ) : ?>
-        <?php 
-        $disabled_options = isset( $field['disabled_options'] ) ? $field['disabled_options'] : array();
-        foreach( $field['options'] as $optionKey => $optionImg ) :
-            $is_disabled = in_array( $optionKey, $disabled_options ); ?>
-            <p class="wpss-image-control <?php echo $is_disabled ? 'wpss-disabled-option' : ''; ?>">
-                <input 
-                    type="radio" 
-                    name="wpss_slider_option[<?php echo esc_attr( $field_Key ); ?>]"
-                    value="<?php echo esc_attr( $optionKey ); ?>"
-                    id="<?php echo esc_attr( $field_Key . "_" . $optionKey ) ?>" 
-                    <?php checked( $optionKey, $field_Val ); ?>
-                    <?php echo $is_disabled ? 'disabled' : ''; ?>>
-
-                <label for="<?php echo esc_attr( $field_Key . "_" . $optionKey ) ?>">
-                    <img 
-                        width="150" 
-                        src="<?php echo esc_url( WPSS_URL . "assets/images/options/" . $optionImg ); ?>" 
-                        alt="<?php echo esc_attr( $optionKey ); ?>" 
-                        style="<?php echo $is_disabled ? 'opacity: 0.5; cursor: not-allowed;' : ''; ?>"
+    <?php if ( isset( $field['options'] ) ) : ?>
+        <div class="wpss-radio-field" <?php echo isset( $field['data_hide'] ) ? 'data-hide="' . esc_attr( $field['data_hide'] ) . '"' : ''; ?>>
+            <?php foreach ( $field['options'] as $optionKey => $optionImg ) : ?>
+                <p class="wpss-image-control <?php echo in_array( $optionKey, $field['disabled_options'] ?? array() ) ? 'wpss-disabled-option' : ''; ?>">
+                    <input 
+                        type="radio" 
+                        name="wpss_slider_option[<?php echo esc_attr( $field_Key ); ?>]"
+                        value="<?php echo esc_attr( $optionKey ); ?>"
+                        id="<?php echo esc_attr( $field_Key . '_' . $optionKey ); ?>"
+                        <?php checked( $optionKey, $field_Val ); ?>
+                        <?php echo in_array( $optionKey, $field['disabled_options'] ?? array() ) ? 'disabled' : ''; ?>
+                        data-show="<?php echo esc_attr( $field['data_show_map'][ $optionKey ] ?? '' ); ?>"
                     >
-                    <?php echo esc_html( $optionKey ); ?>
-                </label>
-            </p>
-        <?php endforeach; ?>
+
+                    <label for="<?php echo esc_attr( $field_Key . '_' . $optionKey ); ?>">
+                        <img 
+                            width="150" 
+                            src="<?php echo esc_url( WPSS_URL . 'assets/images/options/' . $optionImg ); ?>" 
+                            alt="<?php echo esc_attr( $optionKey ); ?>"
+                            style="<?php echo in_array( $optionKey, $field['disabled_options'] ?? array() ) ? 'opacity: 0.5; cursor: not-allowed;' : ''; ?>"
+                        >
+                        <?php echo esc_html( $optionKey ); ?>
+                    </label>
+                </p>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 </td>
+
