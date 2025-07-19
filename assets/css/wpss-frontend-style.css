@@ -1,45 +1,31 @@
 /* ============================= Arrow Style ========================== */
 
 /* === Style 1 === */
-.wpss-swiper-arrow-style1 .swiper-button-next,
-.wpss-swiper-arrow-style1 .swiper-button-prev {
-    font-size: 30px;
-    opacity: 0.9;
+.wpss-swiper-arrow-style1 .swiper-button-next:after,
+.wpss-swiper-arrow-style1 .swiper-button-prev:after {
+    font-size: inherit;
+    opacity: unset;
 }
 
 /* === Style 2 === */
-.wpss-swiper-arrow-custom .swiper-button-next,
-.wpss-swiper-arrow-custom .swiper-button-prev {
-    border: 2px solid #fff;
-    border-radius: 50%;
-    width: 33px;
-    height: 33px;
-}
-
-.wpss-swiper-arrow-custom .swiper-button-next:after, 
-.wpss-swiper-arrow-custom .swiper-button-prev:after{
-    font-size: 16px;
-}
-
-/* === Style 3 === */
 .wpss-swiper-arrow-style2 .swiper-button-next,
 .wpss-swiper-arrow-style2 .swiper-button-prev {
     border: 2px solid #555;
-    border-radius: 50%;
+    border-radius: inherit;
     width: 33px;
     height: 33px;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.9;
+    opacity: unset;
 }
 
 .wpss-swiper-arrow-style2 .swiper-button-next:after, 
-.wpss-swiper-arrow-style2 .swiper-button-prev:after{
-    font-size: 16px;
+.wpss-swiper-arrow-style2 .swiper-button-prev:after {
+    font-size: inherit;
 }
 
-/* === Style 4 === */
+/* === Style 3 === */
 .wpss-swiper-arrow-style3 {
     position: relative;
 }
@@ -59,7 +45,7 @@
     transition: background-color 0.3s ease, color 0.3s ease;
     z-index: 10;
     margin: 0;
-    font-size: 20px;
+    font-size: inherit;
     cursor: pointer;
 }
 
@@ -73,9 +59,25 @@
 
 .wpss-swiper-arrow-style3 .swiper-button-prev:after,
 .wpss-swiper-arrow-style3 .swiper-button-next:after {
-    font-size: 30px;
+    font-size: inherit;
 }
 
+/* === Custom Arrow === */
+.wpss-swiper-arrow-custom .swiper-button-next,
+.wpss-swiper-arrow-custom .swiper-button-prev {
+    border: 2px solid #fff;
+    border-radius: inherit;
+    width: 33px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wpss-swiper-arrow-custom .swiper-button-next:after, 
+.wpss-swiper-arrow-custom .swiper-button-prev:after {
+    font-size: inherit;
+}
 
 /* =========================== Dot Pagination Style =========================== */
 
@@ -141,7 +143,6 @@
     background: #fff; 
     opacity: 1;
 }
-
 
 /* ============================ Custom Pagination Style =================================== */
 
@@ -266,3 +267,32 @@
   stroke-dasharray: 125.6;
   transform: rotate(-90deg);
 }
+
+.wpss-swiper .wpss-fraction-top-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-align: left;
+}
+
+.wpss-swiper .wpss-fraction-top-right {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: right;
+}
+
+.wpss-swiper .wpss-fraction-bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    text-align: left;
+}
+
+.wpss-swiper  .wpss-fraction-bottom-right{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
+}
+

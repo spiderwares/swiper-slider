@@ -56,19 +56,19 @@ jQuery(function ($) {
         }
 
         swiperOptions(slider, options) {
-            const isResponsive  = options.control_enable_responsive == '1' || options.control_enable_responsive === 1,
-                isAutoSlides    = options.slide_control_view_auto == '1' || options.slide_control_view_auto === true,
+            const responsive    = options.control_enable_responsive == '1' || options.control_enable_responsive === 1,
+                autoSlides      = options.slide_control_view_auto == '1' || options.slide_control_view_auto === true,
                 paginationType  = options.pagination_type || 'bullets',
                 customStyle     = options.custom_navigation_style || 'style1',
                 customTextColor = options.custom_text_color || '#ff0000',
                 customBackgroundColor = options.custom_background_color || '#007aff',
                 customActiveTextColor = options.custom_active_text_color || '#0a0607',
-                customActiveBackgroundColor = options.custom_active_background_color || '#0a0607';
+                customActiveBgColor = options.custom_active_background_color || '#0a0607';
 
             const baseOptions = {
                 effect:         options.animation || 'slide',
                 grabCursor:     options.control_grab_cursor == '1',
-                slidesPerView: isAutoSlides ? 'auto' : isResponsive ? (parseInt(options.items_in_desktop) || 1) : 1,
+                slidesPerView: autoSlides ? 'auto' : responsive ? (parseInt(options.items_in_desktop) || 1) : 1,
                 autoplay:       options.control_autoplay == '1' ? {
                     delay:      parseInt(options.autoplay_timing, 10) || 3000,
                     disableOnInteraction: false,
@@ -100,12 +100,18 @@ jQuery(function ($) {
                         }
 
                         if (options.pagination_type === 'fraction') {
-                            const fractionEl = slider.find('.swiper-pagination');
+                            const fraction = slider.find('.swiper-pagination');
                             if (options.fraction_color) {
-                                fractionEl.css('color', options.fraction_color);
+                                fraction.css('color', options.fraction_color);
                             }
                             if (options.fraction_font_size) {
-                                fractionEl.css('font-size', `${parseInt(options.fraction_font_size)}px`);
+                                fraction.css('font-size', `${parseInt(options.fraction_font_size)}px`);
+                            }
+
+                            if (options.fraction_position) {
+                                fraction
+                                    .removeClass('wpss-fraction-top-left wpss-fraction-top-right wpss-fraction-bottom-left wpss-fraction-bottom-right wpss-fraction-center')
+                                    .addClass(`wpss-fraction-${options.fraction_position}`);
                             }
                         }
 
@@ -115,7 +121,7 @@ jQuery(function ($) {
                                 '--wpss-custom-text-color': customTextColor,
                                 '--wpss-custom-bg-color': customBackgroundColor,
                                 '--wpss-custom-active-text-color': customActiveTextColor,
-                                '--wpss-custom-active-bg-color': customActiveBackgroundColor
+                                '--wpss-custom-active-bg-color': customActiveBgColor
                             });
                         }
                         
@@ -146,7 +152,7 @@ jQuery(function ($) {
                 };
             }
 
-            if (!isAutoSlides && isResponsive) {
+            if (!autoSlides && responsive) {
                 baseOptions.breakpoints = this.getResponsiveBreakpoints(options);
             }
 
