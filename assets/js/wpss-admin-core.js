@@ -1,3 +1,4 @@
+'use strict';
 jQuery(function($) {
     class WPSS_Admin_Core {
 
@@ -62,22 +63,6 @@ jQuery(function($) {
                 }
             }
         }
-
-
-        // toggleVisibility(e) {
-        //     var __this = $(e.currentTarget);
- 
-        //     if (__this.is('select')) {
-        //         var target      = __this.find(':selected').data('show'),
-        //             hideElemnt  = __this.data( 'hide' );
-        //             $(document.body).find(hideElemnt).hide();
-        //             $(document.body).find(target).show();
-        //     } else {
-        //         var target = __this.data('show');
-        //         $(document.body).find(target).toggle();
-        //     }
-        // }
- 
 
         handleUploadSlide(e) {
             e.preventDefault();

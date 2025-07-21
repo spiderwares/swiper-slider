@@ -35,7 +35,7 @@ This plugin includes the following open-source libraries:
 * ⭐ Fully responsive and mobile-friendly  
 * ⭐ Customizable slider options (navigation, autoplay, loop, speed, etc.)  
 * ⭐ Drag & drop to reorder slides  
-* ⭐ Shortcode support: `[wpss_simple_slider id="123"]`  
+* ⭐ Shortcode support: `[wpss_slider id="123"]`  
 * ⭐ Compatible with all major themes and page builders  
 * ⭐ Developer-friendly with extendable actions & filters  
 
@@ -44,12 +44,12 @@ This plugin includes the following open-source libraries:
 1. Upload the plugin to the `/wp-content/plugins/swiper-slider/` directory or install it via **Plugins > Add New**.
 2. Activate the plugin through the **Plugins** menu in WordPress.
 3. Create a new slider from the **Swiper Slider** admin menu.
-4. Use the shortcode `[wpss_simple_slider id="123"]` to display the slider anywhere on your site.
+4. Use the shortcode `[wpss_slider id="123"]` to display the slider anywhere on your site.
 
 ## Frequently Asked Questions
 
 # How do I add a slider to my page?  
-Use the shortcode `[wpss_simple_slider id="SLIDER_ID"]` where `SLIDER_ID` is the ID of the slider post.
+Use the shortcode `[wpss_slider id="SLIDER_ID"]` where `SLIDER_ID` is the ID of the slider post.
 
 # Can I change slider settings? 
 Yes. Each slider has configurable options like loop, autoplay, navigation arrows, and pagination dots.

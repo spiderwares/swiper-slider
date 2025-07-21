@@ -38,7 +38,7 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
 
         public function shortcode_metabox_callback( $post ) {
             printf( 
-                '<p>%s</p><hr><code>[wpss_simple_slider id="%d"]</code>', 
+                '<p>%s</p><hr><code>[wpss_slider id="%d"]</code>', 
                 esc_html__( 'Use the following shortcode to display the slider', 'swiper-slider' ), 
                 esc_attr( $post->ID ) 
             );
@@ -97,7 +97,7 @@ if( ! class_exists( 'WPSS_Slider_Manage' ) ) :
 
         public function render_shortcode_column( $column, $post_id ) {
             if ( $column === 'wpss_shortcode' ) :
-                printf( '<code>[wpss_simple_slider id="%d"]</code>', 
+                printf( '<code>[wpss_slider id="%d"]</code>', 
                 esc_attr( $post_id ) 
             );
             endif;

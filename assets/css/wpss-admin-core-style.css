@@ -112,6 +112,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 }
 
 /************* Metabox options control ************/
+
 .wpss_slides_wrap table tr th ,
 .wpss_slides_wrap table tr td{
     border-bottom: 1px dashed #eee;
@@ -163,6 +164,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 }
 
 /* ==================== Switch Icon ========================== */
+
 .wpss-toggle-wrapper {
     display: inline-flex;
     align-items: center;
@@ -250,6 +252,7 @@ ul.wpss_slides li .wpss_slide_actions a span:before {
 }
 
 /* ============== Pro Version message ============= */
+
 .wpss-pro-message {
     color: #c9356e;
 }

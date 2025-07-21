@@ -1,3 +1,4 @@
+'use strict';
 jQuery(function ($) {
 
     class WPSS_Frontend {
@@ -23,16 +24,16 @@ jQuery(function ($) {
                 if (options.slide_control_view_auto == '1' || options.slide_control_view_auto === true) {
                     slider.addClass('wpss-auto-slides');
                 }
-                
-                // Thumbs enabled options
+
+                // Thumbs gallery
                 let thumbsSwiper = null;
                 if (options.thumb_gallery == '1' || options.thumb_gallery === true) {
-                     const thumbsGallery = slider.parent().find('.wpss-swiper-thumbs-gallery');
+                    const thumbsGallery = slider.parent().find('.wpss-swiper-thumbs-gallery');
                     if (thumbsGallery.length) {
                         thumbsSwiper = new Swiper(thumbsGallery[0], {
-                            loop: options.thumb_gallery_loop === '1',
-                            spaceBetween: parseInt(options.thumb_gallery_space, 10) || 10,
-                            slidesPerView: 3,
+                            loop:            options.thumb_gallery_loop === '1',
+                            spaceBetween:    parseInt(options.thumb_gallery_space, 10) || 10,
+                            slidesPerView:   4,
                             watchSlidesProgress: true,
                         });
                     }
@@ -56,26 +57,26 @@ jQuery(function ($) {
         }
 
         swiperOptions(slider, options) {
-            const responsive    = options.control_enable_responsive == '1' || options.control_enable_responsive === 1,
-                autoSlides      = options.slide_control_view_auto == '1' || options.slide_control_view_auto === true,
-                paginationType  = options.pagination_type || 'bullets',
-                customStyle     = options.custom_navigation_style || 'style1',
-                customTextColor = options.custom_text_color || '#ff0000',
-                customBackgroundColor = options.custom_background_color || '#007aff',
-                customActiveTextColor = options.custom_active_text_color || '#0a0607',
-                customActiveBgColor = options.custom_active_background_color || '#0a0607';
+            const responsive            = options.control_enable_responsive == '1' || options.control_enable_responsive === 1,
+                paginationType          = options.pagination_type || 'bullets',
+                customStyle             = options.custom_navigation_style || 'style1',
+                customTextColor         = options.custom_text_color || '#ff0000',
+                customBackgroundColor   = options.custom_background_color || '#007aff',
+                customActiveTextColor   = options.custom_active_text_color || '#0a0607',
+                customActiveBgColor     = options.custom_active_background_color || '#0a0607';
 
             const baseOptions = {
                 effect:         options.animation || 'slide',
                 grabCursor:     options.control_grab_cursor == '1',
-                slidesPerView: autoSlides ? 'auto' : responsive ? (parseInt(options.items_in_desktop) || 1) : 1,
+                slidesPerView: (options.animation === 'cube') ? 1 : (options.slide_control_view_auto == '1' || 
+                    options.slide_control_view_auto === true) ? 'auto' : (responsive ? (parseInt(options.items_in_desktop) || 1) : 1),
                 autoplay:       options.control_autoplay == '1' ? {
-                    delay:      parseInt(options.autoplay_timing, 10) || 3000,
+                    delay: parseInt(options.autoplay_timing, 10) || 3000,
                     disableOnInteraction: false,
                 } : false,
-                pagination: paginationType !== 'none' ? {
-                    el: '.swiper-pagination',
-                    clickable: true,
+                pagination:     paginationType !== 'none' ? {
+                    el:         '.swiper-pagination',
+                    clickable:  true,
                     renderBullet: function (index, className) {
                         if (paginationType === 'custom') {
                             return `<span class="${className} wpss-swiper-custom-${customStyle}">${index + 1}</span>`;
@@ -94,7 +95,7 @@ jQuery(function ($) {
 
                 on: {
                     init: function () {
-                        if ( options.control_autoplay_progress == '1' && options.pagination_type == 'progressbar' && options.progress_bar_color ) {
+                        if (options.control_autoplay_progress == '1' && options.pagination_type == 'progressbar' && options.progress_bar_color) {
                             const progressbar = slider.find('.swiper-pagination-progressbar-fill').addClass('wpss-progressbar-fill');
                             progressbar.css({ background: options.progress_bar_color });
                         }
@@ -115,7 +116,6 @@ jQuery(function ($) {
                             }
                         }
 
-
                         if (paginationType === 'custom') {
                             slider.find('.swiper-pagination').css({
                                 '--wpss-custom-text-color': customTextColor,
@@ -124,7 +124,7 @@ jQuery(function ($) {
                                 '--wpss-custom-active-bg-color': customActiveBgColor
                             });
                         }
-                        
+
                         if (options.control_autoplay_timeleft == '1' && options.control_autoplay_timeleft_color) {
                             const progress_time = slider.find('.autoplay-progress');
                             progress_time.find('svg').css('stroke', options.control_autoplay_timeleft_color);
@@ -132,7 +132,7 @@ jQuery(function ($) {
                         }
                     },
                     autoplayTimeLeft(swiper, time, progress) {
-                         if (options.control_autoplay_timeleft == '1') {
+                        if (options.control_autoplay_timeleft == '1') {
                             const progress_time = slider.find('.autoplay-progress');
                             if (progress_time.length) {
                                 progress_time.find('svg').css('--progress', 1 - progress);
@@ -143,16 +143,20 @@ jQuery(function ($) {
                 },
             };
 
+            if (options.animation === 'cards' && options.cards_border) {
+                slider.find('.swiper-slide').css('border-radius', `${parseInt(options.cards_border, 10)}px`);
+            }
+
             if (options.animation === 'cube') {
                 baseOptions.cubeEffect = {
                     shadow: options.cube_shadows === '1' || options.cube_shadows === true,
                     slideShadows: options.cube_slide_shadows === '1' || options.cube_slide_shadows === true,
                     shadowOffset: parseInt(options.cube_shadowoffset) || 20,
-                    shadowScale: parseInt(options.cube_shadowScale) || 0.94,
+                    shadowScale: parseFloat(options.cube_shadowScale) || 0.94,
                 };
             }
 
-            if (!autoSlides && responsive) {
+            if (responsive && options.animation !== 'cube' && !(options.slide_control_view_auto == '1' || options.slide_control_view_auto === true)) {
                 baseOptions.breakpoints = this.getResponsiveBreakpoints(options);
             }
 

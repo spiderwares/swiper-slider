@@ -17,7 +17,7 @@ class WPSS_Slider_Shortcode {
     }
 
     public function event_handler() {
-        add_shortcode( 'wpss_simple_slider', [ $this, 'genrate_slider_Shortcode' ] );
+        add_shortcode( 'wpss_slider', [ $this, 'genrate_slider_Shortcode' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'slideshow_enqueue_frontend_assets' ], 10 );
     }
 
@@ -84,9 +84,6 @@ class WPSS_Slider_Shortcode {
         $imageIDs         = json_decode( get_post_meta( $slideshow_ID, 'wpss_slider_image_ids', true ), true );
         $sliderOptions    = get_post_meta( $slideshow_ID, 'wpss_slider_option', true );
 
-        // echo "<pre>";
-        // print_r($sliderOptions); die; 
-
         if ( empty( $imageIDs ) || ! is_array( $imageIDs ) ) :
             return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'swiper-slider' ) . '</p>';
         endif;
@@ -113,6 +110,13 @@ class WPSS_Slider_Shortcode {
         $autoplay_timeleft_font_size    = isset($sliderOptions['control_autoplay_timeleft_font_size']) ? (int)$sliderOptions['control_autoplay_timeleft_font_size'] : 5;
 
         $timeleft_class = 'wpss-timeleft-' . esc_attr($timeleft_position);
+
+        $slide_auto_widths = !empty($sliderOptions['slide_control_auto_widths']) ? $sliderOptions['slide_control_auto_widths'] : '60,40,20';
+        $slide_auto_height = !empty($sliderOptions['slide_control_auto_height']) ? (int)$sliderOptions['slide_control_auto_height'] : 300;
+
+        $sliderOptions['slide_control_auto_widths'] = $slide_auto_widths;
+        $sliderOptions['slide_control_auto_height'] = $slide_auto_height;
+
 
         $slideshow_main_class = trim(
             'wpss_slider--' . $slideshow_ID .
