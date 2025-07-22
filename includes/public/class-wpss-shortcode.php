@@ -88,6 +88,34 @@ class WPSS_Slider_Shortcode {
             return '<p>' . esc_html__( "No slides found. Please add at least one image.", 'swiper-slider' ) . '</p>';
         endif;
 
+        $attr_defaults = array(
+            'navigation_arrow_style'            => 'style1',
+            'bullets_navigation_style'          => 'style1',
+            'custom_navigation_style'           => 'style1',
+            'control_lazyload_images'           => '',
+            'pagination_type'                   => 'bullets',
+            'progress_bar_position'             => 'bottom',
+            'control_slider_vertical'           => '',
+            'thumb_gallery'                     => '',
+            'thumb_gallery_width'               => '',
+            'thumb_gallery_height'              => '',
+            'width_image'                       => '',
+            'height_image'                      => '',
+            'image_unit'                        => 'px',
+            'control_autoplay'                  => '',
+            'control_autoplay_timeleft'         => '',
+            'control_autoplay_timeleft_position'=> 'bottom-right',
+            'control_autoplay_timeleft_font_size' => '',
+        );
+ 
+        $attrs = shortcode_atts( $attr_defaults, $args );
+ 
+        foreach ( $attrs as $key => $value ) :
+            if ( $value !== '' ) :
+                $sliderOptions[ $key ] = $value;
+            endif;
+        endforeach;
+
         $arrow_style                    = isset($sliderOptions['navigation_arrow_style']) ? $sliderOptions['navigation_arrow_style'] : 'style1';
         $bullets_style                  = isset($sliderOptions['bullets_navigation_style']) ? $sliderOptions['bullets_navigation_style'] : 'style1';
         $custom_style                   = isset($sliderOptions['custom_navigation_style']) ? $sliderOptions['custom_navigation_style'] : 'style1';
@@ -110,12 +138,6 @@ class WPSS_Slider_Shortcode {
         $autoplay_timeleft_font_size    = isset($sliderOptions['control_autoplay_timeleft_font_size']) ? (int)$sliderOptions['control_autoplay_timeleft_font_size'] : 5;
 
         $timeleft_class = 'wpss-timeleft-' . esc_attr($timeleft_position);
-
-        $slide_auto_widths = !empty($sliderOptions['slide_control_auto_widths']) ? $sliderOptions['slide_control_auto_widths'] : '60,40,20';
-        $slide_auto_height = !empty($sliderOptions['slide_control_auto_height']) ? (int)$sliderOptions['slide_control_auto_height'] : 300;
-
-        $sliderOptions['slide_control_auto_widths'] = $slide_auto_widths;
-        $sliderOptions['slide_control_auto_height'] = $slide_auto_height;
 
 
         $slideshow_main_class = trim(
