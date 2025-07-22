@@ -89,22 +89,22 @@ class WPSS_Slider_Shortcode {
         endif;
 
         $attr_defaults = array(
-            'navigation_arrow_style'            => 'style1',
-            'bullets_navigation_style'          => 'style1',
-            'custom_navigation_style'           => 'style1',
+            'navigation_arrow_style'            => '',
+            'bullets_navigation_style'          => '',
+            'custom_navigation_style'           => '',
             'control_lazyload_images'           => '',
-            'pagination_type'                   => 'bullets',
-            'progress_bar_position'             => 'bottom',
+            'pagination_type'                   => '',
+            'progress_bar_position'             => '',
             'control_slider_vertical'           => '',
             'thumb_gallery'                     => '',
             'thumb_gallery_width'               => '',
             'thumb_gallery_height'              => '',
             'width_image'                       => '',
             'height_image'                      => '',
-            'image_unit'                        => 'px',
+            'image_unit'                        => '',
             'control_autoplay'                  => '',
             'control_autoplay_timeleft'         => '',
-            'control_autoplay_timeleft_position'=> 'bottom-right',
+            'control_autoplay_timeleft_position'=> '',
             'control_autoplay_timeleft_font_size' => '',
         );
  
