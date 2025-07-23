@@ -62,21 +62,40 @@
     font-size: inherit;
 }
 
-/* === Custom Arrow === */
-.wpss-swiper-arrow-custom .swiper-button-next,
-.wpss-swiper-arrow-custom .swiper-button-prev {
-    border: 2px solid #fff;
-    border-radius: inherit;
-    width: 33px;
-    height: 33px;
+/* === Style 4 === */
+.wpss-swiper-arrow-style4 .swiper-button-next,
+.wpss-swiper-arrow-style4 .swiper-button-prev {
+    width: 40px;
+    height: 40px;
+    color: #ffffff;
+    border: 2px solid #80b3d9;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: inherit;
+    line-height: 1;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.wpss-swiper-arrow-custom .swiper-button-next:after, 
-.wpss-swiper-arrow-custom .swiper-button-prev:after {
+.wpss-swiper-arrow-style4 .swiper-button-next::after,
+.wpss-swiper-arrow-style4 .swiper-button-prev::after {
     font-size: inherit;
+    content: '\27A1';
+    display: block;
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-prev::after {
+    content: '\2B05'; 
+}
+
+.wpss-swiper-arrow-style4 .swiper-button-next:hover,
+.wpss-swiper-arrow-style4 .swiper-button-prev:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    transform: scale(1.05);
 }
 
 /* =========================== Dot Pagination Style =========================== */

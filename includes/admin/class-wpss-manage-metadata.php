@@ -32,8 +32,28 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'name'      =>  'Slides',
                     'callback'  =>  'genrate_slideshow_metabox',
                 ),
+                'wpss-slideshow-animation-metabox'  => array(
+                    'name'      =>  'Animation Settings',
+                    'callback'  =>  'generate_slideshow_animation_metabox',
+                ),
+                'wpss-slideshow-navigation-metabox'  => array(
+                    'name'      =>  'Navigation Settings',
+                    'callback'  =>  'generate_slideshow_navigation_metabox',
+                ),
+                'wpss-slideshow-pagination-metabox'  => array(
+                    'name'      =>  'Pagination Settings',
+                    'callback'  =>  'generate_slideshow_pagination_metabox',
+                ),
+                'wpss-slideshow-responsive-metabox'  => array(
+                    'name'      =>  'Responsive Settings',
+                    'callback'  =>  'generate_slideshow_responsive_metabox',
+                ),
+                'wpss-slideshow-thumbnail-metabox'  => array(
+                    'name'      =>  'Thumbnail Gallery Settings',
+                    'callback'  =>  'generate_slideshow_thumbnail_metabox',
+                ),
                 'wpss-slideshow-options-metabox'    => array(
-                    'name'      =>  'Slider Options',
+                    'name'      =>  'Other Options',
                     'callback'  =>  'genrate_slideshow_option_metabox',
                 ),
             );
@@ -51,10 +71,10 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                         'coverflow (pro)'   =>  'animation-coverflow.gif',
                         'shadow push (pro)' =>  'animation-creative1.gif',
                         'zoom split (pro)'  =>  'animation-creative2.gif',
-                        'slide flow(pro)' =>  'animation-creative3.gif',
+                        'slide flow(pro)'   =>  'animation-creative3.gif',
                         'flip deck (pro)'   =>  'animation-creative4.gif',
                         'twist flow (pro)'  =>  'animation-creative5.gif',
-                        'mirror (pro)'     =>  'animation-creative6.gif',
+                        'mirror (pro)'      =>  'animation-creative6.gif',
                     ),
                     'disabled_options' => array( 
                         'cards (pro)', 
@@ -70,8 +90,8 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'data_hide'     => '.wpss-coverflow-options, .wpss-cube-options, .wpss-cards-options',
                     'data_show_map' => array(
                         'cards'      => '.wpss-cards-options',
-                        'cube'      => '.wpss-cube-options',
-                        'coverflow' => '.wpss-coverflow-options',
+                        'cube'       => '.wpss-cube-options',
+                        'coverflow'  => '.wpss-coverflow-options',
                     ),
                 ),
                 'cards_border' => array(
@@ -109,7 +129,6 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'class'       => 'wpss-cube-options',
                     'description' => esc_html__('Shadow Scale in slides.', 'swiper-slider'),
                 ),
-
                 'coverflow_rotate' => array(
                     'name'        => esc_html__('Rotate', 'swiper-slider'),
                     'field_type'  => 'number',
@@ -256,31 +275,6 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'     => '#ffffff',
                     'class'       => 'wpss-arrow-border-color',
                 ),
-                'image_unit' => array(
-                    'name'        => esc_html__( 'Set Width & Height', 'swiper-slider' ),
-                    'field_type'  => 'select',
-                    'options'     => array(
-                        'px'  => 'px',
-                        '%'   => '%',
-                        'em'  => 'em',
-                        'rem' => 'rem',
-                        'vh'  => 'vh',
-                    ),
-                    'default'     => 'px',
-                    'description' => esc_html__( 'Unit to use for image width and height (e.g., px, %, em). Applied to each slide image.', 'swiper-slider' ),
-                ),
-                'width_image'   => array(
-                    'name'        => esc_html__( 'Width of Image', 'swiper-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 700,
-                    'description' =>  esc_html__( 'Specify the width of each slide image.', 'swiper-slider' ),
-                ),
-                'height_image'   => array(
-                    'name'        => esc_html__( 'Height of Image', 'swiper-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 400,
-                    'description' =>  esc_html__( 'Specify the height of each slide image.', 'swiper-slider' ),
-                ),
                 'pagination_type' => array(
                     'name'        => esc_html__( 'Pagination Type', 'swiper-slider' ),
                     'field_type'  => 'select',
@@ -333,7 +327,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'class'       => 'wpss-bullets-border-color',
                 ),
                 'control_autoplay_progress'   => array(
-                    'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
+                    'name'          => esc_html__( 'Progress Bar', 'swiper-slider' ),
                     'field_type'    => 'switch',
                     'default'       => false,
                     'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'swiper-slider' ),
@@ -373,7 +367,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'name'          => esc_html__( 'Fraction color', 'swiper-slider' ),
                     'field_type'    => 'color',
                     'default'       => '#ff0000',
-                    'class'         => 'wpss-fraction-style',
+                    'class'       => 'wpss-fraction-style',
                 ),
                 'fraction_font_size' => array(
                     'name'        => esc_html__( 'Fraction Font Size (px)', 'swiper-slider' ),
@@ -391,7 +385,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                         'top-right'    => esc_html__( 'Top Right', 'swiper-slider' ),
                         'bottom-left'  => esc_html__( 'Bottom Left', 'swiper-slider' ),
                         'bottom-right' => esc_html__( 'Bottom Right', 'swiper-slider' ),
-                        'center'   => esc_html__( 'Center', 'swiper-slider' ),
+                        'center'       => esc_html__( 'Center', 'swiper-slider' ),
                     ),
                     'description' => esc_html__( 'Choose position for fraction in pagination.', 'swiper-slider' ),
                     'class'       => 'wpss-fraction-style',
@@ -405,7 +399,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'     => 'style1',
                     'class'       => 'wpss-custom-style',
                 ),
-               'custom_text_color' => array(
+                'custom_text_color' => array(
                     'name'          => esc_html__( 'Custom Color', 'swiper-slider' ),
                     'field_type'    => 'color',
                     'default'       => '#ffffff',
@@ -419,7 +413,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'class'         => 'wpss-custom-style',
                     'description'   => esc_html__( 'Set the background color for active pagination bullets.', 'swiper-slider' ),
                 ),
-               'custom_active_text_color' => array(
+                'custom_active_text_color' => array(
                     'name'          => esc_html__( 'Custom active Text Color', 'swiper-slider' ),
                     'field_type'    => 'color',
                     'default'       => '#ffffff',
@@ -433,39 +427,76 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'class'         => 'wpss-custom-style',
                     'description'   => esc_html__( 'Set the background color for inactive pagination bullets.', 'swiper-slider' ),
                 ),
-                'control_autoplay_progress'   => array(
-                    'name'          => esc_html__( 'Autoplay progress', 'swiper-slider' ),
-                    'field_type'    => 'switch',
-                    'default'       => false,
-                    'description'   => esc_html__( 'Show a progress bar while autoplay is running.', 'swiper-slider' ),
-                    'data_show'     => '.wpss-progress-bar',
-                    'class'         => 'wpss-autoplay-progress',
+                'thumb_gallery' => array(
+                    'name'        => esc_html__( 'Show Thumbnail Gallery', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => false,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Enable to display a thumbnail gallery below the main slider.', 'swiper-slider' ),
+                    'data_show'   => '.wpss-thumb-gallery',
                 ),
-                'progress_bar_position' => array(
-                    'name'          => esc_html__( 'Progress Bar Position', 'swiper-slider' ),
-                    'field_type'    => 'select',
-                    'options'       => array(
-                        'bottom'    => esc_html__( 'Bottom (Use in Horizontal)', 'swiper-slider' ),
-                        'top'       => esc_html__( 'Top (Use in Horizontal)', 'swiper-slider' ),
-                        'left'      => esc_html__( 'Left (Use in Vertical)', 'swiper-slider' ),
-                        'right'     => esc_html__( 'Right (Use in Vertical)', 'swiper-slider' ),
+                'thumb_gallery_loop' => array(
+                    'name'        => esc_html__( 'Thumbnail Gallery Loop', 'swiper-slider' ),
+                    'field_type'  => 'switch',
+                    'default'     => true,
+                    'description' => esc_html__( 'Enable continuous loop mode for the thumbs gallery.', 'swiper-slider' ),
+                    'pro_version' => true,
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'thumb_gallery_space' => array(
+                    'name'        => esc_html__( 'Thumbnail Gallery Space', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 10,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Space between each thumbs gallery (in px).', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'thumb_gallery_width' => array(
+                    'name'        => esc_html__( 'Thumbnail Width', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 80,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set width of thumbnail images in px.', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'thumb_gallery_height' => array(
+                    'name'        => esc_html__( 'Thumbnail Height', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 80,
+                    'pro_version' => true,
+                    'description' => esc_html__( 'Set height of thumbnail images in px.', 'swiper-slider' ),
+                    'class'       => 'wpss-thumb-gallery',
+                ),
+                'image_unit' => array(
+                    'name'        => esc_html__( 'Set Width & Height', 'swiper-slider' ),
+                    'field_type'  => 'select',
+                    'options'     => array(
+                        'px'  => 'px',
+                        '%'   => '%',
+                        'em'  => 'em',
+                        'rem' => 'rem',
+                        'vh'  => 'vh',
                     ),
-                    'default'       => 'bottom',
-                    'description'   => esc_html__( 'Choose where to position the autoplay progress bar.', 'swiper-slider' ),
-                    'class'         => 'wpss-progress-bar',
-                    'disabled_options' => array('right','left'),
+                    'default'     => 'px',
+                    'description' => esc_html__( 'Unit to use for image width and height (e.g., px, %, em). Applied to each slide image.', 'swiper-slider' ),
                 ),
-                'progress_bar_color' => array(
-                    'name'          => esc_html__( 'Progress bar color', 'swiper-slider' ),
-                    'field_type'    => 'color',
-                    'default'       => '#ff0000',
-                    'class'         => 'wpss-progress-bar',
+                'width_image'   => array(
+                    'name'        => esc_html__( 'Width of Image', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 700,
+                    'description' =>  esc_html__( 'Specify the width of each slide image.', 'swiper-slider' ),
+                ),
+                'height_image'   => array(
+                    'name'        => esc_html__( 'Height of Image', 'swiper-slider' ),
+                    'field_type'  => 'number',
+                    'default'     => 400,
+                    'description' =>  esc_html__( 'Specify the height of each slide image.', 'swiper-slider' ),
                 ),
                 'control_slider_vertical' => array(
                     'name'        =>  esc_html__( 'Vertical Slider Control', 'swiper-slider' ),
                     'field_type'  =>  'switch',
                     'default'     =>  false,
-                    'pro_version' =>  true,
+                    'pro_version' => true,
                     'description' =>  esc_html__( 'Enable vertical direction for the slider.', 'swiper-slider' ),
                 ),
                 'control_autoplay'  => array(
@@ -560,7 +591,6 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'     =>  false,
                     'pro_version' => true,
                     'description' =>  esc_html__( 'Enable slide show per view auto for the slider.', 'swiper-slider' ),
-                    'class'       => 'wpss-responsive-field',
                 ),
                 'slide_control_center' => array(
                     'name'        =>  esc_html__( 'Slides Centered', 'swiper-slider' ),
@@ -653,7 +683,6 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'     => false,
                     'pro_version' => true,
                     'description' => esc_html__('Enable Swiper grid layout.', 'swiper-slider'),
-                    'data_show'   => 'grid_layout_axis',
                     'data_show'   => '.wpss-grid-layout',
                 ),
                 'grid_layout_axis' => array(
@@ -667,8 +696,8 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     ),
                     'description'     => esc_html__('Choose grid layout: Row or Column.', 'swiper-slider'),
                     'data_show_map'   => array(
-                        'row'    => 'grid_count',
-                        'column' => 'grid_count',
+                        'row'    => '.wpss-grid-count',
+                        'column' => '.wpss-grid-count',
                     ),
                     'class'   => 'wpss-grid-layout',
                 ),
@@ -678,46 +707,23 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                     'default'     => 2,
                     'pro_version' => true,
                     'description' => esc_html__('Set the number of rows or columns based on your layout.', 'swiper-slider'),
-                    'class'   => 'wpss-grid-layout',
+                    'class'   => 'wpss-grid-count',
                 ),
-                'thumb_gallery' => array(
-                    'name'        => esc_html__( 'Show Thumbnail Gallery', 'swiper-slider' ),
+                'enable_slides_group' => array(
+                    'name'        => esc_html__( 'Enable Slides Group', 'swiper-slider' ),
                     'field_type'  => 'switch',
                     'default'     => false,
                     'pro_version' => true,
-                    'description' => esc_html__( 'Enable to display a thumbnail gallery below the main slider.', 'swiper-slider' ),
-                    'data_show'       => '.wpss-thumb-gallery',
+                    'description' => esc_html__( 'Enable to control grouping of slides.', 'swiper-slider' ),
+                    'data_show'   => '.wpss-slides-group',
                 ),
-                'thumb_gallery_loop' => array(
-                    'name'        => esc_html__( 'Thumbnail Gallery Loop', 'swiper-slider' ),
-                    'field_type'  => 'switch',
-                    'default'     => true,
-                    'description' => esc_html__( 'Enable continuous loop mode for the thumbs gallery.', 'swiper-slider' ),
-                    'pro_version' => true,
-                    'class'       => 'wpss-thumb-gallery',
-                ),
-                'thumb_gallery_space' => array(
-                    'name'        => esc_html__( 'Thumbnail Gallery Space', 'swiper-slider' ),
+                'slides_per_group' => array(
+                    'name'        => esc_html__( 'Slides Per Group', 'swiper-slider' ),
                     'field_type'  => 'number',
-                    'default'     => 10,
+                    'default'     => 1,
                     'pro_version' => true,
-                    'description' => esc_html__( 'Space between each thumbs gallery (in px).', 'swiper-slider' ),
-                ),
-                'thumb_gallery_width' => array(
-                    'name'        => esc_html__( 'Thumbnail Width', 'swiper-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 80,
-                    'pro_version' => true,
-                    'description' => esc_html__( 'Set width of thumbnail images in px.', 'swiper-slider' ),
-                    'class'       => 'wpss-thumb-gallery',
-                ),
-                'thumb_gallery_height' => array(
-                    'name'        => esc_html__( 'Thumbnail Height', 'swiper-slider' ),
-                    'field_type'  => 'number',
-                    'default'     => 80,
-                    'pro_version' => true,
-                    'description' => esc_html__( 'Set height of thumbnail images in px.', 'swiper-slider' ),
-                    'class'       => 'wpss-thumb-gallery',
+                    'description' => esc_html__( 'Skip the number of slides from the beginning before grouping starts. Useful when first slide is featured.', 'swiper-slider' ),
+                    'class'       => 'wpss-slides-group',
                 ),
             );
 
@@ -735,7 +741,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
                         array( $this, $metaBox['callback'] ),
                         $screen_id,
                         'normal',
-                        'high'
+                        'low'
                     );
                 
                 endforeach;
@@ -743,7 +749,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
             endforeach;
         } 
 
-        public function genrate_slideshow_metabox( $slideshow ){
+        public function genrate_slideshow_metabox( $slideshow ) {
             $imageIDs = get_post_meta( $slideshow->ID, 'wpss_slider_image_ids', true );
             $imageIDs = json_decode( $imageIDs, true );
 
@@ -763,12 +769,204 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
             $slider_options  = is_array($slider_options) ? $slider_options : [];
             $options         = array_merge( $image_ids, $slider_options );
 
+            $option_fields = array_diff_key( $this->fields, array_flip( [
+                'animation', 
+                'cards_border', 
+                'cube_shadows', 
+                'cube_slide_shadows', 
+                'cube_shadowoffset', 
+                'cube_shadowScale', 
+                'coverflow_rotate', 
+                'coverflow_stretch', 
+                'coverflow_depth', 
+                'coverflow_modifier', 
+                'coverflow_shadows',
+                'navigation_arrow_style',
+                'arrow_font_size',
+                'arrow_border_radius',
+                'arrow_position_unit',
+                'arrow_position_top',
+                'arrow_position_bottom',
+                'arrow_position_left',
+                'arrow_position_right',
+                'arrow_color',
+                'arrow_bg_color',
+                'arrow_hover_color',
+                'arrow_hover_bg_color',
+                'arrow_border_color',
+                'pagination_type',
+                'bullets_navigation_style',
+                'bullets_bg_color',
+                'bullets_hover_bg_color',
+                'bullets_border_color',
+                'control_autoplay_progress',
+                'progress_bar_position',
+                'progress_bar_color',
+                'fraction_navigation_style',
+                'fraction_color',
+                'fraction_font_size',
+                'fraction_position',
+                'custom_navigation_style',
+                'custom_text_color',
+                'custom_background_color',
+                'custom_active_text_color',
+                'custom_active_background_color',
+                'control_enable_responsive',
+                'items_in_desktop',
+                'items_in_tablet',
+                'items_in_mobile',
+                'slide_control_view_auto',
+                'slide_control_center',
+                'thumb_gallery',
+                'thumb_gallery_loop',
+                'thumb_gallery_space',
+                'thumb_gallery_width',
+                'thumb_gallery_height'
+            ] ) );
+
             wpss_get_template(
                 'metabox/slider-options.php',
                 array(
                     'metaKey' => 'wpss_slider_image_ids',
-                    'fields'  => $this->fields,
+                    'fields'  => $option_fields,
                     'options' => $options,
+                )
+            );
+        }
+
+        public function generate_slideshow_animation_metabox( $slideshow ) {
+            $slider_options  = get_post_meta( $slideshow->ID, 'wpss_slider_option', true );
+            $slider_options  = is_array($slider_options) ? $slider_options : [];
+
+            $animation_fields = array_intersect_key( $this->fields, array_flip( [
+                'animation', 
+                'cards_border', 
+                'cube_shadows', 
+                'cube_slide_shadows', 
+                'cube_shadowoffset', 
+                'cube_shadowScale', 
+                'coverflow_rotate', 
+                'coverflow_stretch', 
+                'coverflow_depth', 
+                'coverflow_modifier', 
+                'coverflow_shadows'
+            ] ) );
+
+            wpss_get_template(
+                'metabox/slider-options.php',
+                array(
+                    'metaKey' => 'wpss_slider_option',
+                    'fields'  => $animation_fields,
+                    'options' => $slider_options,
+                )
+            );
+        }
+
+        public function generate_slideshow_navigation_metabox( $slideshow ) {
+            $slider_options  = get_post_meta( $slideshow->ID, 'wpss_slider_option', true );
+            $slider_options  = is_array($slider_options) ? $slider_options : [];
+
+            $navigation_fields = array_intersect_key( $this->fields, array_flip( [
+                'navigation_arrow_style',
+                'arrow_font_size',
+                'arrow_border_radius',
+                'arrow_position_unit',
+                'arrow_position_top',
+                'arrow_position_bottom',
+                'arrow_position_left',
+                'arrow_position_right',
+                'arrow_color',
+                'arrow_bg_color',
+                'arrow_hover_color',
+                'arrow_hover_bg_color',
+                'arrow_border_color'
+            ] ) );
+
+            wpss_get_template(
+                'metabox/slider-options.php',
+                array(
+                    'metaKey' => 'wpss_slider_option',
+                    'fields'  => $navigation_fields,
+                    'options' => $slider_options,
+                )
+            );
+        }
+
+        public function generate_slideshow_pagination_metabox( $slideshow ) {
+            $slider_options  = get_post_meta( $slideshow->ID, 'wpss_slider_option', true );
+            $slider_options  = is_array($slider_options) ? $slider_options : [];
+
+            $pagination_fields = array_intersect_key( $this->fields, array_flip( [
+                'pagination_type',
+                'bullets_navigation_style',
+                'bullets_bg_color',
+                'bullets_hover_bg_color',
+                'bullets_border_color',
+                'control_autoplay_progress',
+                'progress_bar_position',
+                'progress_bar_color',
+                'fraction_navigation_style',
+                'fraction_color',
+                'fraction_font_size',
+                'fraction_position',
+                'custom_navigation_style',
+                'custom_text_color',
+                'custom_background_color',
+                'custom_active_text_color',
+                'custom_active_background_color'
+            ] ) );
+
+            wpss_get_template(
+                'metabox/slider-options.php',
+                array(
+                    'metaKey' => 'wpss_slider_option',
+                    'fields'  => $pagination_fields,
+                    'options' => $slider_options,
+                )
+            );
+        }
+
+         public function generate_slideshow_responsive_metabox( $slideshow ) {
+            $slider_options  = get_post_meta( $slideshow->ID, 'wpss_slider_option', true );
+            $slider_options  = is_array($slider_options) ? $slider_options : [];
+
+            $responsive_fields = array_intersect_key( $this->fields, array_flip( [
+                'control_enable_responsive',
+                'items_in_desktop',
+                'items_in_tablet',
+                'items_in_mobile',
+                'slide_control_view_auto',
+                'slide_control_center'
+            ] ) );
+
+            wpss_get_template(
+                'metabox/slider-options.php',
+                array(
+                    'metaKey' => 'wpss_slider_option',
+                    'fields'  => $responsive_fields,
+                    'options' => $slider_options,
+                )
+            );
+        }
+
+        public function generate_slideshow_thumbnail_metabox( $slideshow ) {
+            $slider_options  = get_post_meta( $slideshow->ID, 'wpss_slider_option', true );
+            $slider_options  = is_array($slider_options) ? $slider_options : [];
+
+            $thumbnail_fields = array_intersect_key( $this->fields, array_flip( [
+                'thumb_gallery',
+                'thumb_gallery_loop',
+                'thumb_gallery_space',
+                'thumb_gallery_width',
+                'thumb_gallery_height'
+            ] ) );
+
+            wpss_get_template(
+                'metabox/slider-options.php',
+                array(
+                    'metaKey' => 'wpss_slider_option',
+                    'fields'  => $thumbnail_fields,
+                    'options' => $slider_options,
                 )
             );
         }
@@ -777,7 +975,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
             if ( ! isset( $_POST['wpss_slideshow_metabox_nonce'] ) || ! 
                 wp_verify_nonce( 
                     sanitize_text_field( wp_unslash( $_POST['wpss_slideshow_metabox_nonce'] ) ),
-                'wpss_slideshow_metabox_data' 
+                    'wpss_slideshow_metabox_data' 
                 )
             ) :
                 return;
@@ -795,9 +993,7 @@ if( ! class_exists( 'WPSS_Manage_Metadata' ) ) :
 
             return $slideshow_ID;
         }
-
-
-
     }
     new WPSS_Manage_Metadata();
 endif;
+?>
